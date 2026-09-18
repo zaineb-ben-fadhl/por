@@ -1,0 +1,22 @@
+KEYSAFE — LA SÉCURITÉ, EN TOUTE ÉVIDENCE
+
+Pour découvrir le portfolio, ouvrez index.html dans Chrome, Edge, Firefox ou Safari.
+Gardez le dossier assets à côté du fichier index.html.
+
+L'interface, les illustrations, les polices et les quatre vidéos sont locales.
+Les liens vers LinkedIn et l'envoi via votre messagerie demandent une connexion Internet.
+
+À découvrir :
+- Filtres TESCA, PSC et SOCOHUILE, combinables avec les cinq prestations.
+- Vue Galerie ou Magazine, et ouverture de chaque aperçu.
+- Mode présentation : flèches droite/gauche, Home/End ; Échap pour fermer.
+- Quatre films KeySafe avec leurs attributions et publications originales.
+- Carte interactive d'un site type.
+
+VERSION DE PRÉSENTATION À PERSONNALISER
+Les quinze aperçus sont illustratifs. Ils doivent être remplacés par vos photos et vos descriptions de mission avant de les présenter comme réalisations réelles. Les plans schématiques ne sont pas des plans de sécurité opérationnels.
+
+Le contenu se modifie dans data.js. Les fichiers doivent être ajoutés à assets/.
+Les vidéos sont de vraies publications KeySafe ; les clients cités dans les films sont conservés sans réattribution aux filtres de la collection.
+
+Le formulaire prépare un brouillon dans votre messagerie ; il n'envoie aucun message automatiquement.

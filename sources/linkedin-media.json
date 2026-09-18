@@ -1,0 +1,96 @@
+{
+  "videos": [
+    {
+      "id": "exercice",
+      "title": "Ce n’est pas un exercice. C’est une promesse.",
+      "context": "Exercice d’évacuation · Ciments Jbel Oust",
+      "src": "assets/video/exercice.mp4",
+      "preview": "assets/video/exercice-preview.mp4",
+      "poster": "assets/video/exercice-poster.webp",
+      "duration": "2:32",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7477275452492095488/"
+    },
+    {
+      "id": "evacuation",
+      "title": "La préparation d’aujourd’hui est la sécurité de demain.",
+      "context": "Simulation d’évacuation · EL KHOMSA – Rose Blanche Group",
+      "src": "assets/video/evacuation.mp4",
+      "preview": "assets/video/evacuation-preview.mp4",
+      "poster": "assets/video/evacuation-poster.webp",
+      "duration": "1:41",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7484900739761213440/"
+    },
+    {
+      "id": "safety-day",
+      "title": "Une journée s’achève, son impact perdure.",
+      "context": "Safety Day · Bondin",
+      "src": "assets/video/safety-day.mp4",
+      "preview": "assets/video/safety-day-preview.mp4",
+      "poster": "assets/video/safety-day-poster.webp",
+      "duration": "3:02",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7479833958659215360/"
+    },
+    {
+      "id": "incendie",
+      "title": "Face au feu, chaque seconde compte.",
+      "context": "Formation lutte contre l’incendie",
+      "src": "assets/video/incendie.mp4",
+      "preview": "assets/video/incendie-preview.mp4",
+      "poster": "assets/video/incendie-poster.webp",
+      "duration": "0:25",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7493019414590676992/"
+    }
+  ],
+  "terrain": [
+    {
+      "src": "assets/terrain/cjo-aerien.webp",
+      "caption": "Ciments Jbel Oust · exercice",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7477275452492095488/"
+    },
+    {
+      "src": "assets/terrain/cjo-signaletique-medecin.webp",
+      "caption": "Exercice · prise en charge d’un blessé",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7477275452492095488/"
+    },
+    {
+      "src": "assets/terrain/cjo-formation-1.webp",
+      "caption": "Ciments Jbel Oust · risques en cimenterie",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7487442620655370240/"
+    },
+    {
+      "src": "assets/terrain/rose-blanche-caristes-2.webp",
+      "caption": "Rose Blanche · habilitation caristes",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7489953370108215297/"
+    },
+    {
+      "src": "assets/terrain/rose-blanche-rassemblement.webp",
+      "caption": "EL KHOMSA · point de rassemblement",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7484900739761213440/"
+    },
+    {
+      "src": "assets/terrain/psi-hse-4.webp",
+      "caption": "PSI Tunisia · cycle HSE",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7482343089035202560/"
+    },
+    {
+      "src": "assets/terrain/premiers-secours-1.webp",
+      "caption": "Formation premiers secours",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7495427273383268352/"
+    },
+    {
+      "src": "assets/terrain/cjo-rassemblement.webp",
+      "caption": "Ciments Jbel Oust · rassemblement",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7477275452492095488/"
+    },
+    {
+      "src": "assets/terrain/psi-pic-1.webp",
+      "caption": "PSI Tunisia · formation PIC",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7504174011334029312/"
+    },
+    {
+      "src": "assets/terrain/rose-blanche-caristes-4.webp",
+      "caption": "Rose Blanche · conduite sécurisée",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7489953370108215297/"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KeySafe · Kit photos & vidéos du portfolio</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body { background: var(--paper); }
+    .b-head { background: linear-gradient(160deg, var(--indigo-800), var(--indigo-950)); color: #fff; padding: 40px 0 56px; }
+    .b-head .lockup { display: flex; width: fit-content; margin-bottom: 48px; }
+    .b-head h1 { font-size: clamp(34px, 5vw, 64px); line-height: 1; font-stretch: 108%; margin: 18px 0 18px; }
+    .b-head h1 em { font-style: normal; color: var(--leaf-300); }
+    .b-head p { color: rgba(255, 255, 255, .75); max-width: 720px; }
+    .b-progress { display: flex; align-items: center; gap: 18px; margin-top: 32px; max-width: 720px; }
+    .b-progress-bar { flex: 1; height: 10px; border-radius: 10px; background: rgba(255, 255, 255, .12); overflow: hidden; }
+    .b-progress-bar span { display: block; height: 100%; width: 0; background: var(--leaf-300); transition: width .8s var(--ease); }
+    .b-progress strong { font-family: var(--font-display); font-size: 22px; white-space: nowrap; }
+    .b-section { padding: 64px 0 20px; }
+    .b-section h2 { font-size: clamp(28px, 3.4vw, 44px); color: var(--indigo); margin: 14px 0 24px; line-height: 1.05; }
+    .b-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: s; }
+    .b-steps li { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 20px; font-size: 15.5px; color: var(--ink-2); }
+    .b-steps li::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--indigo); color: #fff; font-family: var(--font-display); font-weight: 800; margin-bottom: 12px; }
+    .b-steps b { color: var(--ink); }
+    code { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; font-size: .92em; background: var(--indigo-100); color: var(--indigo-900); padding: 2px 6px; border-radius: 6px; overflow-wrap: anywhere; }
+    .b-client { margin-top: 44px; }
+    .b-client-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px; border-bottom: 2px solid var(--ink); padding-bottom: 12px; margin-bottom: 18px; }
+    .b-client-head h3 { font-size: 30px; font-stretch: 115%; }
+    .b-client-head span { color: var(--ink-3); font-size: 15px; }
+    .b-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
+    .b-card { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 14px; background: #fff; border: 1px solid var(--line); border-radius: 16px; }
+    .b-card img { width: 110px; height: 130px; object-fit: cover; object-position: 50% 20%; border-radius: 10px; background: var(--paper-2); }
+    .b-card h4 { font-family: var(--font-display); font-size: 16px; line-height: 1.25; margin: 6px 0 8px; letter-spacing: -.01em; }
+    .b-card p { font-size: 13.5px; color: var(--ink-2); line-height: 1.5; margin-top: 8px; }
+    .b-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .b-chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 700; font-family: var(--font-display); }
+    .b-chip i { width: 8px; height: 8px; border-radius: 2px; background: var(--c); }
+    .b-chip.chapter { background: var(--paper); }
+    .b-status { background: #FFF4D6; color: #8A6100; }
+    .b-status.ok { background: #DDF3E3; color: var(--leaf-600); }
+    .b-file { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .b-file button { flex: none; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 8px; border: 1px solid var(--line); }
+    .b-file button:hover { background: var(--ink); color: #fff; }
+    .b-ideas { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .b-idea { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 22px; border-top: 5px solid var(--c); }
+    .b-idea h3 { font-size: 19px; margin-bottom: 8px; color: var(--indigo); }
+    .b-idea p { font-size: 15px; color: var(--ink-2); }
+    .b-idea small { display: block; margin-top: 10px; font-size: 13px; color: var(--ink-3); }
+    .b-links { display: grid; gap: 10px; font-size: 15.5px; color: var(--ink-2); }
+    .b-foot { padding: 60px 0 80px; color: var(--ink-3); font-size: 14px; }
+    @media (max-width: 900px) { .b-steps { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .b-steps { grid-template-columns: 1fr; } .b-card { grid-template-columns: 84px 1fr; } .b-card img { width: 84px; height: 100px; } }
+    @media print { .b-head { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .b-file button { display: none; } .b-card, .b-idea { break-inside: avoid; } }
+  </style>
+  <script src="js/data.js" defer></script>
+  <script src="js/brief.js" defer></script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"></svg>
+  <header class="b-head">
+    <div class="wrap">
+      <a class="lockup" href="index.html" aria-label="Retour au portfolio KeySafe">
+        <img class="lockup-shield" src="assets/brand/keysafe-shield-white.png" alt="" width="319" height="336">
+        <img class="lockup-word" src="assets/brand/keysafe-wordmark-white.png" alt="KeySafe Training & Consulting" width="455" height="111">
+      </a>
+      <p class="kicker kicker-light"><span class="kicker-bar"></span>Document interne · ne pas diffuser</p>
+      <h1>Kit photos & vidéos<br><em>du portfolio.</em></h1>
+      <p>Chaque ligne correspond à un emplacement du portfolio. Tant que la photo n’est pas déposée, le site affiche une maquette avec le badge « Maquette ». Dès qu’un fichier porte le bon nom, il la remplace automatiquement.</p>
+      <div class="b-progress" aria-live="polite">
+        <div class="b-progress-bar"><span data-bar></span></div>
+        <strong data-progress>… / …</strong>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="b-section">
+      <p class="kicker"><span class="kicker-bar"></span>Mode d’emploi</p>
+      <h2>Quatre étapes, aucune ligne de code.</h2>
+      <ol class="b-steps">
+        <li><b>Photographiez</b> en suivant la consigne de chaque carte (cadrage, format, lumière).</li>
+        <li><b>Renommez</b> le fichier exactement comme indiqué, par ex. <code>bureaux-01.jpg</code>. Formats : JPG, WEBP ou PNG, 2000 px de large maximum.</li>
+        <li><b>Déposez</b> le fichier dans le dossier du client : <code>assets/photos/tesca/</code>, <code>…/psc/</code> ou <code>…/socohuile/</code>.</li>
+        <li><b>Rechargez</b> le portfolio : la maquette est remplacée et le badge disparaît. Adaptez ensuite les textes du projet dans <code>js/data.js</code>.</li>
+      </ol>
+    </section>
+
+    <section class="b-section">
+      <p class="kicker"><span class="kicker-bar"></span>Visuels attendus</p>
+      <h2>Liste par client.</h2>
+      <div data-slots></div>
+    </section>
+
+    <section class="b-section">
+      <p class="kicker"><span class="kicker-bar"></span>Pour aller plus loin</p>
+      <h2>Idées pour un portfolio qui marque les esprits.</h2>
+      <div class="b-ideas">
+        <article class="b-idea" style="--c:var(--c-plans)"><h3>Le même cadrage, avant et après</h3><p>Avant la pose, photographiez chaque couloir, porte ou façade depuis un point fixe (marquez-le au sol). Refaites la même photo après la pose : c’est le contenu le plus convaincant pour un client.</p><small>Le curseur Avant / Après du chapitre 04 est prêt à l’accueillir.</small></article>
+        <article class="b-idea" style="--c:var(--c-plans)"><h3>Le parcours d’évacuation filmé</h3><p>Une vidéo de 20 à 30 secondes en caméra subjective : du poste de travail jusqu’au point de rassemblement, en suivant uniquement la signalétique. Le client « vit » le résultat.</p><small>À déposer en <code>assets/photos/&lt;client&gt;/film.mp4</code>.</small></article>
+        <article class="b-idea" style="--c:var(--c-bureaux)"><h3>Le time-lapse de la pose</h3><p>Un téléphone fixé dans un coin, une photo toutes les 2 secondes pendant l’installation. 15 secondes de film qui montrent l’organisation et le soin des équipes.</p></article>
+        <article class="b-idea" style="--c:var(--c-locaux)"><h3>Une personne dans le cadre</h3><p>Un technicien qui lit le panneau LT avant d’entrer, une main qui pointe « Vous êtes ici » : la signalétique prend vie et le client se projette.</p><small>Pensez aux autorisations des personnes photographiées.</small></article>
+        <article class="b-idea" style="--c:var(--c-plans)"><h3>La vue du dessus</h3><p>Une photo en hauteur (drone, toit, étage) du marquage au sol et des cheminements piétons : le plan de circulation devient visible en une image.</p><small>Vérifiez les règles de prise de vue du site.</small></article>
+        <article class="b-idea" style="--c:var(--c-risques)"><h3>Les détails qui font la qualité</h3><p>Gros plans : fixations, finition des bords, lisibilité à distance, pictogrammes. Un détail net vaut mieux qu’une vue générale floue.</p></article>
+        <article class="b-idea" style="--c:var(--c-plans)"><h3>Des chiffres réels par projet</h3><p>Nombre de panneaux posés, de plans réalisés, de locaux identifiés, délai de réalisation. Ajoutez-les aux textes du projet dans <code>js/data.js</code> ; aucun chiffre n’a été inventé.</p></article>
+        <article class="b-idea" style="--c:var(--c-bureaux)"><h3>La parole du client</h3><p>Une phrase ou 20 secondes de vidéo du responsable HSE : « ce qui a changé depuis ». Le témoignage est la meilleure preuve.</p><small>Uniquement avec l’accord écrit du client.</small></article>
+      </div>
+    </section>
+
+    <section class="b-section">
+      <p class="kicker"><span class="kicker-bar"></span>Avant d’envoyer le portfolio</p>
+      <h2>Liens personnalisés et vérifications.</h2>
+      <div class="b-links">
+        <p>Lien d’un seul client : <code>index.html?site=tesca</code> · <code>?site=psc</code> · <code>?site=socohuile</code></p>
+        <p>Lien personnalisé pour un prospect : <code>index.html?pour=Nom%20de%20l’entreprise</code> (combinable : <code>?site=socohuile&amp;pour=…</code>)</p>
+        <p>Vue magazine par défaut : ajouter <code>&amp;vue=magazine</code>.</p>
+        <p>À confirmer : accord de TESCA, PSC et SOCOHUILE pour être cités et montrés ; secteur et ville de chaque client ; textes « Le besoin » et « Notre réponse » de chaque projet ; coordonnées commerciales.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap b-foot">KeySafe Training & Consulting · Kit de contenu du portfolio · <a href="index.html">Ouvrir le portfolio</a></footer>
+</body>
+</html>

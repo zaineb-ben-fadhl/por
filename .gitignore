@@ -1,0 +1,16 @@
+node_modules/
+dist/
+deliverables/
+*.zip
+*.log
+.DS_Store
+qa/
+tmp/
+_raw/
+
+# Fichiers fournis bruts : conservés sur le poste, déjà convertis dans
+# assets/photos (aperçus WebP) et assets/documents (PDF). Voir scripts/import-client-media.py.
+/assets/*.pdf
+/assets/*.png
+/assets/*.jpg
+/assets/*.jpeg
