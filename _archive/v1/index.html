@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#282564">
+  <meta name="description" content="Découvrez l'univers KeySafe : identification des espaces, signalétique de sécurité, plans de circulation et d'évacuation. Un accompagnement pensé pour votre site.">
+  <title>KEYSAFE — La sécurité, en toute évidence.</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a href="#realisations" class="skip-link">Aller aux réalisations</a>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="#accueil" aria-label="KeySafe, accueil">
+      <span class="brand-shield"><img src="assets/keysafe-logo-original.jpg" alt="" width="200" height="200"></span>
+      <span class="brand-type">KEYS<span class="brand-a">A</span>FE<small>TRAINING & CONSULTING</small></span>
+    </a>
+    <nav id="main-nav" class="main-nav" aria-label="Navigation principale">
+      <a href="#expertises">Nos expertises</a>
+      <a href="#realisations">Réalisations</a>
+      <a href="#en-action">En action <span class="nav-dot"></span></a>
+      <a href="#approche">Notre approche</a>
+    </nav>
+    <a href="#contact" class="button button-small header-contact">Parlons de votre projet <span data-icon="arrow-up-right"></span></a>
+    <button class="menu-toggle icon-button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="main-nav"><span data-icon="menu"></span></button>
+  </header>
+
+  <main>
+    <section id="accueil" class="hero section-wrap">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="green-dot"></span> LE PORTFOLIO KEYSAFE</p>
+        <h1>La sécurité,<br>en toute<br><em>évidence.</em><span class="heading-period">↗</span></h1>
+        <p class="hero-intro">Des espaces qui se lisent.<br>Des risques qui s’anticipent.<br>Des équipes qui avancent en confiance.</p>
+        <div class="hero-actions">
+          <a href="#realisations" class="button">Explorer notre savoir-faire <span data-icon="arrow-down-right"></span></a>
+          <button class="text-button" data-action="presentation"><span class="mini-play" data-icon="play"></span> Mode présentation</button>
+        </div>
+        <div class="hero-note"><span class="fine-line"></span> SIGNALÉTIQUE · CIRCULATION · ÉVACUATION</div>
+      </div>
+      <div class="hero-visual">
+        <img class="hero-image" src="assets/industry-hero.webp" alt="Illustration d'un cheminement piéton vert dans un bâtiment industriel lumineux" fetchpriority="high" width="1122" height="1402">
+        <div class="hero-photo-top"><span><span class="live-dot"></span> PENSÉ POUR LE TERRAIN</span><span data-icon="plus"></span></div>
+        <div class="hero-photo-caption"><span>Chaque repère<br>fait la différence.</span><span class="large-arrow" aria-hidden="true">↗</span></div>
+        <span class="image-credit">Visuel d’ambiance · illustration IA</span>
+        <button class="floating-video" data-video="incendie" aria-label="Voir la vidéo KeySafe, formation incendie">
+          <span class="video-thumb"><img src="assets/incendie-poster.jpg" alt="" width="100" height="80"><span data-icon="play"></span></span>
+          <span><small>KEYSAFE EN ACTION</small><strong>Le terrain. Les vrais gestes.</strong><span class="video-link">Voir la vidéo <span data-icon="arrow-up-right"></span></span></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="client-strip section-wrap" aria-label="Nos références clients">
+      <p>Des collaborations.<br><strong>Une même exigence.</strong></p>
+      <a href="#realisations" class="client-wordmark tesca" data-brand-link="tesca" aria-label="Explorer la collection TESCA">tesca<span>GROUP</span></a>
+      <a href="#realisations" class="client-wordmark psc" data-brand-link="psc" aria-label="Explorer la collection PSC"><i aria-hidden="true"></i>PSC</a>
+      <a href="#realisations" class="client-wordmark soco" data-brand-link="socohuile" aria-label="Explorer la collection SOCOHUILE"><span class="drop" aria-hidden="true"></span>SOCOHUILE</a>
+      <span class="client-strip-end">À CHAQUE SITE,<br>SA SOLUTION.<span data-icon="arrow-down"></span></span>
+    </section>
+
+    <section id="expertises" class="expertise-section section-wrap">
+      <div class="section-heading">
+        <div><p class="eyebrow"><span class="section-number">01 /</span> NOS EXPERTISES</p><h2>Le bon repère.<br><em>Au bon endroit.</em></h2></div>
+        <p>De la première porte à la dernière issue,<br>nous donnons du sens à vos espaces<br>et de la clarté à votre prévention.</p>
+      </div>
+      <div class="expertise-grid" id="expertise-grid"></div>
+    </section>
+
+    <section id="realisations" class="collection-section">
+      <div class="section-wrap">
+        <div class="section-heading collection-heading">
+          <div><p class="eyebrow"><span class="section-number">02 /</span> LA COLLECTION</p><h2>Notre savoir-faire,<br><em>en images.</em></h2></div>
+          <div class="collection-heading-right"><p>Entrez dans les détails.<br>Imaginez les possibilités pour votre site.</p><div class="view-switch" role="group" aria-label="Mode d'affichage"><button data-view="gallery" class="active" aria-pressed="true"><span data-icon="grid"></span> Galerie</button><button data-view="magazine" aria-pressed="false"><span data-icon="columns"></span> Magazine</button></div></div>
+        </div>
+        <div class="filter-bar">
+          <div class="brand-filters" role="group" aria-label="Filtrer par client"><span class="filter-label">CLIENT</span><button data-brand="all" aria-pressed="true" class="active">Tous</button><button data-brand="tesca" aria-pressed="false">TESCA</button><button data-brand="psc" aria-pressed="false">PSC</button><button data-brand="socohuile" aria-pressed="false">SOCOHUILE</button></div>
+          <label class="service-select"><span data-icon="filter"></span><select id="service-filter" aria-label="Filtrer par prestation"><option value="all">Toutes les prestations</option></select><span data-icon="chevron-down"></span></label>
+        </div>
+        <div class="collection-meta"><span id="results-count" role="status" aria-live="polite"></span><span>Collection de présentation · aperçus illustratifs</span></div>
+        <div id="project-grid" class="project-grid"></div>
+        <div id="empty-state" class="empty-state" hidden><span data-icon="search"></span><h3>La collection se prépare.</h3><p>Aucun aperçu pour cette combinaison. Découvrez les autres prestations.</p><button class="button" data-action="reset-filters">Voir toute la collection <span data-icon="arrow-up-right"></span></button></div>
+        <div class="collection-bottom"><p><span class="green-dot"></span> Et si votre site était notre prochaine histoire ?</p><button class="text-button" id="show-more">Voir toute la collection <span data-icon="plus"></span></button></div>
+      </div>
+    </section>
+
+    <section id="en-action" class="films-section section-wrap">
+      <div class="section-heading"><div><p class="eyebrow"><span class="section-number">03 /</span> KEYSAFE EN ACTION</p><h2>Au-delà des plans,<br><em>la réalité du terrain.</em></h2></div><p>Des gestes, des échanges, des réflexes.<br>Plongez dans nos interventions à travers<br>les vidéos publiées par KeySafe.</p></div>
+      <div class="film-layout">
+        <button class="featured-film" data-video="incendie"><img src="assets/incendie-poster.jpg" alt="Intervention de formation à la sécurité incendie KeySafe" loading="lazy"><span class="film-top"><span class="film-tag">FORMATION INCENDIE</span><span class="film-duration" data-duration="incendie"></span></span><span class="play-circle"><span data-icon="play"></span></span><span class="film-title"><small>SUR LE TERRAIN AVEC KEYSAFE</small><strong>Préparer les gestes<br>qui font la différence.</strong><span>Découvrir le film <span data-icon="arrow-up-right"></span></span></span></button>
+        <div id="film-list" class="film-list"></div>
+      </div>
+      <div class="films-footer"><span>Vidéos originales · publications publiques KeySafe</span><a href="https://www.linkedin.com/company/keysafetn/posts/?feedView=all" target="_blank" rel="noopener noreferrer">Retrouvez-nous sur LinkedIn <span data-icon="arrow-up-right"></span></a></div>
+    </section>
+
+    <section class="site-explorer-section">
+      <div class="section-wrap explorer-layout">
+        <div class="explorer-copy"><p class="eyebrow"><span class="green-dot"></span> CHANGEZ DE PERSPECTIVE</p><h2>Un site.<br>Cinq façons de<br><em>mieux protéger.</em></h2><p>Explorez un site type. Chaque point révèle comment une signalétique adaptée accompagne les personnes, les flux et les bons réflexes.</p><div class="explorer-detail" id="explorer-detail" aria-live="polite"></div><small class="explorer-disclaimer">Schéma de démonstration · ne constitue pas un plan de sécurité utilisable.</small></div>
+        <div class="site-map" aria-label="Explorer les cinq prestations sur un site schématique">
+          <div class="map-title"><span>SITE TYPE / VUE D’ENSEMBLE</span><span data-icon="compass"></span></div>
+          <svg class="floor-plan" viewBox="0 0 640 510" aria-hidden="true"><defs><pattern id="map-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#dfe5db" stroke-width=".7"/></pattern><marker id="route-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#39875a"/></marker></defs><rect width="640" height="510" fill="url(#map-grid)"/><g fill="#f9faf5" stroke="#8c988e" stroke-width="3"><path d="M95 85H310V195H95Z"/><path d="M350 85H545V315H350Z"/><path d="M95 235H310V315H95Z"/><path d="M95 355H225V430H95Z"/><path d="M265 355H405V430H265Z"/><path d="M445 355H545V430H445Z"/></g><g fill="#657363" font-size="12" font-family="Arial" text-anchor="middle"><text x="200" y="137">BUREAUX</text><text x="445" y="210">PRODUCTION</text><text x="200" y="282">LOCAL TECHNIQUE</text><text x="160" y="400">STOCKAGE</text><text x="335" y="400">ACCUEIL</text><text x="495" y="400">SECOURS</text></g><path class="animated-route" d="M335 460V335H330V215H570V460" stroke="#39875a" stroke-width="4" stroke-dasharray="9 6" fill="none" marker-end="url(#route-arrow)"/><g fill="#f0f3e9" stroke="#93a28f"><rect x="113" y="153" width="40" height="24"/><rect x="174" y="153" width="40" height="24"/><rect x="234" y="153" width="40" height="24"/><rect x="380" y="110" width="52" height="50"/><rect x="465" y="110" width="52" height="50"/><rect x="380" y="247" width="52" height="45"/><rect x="465" y="247" width="52" height="45"/></g><text x="335" y="490" fill="#5d705e" font-size="10" font-family="Arial" text-anchor="middle">ENTRÉE DU SITE</text></svg>
+          <button class="map-point active" style="--x:31%;--y:24%" data-point="bureaux" aria-label="1. Identification des bureaux" aria-pressed="true">01</button>
+          <button class="map-point" style="--x:30%;--y:50%" data-point="locaux" aria-label="2. Identification des locaux techniques" aria-pressed="false">02</button>
+          <button class="map-point" style="--x:70%;--y:33%" data-point="risques" aria-label="3. Risques spécifiques par local" aria-pressed="false">03</button>
+          <button class="map-point" style="--x:52%;--y:62%" data-point="circulation" aria-label="4. Plans de circulation" aria-pressed="false">04</button>
+          <button class="map-point" style="--x:87%;--y:79%" data-point="evacuation" aria-label="5. Plans d'évacuation" aria-pressed="false">05</button>
+          <div class="map-legend"><span><i></i> Parcours illustratif</span><span>CLIQUEZ SUR UN REPÈRE <span data-icon="mouse-pointer"></span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="approche" class="approach-section section-wrap">
+      <div class="section-heading"><div><p class="eyebrow"><span class="section-number">04 /</span> NOTRE APPROCHE</p><h2>Du besoin au terrain.<br><em>Avec vous, à chaque étape.</em></h2></div><p>Votre activité, vos espaces, vos équipes.<br>Le point de départ de chaque solution.</p></div>
+      <div class="steps"><article><span>01</span><h3>Comprendre</h3><p>Observer votre site, écouter vos équipes et identifier vos besoins.</p></article><article><span>02</span><h3>Concevoir</h3><p>Transformer les contraintes du terrain en repères simples et cohérents.</p></article><article><span>03</span><h3>Déployer</h3><p>Préparer les supports et accompagner leur mise en place sur site.</p></article><article><span>04</span><h3>Accompagner</h3><p>Vérifier la lisibilité et faire évoluer les solutions avec votre activité.</p></article></div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div class="section-wrap contact-inner"><div><p class="eyebrow"><span class="green-dot"></span> ÉCRIVONS LA SUITE ENSEMBLE</p><h2>Votre site mérite<br><em>des repères clairs.</em></h2><p>Parlons de vos espaces. Construisons votre solution.</p><div class="contact-actions"><button class="button button-lime" data-action="contact">Donnons vie à votre projet <span data-icon="arrow-up-right"></span></button><a href="tel:+21627764657" class="contact-phone">+216 27 764 657 <span data-icon="arrow-up-right"></span></a></div></div><div class="contact-art" aria-hidden="true"><svg viewBox="0 0 300 300"><path d="M50 252L238 64M64 64H238V238" fill="none" stroke="currentColor" stroke-width="35"/></svg><span>PREVENTION IS YOUR VISION.<br>GUIDANCE IS OUR MISSION.</span></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer section-wrap"><a href="#accueil" class="footer-wordmark">KEYSAFE<span>TRAINING & CONSULTING</span></a><p>La clarté au service de la sécurité.<br>Sfax, Tunisie</p><div><a href="mailto:commercial@keysafe.tn">commercial@keysafe.tn <span data-icon="arrow-up-right"></span></a><a href="https://www.linkedin.com/company/keysafetn/" target="_blank" rel="noopener noreferrer">LinkedIn <span data-icon="arrow-up-right"></span></a></div><span class="copyright">© <span id="year"></span> KEYSAFE<br>Tous droits réservés.</span></footer>
+
+  <dialog id="project-dialog" class="project-dialog" aria-labelledby="project-title"><button class="dialog-close icon-button" data-close="project-dialog" aria-label="Fermer le projet"><span data-icon="x"></span></button><div id="project-detail"></div></dialog>
+  <dialog id="video-dialog" class="video-dialog" aria-labelledby="video-title"><div class="video-dialog-header"><div><p class="eyebrow">KEYSAFE / SUR LE TERRAIN</p><h2 id="video-title"></h2></div><button class="icon-button" data-close="video-dialog" aria-label="Fermer la vidéo"><span data-icon="x"></span></button></div><video id="video-player" controls playsinline preload="none"></video><p id="video-error" hidden>La vidéo n’a pas pu être chargée. Retrouvez la publication originale avec le lien ci-dessous.</p><div class="video-dialog-footer"><span id="video-context"></span><a id="video-source" target="_blank" rel="noopener noreferrer">Voir la publication LinkedIn <span data-icon="arrow-up-right"></span></a></div></dialog>
+  <dialog id="presentation-dialog" class="presentation-dialog" aria-labelledby="slide-title"><header class="presentation-header"><span class="presentation-brand">KEYSAFE <small>LE PORTFOLIO</small></span><div><button class="icon-button" id="fullscreen-button" aria-label="Afficher en plein écran"><span data-icon="maximize"></span></button><button class="icon-button" data-close="presentation-dialog" aria-label="Fermer la présentation"><span data-icon="x"></span></button></div></header><div id="presentation-slide"></div><footer class="presentation-controls"><span id="slide-counter" aria-live="polite"></span><div id="slide-dots" class="slide-dots"></div><div><button class="icon-button" id="previous-slide" aria-label="Diapositive précédente"><span data-icon="arrow-left"></span></button><button class="icon-button" id="next-slide" aria-label="Diapositive suivante"><span data-icon="arrow-right"></span></button></div></footer></dialog>
+  <dialog id="contact-dialog" class="contact-dialog" aria-labelledby="contact-title"><button class="dialog-close icon-button" data-close="contact-dialog" aria-label="Fermer le formulaire"><span data-icon="x"></span></button><p class="eyebrow"><span class="green-dot"></span> VOTRE PROCHAIN PROJET</p><h2 id="contact-title">Tout commence<br>par un échange.</h2><p>Décrivez votre besoin, nous préparons votre e-mail à KeySafe.</p><form id="contact-form"><label>Votre nom<input name="name" required autocomplete="name" placeholder="Prénom et nom" maxlength="100"></label><label>Votre entreprise<input name="company" required autocomplete="organization" placeholder="Nom de votre entreprise" maxlength="150"></label><label>Votre adresse e-mail<input type="email" name="email" required autocomplete="email" placeholder="vous@entreprise.tn" maxlength="150"></label><label>La prestation<select name="service" id="contact-service"><option value="Un projet global">Un projet global</option></select></label><label class="full-field">Quelques mots sur votre projet<textarea name="message" required rows="3" placeholder="Votre site, les espaces concernés, vos attentes…" maxlength="2000"></textarea></label><button class="button full-field" type="submit">Préparer mon e-mail <span data-icon="arrow-up-right"></span></button><p class="form-note full-field">Votre messagerie s’ouvrira avec un brouillon. Aucun message n’est envoyé automatiquement.</p></form><div id="contact-fallback" hidden><p>Votre demande est prête. Si votre messagerie ne s’est pas ouverte, copiez le texte et envoyez-le à <a href="mailto:commercial@keysafe.tn">commercial@keysafe.tn</a>.</p><textarea id="email-preview" readonly aria-label="Texte de votre demande" rows="6"></textarea><button class="text-button" id="copy-email">Copier la demande <span data-icon="copy"></span></button><span id="copy-status" role="status"></span></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

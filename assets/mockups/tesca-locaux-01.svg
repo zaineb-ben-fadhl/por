@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500">
+<defs>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity=".28"/></filter>
+<filter id="soft" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity=".22"/></filter>
+<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .09 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+<filter id="concrete"><feTurbulence type="fractalNoise" baseFrequency=".012 .03" numOctaves="4" seed="7"/><feColorMatrix values="0 0 0 0 .55  0 0 0 0 .54  0 0 0 0 .51  0 0 0 .35 0"/></filter>
+<pattern id="hazard" width="56" height="56" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="56" height="56" fill="#F6B300"/><rect width="28" height="56" fill="#1B1B1D"/></pattern>
+
+</defs>
+
+<rect width="1200" height="1500" fill="#A9A7A1"/>
+<rect width="1200" height="1500" filter="url(#concrete)"/>
+<rect x="200" y="90" width="800" height="1410" fill="#4A4F55"/>
+<linearGradient id="steel" x1="0" x2="1"><stop offset="0" stop-color="#737980"/><stop offset=".5" stop-color="#858B92"/><stop offset="1" stop-color="#6A7077"/></linearGradient>
+<rect x="230" y="120" width="740" height="1380" fill="url(#steel)"/>
+<rect x="230" y="120" width="740" height="1380" filter="url(#grain)" fill="#7B8188"/>
+<rect x="860" y="850" width="70" height="26" rx="12" fill="#2E3237" filter="url(#soft)"/>
+<rect x="872" y="820" width="22" height="80" rx="6" fill="#3A3F45"/>
+<g filter="url(#shadow)"><rect x="330" y="230" width="540" height="560" rx="10" fill="#fff"/></g>
+<rect x="330" y="230" width="540" height="92" rx="10" fill="#1F2A37"/>
+<rect x="330" y="300" width="540" height="22" fill="#1F2A37"/>
+<text x="370" y="292" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="38" font-weight="800" fill="#fff" text-anchor="start" letter-spacing="2">LT-01</text>
+<text x="830" y="290" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="22" font-weight="700" fill="#fff" text-anchor="end" letter-spacing="5" opacity="0.7">TESCA</text>
+<text x="600" y="420" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="58" font-weight="800" fill="#1B1B1D" text-anchor="middle" letter-spacing="0">LOCAL</text><text x="600" y="482" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="58" font-weight="800" fill="#1B1B1D" text-anchor="middle" letter-spacing="0">ÉLECTRIQUE</text>
+<text x="600" y="538" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="25" font-weight="400" fill="#5B6068" text-anchor="middle" letter-spacing="0">TGBT · Tableau général basse tension</text>
+<g transform="translate(369 600) scale(1.3)"><path d="M50 6 96 88H4z" fill="#F6B300" stroke="#1B1B1D" stroke-width="7" stroke-linejoin="round"/><g transform="translate(22 36) scale(.56)"><path d="M56 18 30 58h18l-8 28 30-44H52z" fill="#1B1B1D"/></g></g><g transform="translate(535 600) scale(1.3)"><circle cx="50" cy="50" r="44" fill="#fff"/><g transform="translate(18 18) scale(.64)"><g fill="#1B1B1D"><circle cx="50" cy="22" r="9"/><path d="M36 36h28a6 6 0 0 1 6 6v24h-9v26H39V66h-9V42a6 6 0 0 1 6-6z"/></g></g><circle cx="50" cy="50" r="42" fill="none" stroke="#C8102E" stroke-width="10"/><path d="M20 20 80 80" stroke="#C8102E" stroke-width="10"/></g><g transform="translate(701 600) scale(1.3)"><circle cx="50" cy="50" r="44" fill="#fff"/><g transform="translate(18 18) scale(.64)"><path d="M50 16c10 18 24 32 24 48a24 24 0 0 1-48 0c0-16 14-30 24-48z" fill="#1B1B1D"/></g><circle cx="50" cy="50" r="42" fill="none" stroke="#C8102E" stroke-width="10"/><path d="M20 20 80 80" stroke="#C8102E" stroke-width="10"/></g>
+<rect x="230" y="1400" width="740" height="100" fill="url(#hazard)"/>
+<rect x="230" y="1400" width="740" height="100" fill="#000" opacity=".08"/>
+</svg>
