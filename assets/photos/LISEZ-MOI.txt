@@ -1,0 +1,17 @@
+DÉPOSEZ ICI LES PHOTOS RÉELLES DU PORTFOLIO
+============================================
+
+Un dossier par client : tesca/  psc/  socohuile/
+
+Le nom du fichier décide de l'emplacement. Exemples :
+  tesca/bureaux-01.jpg            → 1re photo « Identification des bureaux » de TESCA
+  psc/locaux-02.jpg               → 2e photo « Locaux techniques » de PSC
+  socohuile/risques-03.jpg        → 3e affiche « Risques par local » de SOCOHUILE
+  tesca/evacuation-01.jpg         → plan d'évacuation de TESCA
+  tesca/evacuation-01-avant.jpg   → plan d'origine, pour le curseur Avant / Après
+
+Formats : .jpg, .webp ou .png (2000 px de large maximum).
+Facultatif : logo.png (ou .svg) et film.mp4 dans le dossier du client.
+
+La liste complète, avec la consigne de prise de vue de chaque photo :
+ouvrir brief.html à la racine du projet.
