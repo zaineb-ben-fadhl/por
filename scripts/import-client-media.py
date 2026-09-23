@@ -1,13 +1,24 @@
 """Prépare des aperçus web sans modifier les fichiers fournis dans assets/.
 
 Classement établi après lecture visuelle de chaque image et de chaque PDF.
-Les deux doublons et les deux formats de l'affiche SOCOHUILE restent tracés.
-Livraison du 18 septembre 2026 : les sept plaques de services TESCA (une image
-d'ensemble découpée en plaques), huit panneaux illustrés de locaux TESCA et
-l'affiche de consignes de l'atelier de retordage (seconde version retenue).
+La présentation est personnalisée pour TESCA : les supports d'autres sites
+(PSI et SOCOHUILE) et les panneaux bilingues sans logo sont écartés, mais
+restent tracés dans « excluded » avec leur motif.
+
+Sont publiés : l'identification des bureaux, la livraison du 23 septembre 2026
+(cinq recueils PDF) et les trois plans du site. Chaque recueil alimente le type
+qui porte son nom : ses pages ne sont jamais réparties dans un autre type.
+
+Les supports TESCA sont répartis en cinq types :
+  tesca-services, tesca-bureaux  identification des bureaux
+  tesca-locaux-techniques ...... identification des locaux techniques
+  tesca-sst, tesca-sensibilisation  affichage SST lié aux activités
+  tesca-urgence ................ maîtrise des situations d'urgence
+  tesca-circulation, tesca-evacuation  plans de circulation et d'évacuation
 """
 from pathlib import Path
 import hashlib
+import io
 import json
 import shutil
 import sys
@@ -28,6 +39,8 @@ def tesca(number, project, name, caption, **kwargs):
     add(f'tesca_{number:02d}.png', 'tesca', f'tesca-{project}', name, caption, **kwargs)
 
 
+# --------------------------------------------------------------- 01 · bureaux
+# Supports de septembre : leurs originaux ont été retirés du poste, les aperçus font foi.
 # Sept plaques de services sur une même image : l'ensemble, puis chaque plaque découpée.
 PLATES = '1000021908.jpg'
 add(PLATES, 'tesca', 'tesca-services', 'plaques-services', 'Gamme de plaques · Sept services TESCA', type='plaque')
@@ -47,115 +60,101 @@ tesca(11, 'bureaux', 'direction-finance-rh', 'Directoire · Direction générale
 add('TESCA_Page_002.pdf', 'tesca', 'tesca-bureaux', 'loge-gardien', 'Tableau d’informations · Loge gardien',
     type='directory', kind='template', note='Gabarit de tableau avec quatre emplacements pour documents A4.')
 
-for number, name, caption, spec in [
-    (4, 'atelier-maintenance', 'Atelier maintenance', 'Identification de l’atelier'),
-    (5, 'magasin-pdr', 'Magasin PDR', 'Identification du magasin de pièces de rechange'),
-    (6, 'local-dechets', 'Local déchets', 'Repérage de la zone de collecte'),
-    (8, 'cuisine-preparation', 'Cuisine de préparation', 'Identification de l’espace de préparation'),
-    (9, 'magasin-produits-chimiques', 'Magasin produits chimiques', 'Identification du stockage des produits chimiques'),
-    (10, 'production', 'Production', 'Repérage de la zone de production'),
+# ------------------------------------------------------- 02 · locaux techniques
+# Livraison du 23 septembre 2026 : neuf panneaux en haute définition, au logo KeySafe
+# uniforme. Ils remplacent les huit panneaux précédents, dont les aperçus restent sur le poste.
+LOCAUX = 'Identification des locaux techniques.pdf'
+for page, name, caption, spec in [
+    (3, 'panneau-atelier-retordage', 'Atelier de retordage', 'Machines de retordage'),
+    (0, 'panneau-laboratoire', 'Laboratoire', 'Analyses et contrôles'),
+    (5, 'panneau-laboratoire-step', 'Laboratoire STEP', 'Contrôles de la station de traitement'),
+    (6, 'panneau-medecine-travail', 'Local médecine du travail', 'Suivi médical et premiers soins'),
+    (4, 'panneau-compresseurs', 'Local compresseurs', 'Production d’air comprimé'),
+    (7, 'panneau-traitement-air', 'Centrale de traitement d’air', 'Ventilation et climatisation'),
+    (1, 'panneau-dechets-dangereux', 'Local déchets dangereux', 'Stockage des déchets dangereux'),
+    (8, 'panneau-monte-charge', 'Monte-charge', 'Transport de charges entre niveaux'),
+    (2, 'panneau-loge-gardien', 'Loge gardien', 'Accueil et contrôle des accès'),
 ]:
-    tesca(number, 'locaux', name, f'Plaque · {caption}', type='door', spec=spec)
+    add(LOCAUX, 'tesca', 'tesca-locaux-techniques', name, f'Panneau · {caption}', type='door', spec=spec, page=page)
 
-# Panneaux illustrés : le nom du local et l'équipement qu'il abrite.
-for source, name, caption, spec in [
-    ('ChatGPT Image 18 sept. 2026, 11_26_14.png', 'panneau-atelier-retordage', 'Atelier de retordage', 'Machines de retordage'),
-    ('TESCA_Page_005.jpg', 'panneau-laboratoire-analyses', 'Laboratoire (analyses)', 'Laboratoire d’analyses'),
-    ('TESCA_Page_022.jpg', 'panneau-laboratoire-essais', 'Laboratoire (essais textiles)', 'Essais qualité des textiles'),
-    ('TESCA_Page_002.jpg', 'panneau-local-medical', 'Local médical', 'Premiers soins'),
-    ('TESCA_Page_009.jpg', 'panneau-compresseurs', 'Local compresseurs', 'Production d’air comprimé'),
-    ('TESCA_Page_016.jpg', 'panneau-traitement-air', 'Centrale de traitement d’air', 'Ventilation et climatisation'),
-    ('TESCA_Page_020.jpg', 'panneau-dechets-dangereux', 'Local déchets dangereux', 'Stockage des déchets dangereux'),
-    ('TESCA_Page_021.jpg', 'panneau-loge-gardien', 'Loge gardien', 'Accueil et contrôle des accès'),
+# ------------------------------------ 05 · plans de circulation et d'évacuation
+add('tesca plan 3.pdf', 'tesca', 'tesca-circulation', 'circulation-site-ttg',
+    'Plan de circulation · Site TTG', type='circulation')
+# Plan d'évacuation présenté comme modèle : il a été réalisé pour le site PSC, la trame est la même.
+add('PE Admin RDC.pdf', 'tesca', 'tesca-evacuation', 'evacuation-administration-rdc',
+    'Plan d’évacuation · Administration RDC', type='evacuation',
+    note='Modèle similaire réalisé pour le site PSC.')
+
+# 04 · ce qu'il faut faire, puis qui commande, avant les listes nominatives (déposés le 24 septembre 2026).
+add('tesca-consignes-generales-urgence.jpg', 'tesca', 'tesca-urgence', 'consignes-generales-urgence',
+    'Consignes générales · Incendie, accident, évacuation', zone='secours', kind='template',
+    note='Gabarit à renseigner : numéros d’alerte et point de rassemblement.')
+add('tesca-organigramme-secours.jpg', 'tesca', 'tesca-urgence', 'organigramme-secours',
+    'Organigramme de secours · Chaîne de commandement', zone='secours')
+
+# -------------------------------------- 03 · affichage SST lié aux activités
+# Les trois recueils « Affichage SST lié aux activités » forment ce type, page par page.
+AFFICHES = 'Affichage SST lié aux activités (3).pdf'
+CONSIGNES = 'Affichage SST lié aux activités.pdf'
+TTG = 'Affichage SST lié aux activités (2).pdf'
+SECOURISTES = 'Affichage relatif à la maîtrise des situations d’urgence2.pdf'
+for source, page, project, name, caption, zone in [
+    (AFFICHES, 6, 'sst', 'consignes-escalier', 'Escaliers · Tenir la rampe', 'escaliers'),
+    (AFFICHES, 2, 'sst', 'ergonomie-bureau', 'Bureaux · Ergonomie du poste de travail', 'bureaux'),
+    (AFFICHES, 8, 'sst', 'armoire-electrique', 'Armoire électrique · Danger d’électrocution', 'electrique'),
+    (AFFICHES, 7, 'sst', 'medecine-travail', 'Médecine du travail · Consignes du local', 'medical'),
+    (CONSIGNES, 1, 'sst', 'laboratoire-securite', 'Laboratoire · Consignes de sécurité', 'laboratoire'),
+    (CONSIGNES, 2, 'sst', 'monte-charge-utilisation', 'Monte-charge · Consignes d’exploitation', 'montecharge'),
+    (TTG, 0, 'sst', 'consignes-site-ttg', 'Site TTG · Consignes générales de sécurité', 'site'),
+    (TTG, 1, 'sst', 'monte-charge-securite', 'Monte-charge · Consignes du site TTG', 'montecharge'),
+    (TTG, 2, 'sst', 'laboratoire-epi', 'Laboratoire · Accès, EPI et risques', 'laboratoire'),
+    (AFFICHES, 9, 'sst', 'utilisation-extincteur', 'Incendie · Utilisation d’un extincteur', 'incendie'),
+    (CONSIGNES, 0, 'sst', 'laboratoire-deversement', 'Laboratoire · Déversement de produits chimiques', 'laboratoire'),
+    (AFFICHES, 0, 'sst', 'premiers-secours', 'Premiers secours · Procédure générale de secourisme', 'secours'),
+    # 04 · le recueil des secouristes forme à lui seul le type « situations d'urgence »
+    (SECOURISTES, 2, 'urgence', 'liste-secouristes-administration', 'Secouristes & agents incendie · Administration', 'secours'),
+    (SECOURISTES, 0, 'urgence', 'liste-secouristes-tissage', 'Secouristes & agents incendie · Tissage', 'secours'),
+    (SECOURISTES, 1, 'urgence', 'liste-secouristes-finition', 'Secouristes & agents incendie · Finition', 'secours'),
 ]:
-    add(source, 'tesca', 'tesca-panneaux-locaux', name, f'Panneau · {caption}', type='door', spec=spec)
-
-tesca(1, 'circulation', 'circulation-entrepot', 'Plan de circulation · Entrepôt', type='circulation')
-tesca(2, 'evacuation', 'evacuation-entrepot', 'Plan d’évacuation · Entrepôt', type='evacuation')
-tesca(3, 'evacuation', 'evacuation-administration', 'Plan d’évacuation · Administration', type='evacuation')
-
-for number, name, caption, zone in [
-    (12, 'consignes-escalier', 'Escaliers · Tenir la rampe', 'escaliers'),
-    (13, 'consignes-chariots', 'Chariots élévateurs · Règles de conduite', 'circulation'),
-    (14, 'utilisation-extincteur', 'Incendie · Utilisation d’un extincteur', 'incendie'),
-    (15, 'consignes-entrepot', 'Entrepôt · Dangers, interdictions et EPI', 'stockage'),
+    add(source, 'tesca', f'tesca-{project}', name, caption, zone=zone, page=page)
+for page, name, caption, zone in [
+    (5, 'energie-bureaux', 'Énergie · Économiser la consommation', 'environnement'),
+    (4, 'impressions-responsables', 'Bureaux · Des impressions responsables', 'environnement'),
+    (3, 'reunion-bonnes-pratiques', 'Réunions · Les bonnes pratiques', 'bureaux'),
+    (1, 'tri-dechets', 'Environnement · Trier les déchets', 'environnement'),
 ]:
-    tesca(number, 'risques', name, caption, zone=zone)
-# Seconde version de l'affiche (machine de retordage) ; la première reste sur disque.
-add('ChatGPT Image 18 sept. 2026, 11_31_25.png', 'tesca', 'tesca-risques', 'atelier-retordage-consignes',
-    'Atelier de retordage · Risques mécaniques', zone='atelier')
+    add(AFFICHES, 'tesca', 'tesca-sensibilisation', name, caption, zone=zone, page=page)
 
-for number, name, caption, zone in [
-    (1, 'consignes-site-ttg', 'Site TTG · Consignes générales de sécurité', 'site'),
-    (3, 'laboratoire-deversement', 'Laboratoire · Déversement de produits chimiques', 'laboratoire'),
-    (4, 'laboratoire-securite', 'Laboratoire · Consignes de sécurité', 'laboratoire'),
-    (5, 'manutention-manuelle', 'Manutention · Technique de levage', 'manutention'),
-    (6, 'armoire-electrique', 'Armoire électrique · Danger d’électrocution', 'electrique'),
-    (7, 'premiers-secours', 'Premiers secours · Conduite à tenir', 'secours'),
-    (8, 'laboratoire-epi', 'Laboratoire · Équipements de protection', 'laboratoire'),
-    (11, 'ergonomie-bureau', 'Bureaux · Ergonomie du poste de travail', 'bureaux'),
-    (12, 'monte-charge-utilisation', 'Monte-charge · Consignes d’utilisation', 'montecharge'),
-    (13, 'monte-charge-securite', 'Monte-charge · Dangers et obligations', 'montecharge'),
-]:
-    add(f'TESCA_Page_{number:03d}.pdf', 'tesca', 'tesca-risques', name, caption, zone=zone, kind='pdf')
-    if name == 'premiers-secours':
-        add('liste.png', 'tesca', 'tesca-risques', 'liste-secouristes-administration',
-            'Liste des secouristes · Administration · QR code', zone='secours', lossless=True,
-            note='Affiche de l’administration avec QR code. Ouvrir en grand pour le scanner.')
+# Visuel déposé le 24 septembre 2026 pour le type 03.
+add('tesca-incompatibilites-chimiques.jpg', 'tesca', 'tesca-sst', 'incompatibilites-chimiques',
+    'Produits chimiques · Tableau des incompatibilités', zone='stockage',
+    note='Conforme au référentiel SGH/CLP.')
+# Le QR code ferme le type 04, après les listes nominatives.
+add('tesca-liste-secouristes-qr.jpg', 'tesca', 'tesca-urgence', 'liste-secouristes-qr',
+    'Secouristes & incendie · Administration, accès par QR code', zone='secours',
+    lossless=True, note='Scanner le QR code pour appeler. Ouvrir en grand pour le lire.')
 
-for source, name, caption, zone in [
-    ('ChatGPT Image 17 sept. 2026, 14_19_21 (1).png', 'energie-paysage', 'Énergie · Économiser au quotidien, format paysage', 'environnement'),
-    ('ChatGPT Image 17 sept. 2026, 14_19_21 (2).png', 'impressions-responsables', 'Bureaux · Des impressions responsables', 'environnement'),
-    ('ChatGPT Image 17 sept. 2026, 14_19_21 (3).png', 'energie-bureaux', 'Bureaux · Réduire la consommation d’énergie', 'environnement'),
-    ('ChatGPT Image 17 sept. 2026, 14_19_22 (4).png', 'reunion-bonnes-pratiques', 'Réunions · Les bonnes pratiques', 'bureaux'),
-    ('ChatGPT Image 17 sept. 2026, 14_19_22 (5).png', 'tri-dechets', 'Environnement · Trier les déchets', 'environnement'),
-    ('WhatsApp Image 2026-09-17 at 12.31.52.jpeg', 'reunion-variante', 'Réunions · Variante du support', 'bureaux'),
-]:
-    add(source, 'tesca', 'tesca-sensibilisation', name, caption, zone=zone)
+# ------------------------------------------------------------ hors périmètre
+# Fichiers conservés sur disque, volontairement absents de la présentation TESCA.
+PSI = 'Photographies du site PSI : hors présentation TESCA.'
+SOCOHUILE = 'Supports du site SOCOHUILE : hors présentation TESCA.'
+BILINGUE = 'Panneau bilingue sans logo, non attribué : hors présentation TESCA.'
+excluded = {}
+for stamp in ['10.33.37', '10.33.38', '10.33.40', '10.33.41 (1)', '10.33.41', '10.33.42',
+              '10.34.39', '10.34.40', '10.34.40 (1)']:
+    excluded[f'WhatsApp Image 2026-09-17 at {stamp}.jpeg'] = PSI
+for source in ['a0_01.png', 'Affiche de sécurité entrée principale A0 x1.pdf', 'Chariot elevateur A1 x1.pdf',
+               'ergonomie bureautique A3 x2.pdf', 'Escalier A3 x8 1.pdf', 'hygiene du personnel A3 x5.pdf',
+               'Lavage des mains A3 x5.pdf', 'manutention manuelle A3 x 3.pdf', 'Numeros durgence A3 x3.pdf']:
+    excluded[source] = SOCOHUILE
+for number in range(1, 7):
+    excluded[f'a4_{number:02d}.png'] = BILINGUE
 
-# Identifiant historique psc conservé pour les liens existants ; les supports portent PSI.
-for stamp, project, name, caption, type, zone in [
-    ('10.33.37', 'risques', 'secours-pose', 'Premiers secours · Affiche posée', 'poster', 'secours'),
-    ('10.33.38', 'risques', 'chariots-pose', 'Chariots élévateurs · Affiche posée', 'poster', 'circulation'),
-    ('10.33.40', 'risques', 'securite-incendie-pose', 'Consignes générales et extincteurs · Affiches posées', 'poster', 'incendie'),
-    ('10.33.41 (1)', 'circulation', 'circulation-site-pose', 'Plan de circulation et consignes du site · Panneaux posés', 'circulation', None),
-    ('10.33.41', 'evacuation', 'evacuation-atelier-1-pose', 'Plan d’évacuation · Atelier n° 1', 'evacuation', None),
-    ('10.33.42', 'risques', 'atelier-1-pose', 'Atelier 1 · Dangers, interdictions et EPI', 'poster', 'atelier'),
-    ('10.34.39', 'risques', 'ergonomie-pose', 'Bureaux · Affiche d’ergonomie posée', 'poster', 'bureaux'),
-    ('10.34.40', 'risques', 'escalier-pose', 'Escaliers · Affiche posée', 'poster', 'escaliers'),
-]:
-    add(f'WhatsApp Image 2026-09-17 at {stamp}.jpeg', 'psc', f'psc-{project}', name, caption, type=type, zone=zone, kind='photo')
+# Livraison du 23 septembre 2026 : recueils PDF multipages, tracés en attendant l'arbitrage
+# (versions au logo KeySafe uniforme de supports déjà publiés + supports inédits).
+pending = {}
 
-add('a0_01.png', 'socohuile', 'socohuile-risques', 'consignes-site', 'Entrée du site · Consignes générales de sécurité',
-    zone='site', pdfSource='Affiche de sécurité entrée principale A0 x1.pdf')
-for source, name, caption, zone, kind in [
-    ('Chariot elevateur A1 x1.pdf', 'chariots-elevateurs', 'Chariots élévateurs · Règles de conduite', 'circulation', 'pdf'),
-    ('ergonomie bureautique A3 x2.pdf', 'ergonomie-bureaux', 'Bureaux · Ergonomie du poste', 'bureaux', 'pdf'),
-    ('Escalier A3 x8 1.pdf', 'consignes-escalier', 'Escaliers · Tenir la rampe', 'escaliers', 'pdf'),
-    ('hygiene du personnel A3 x5.pdf', 'hygiene-personnel', 'Production · Hygiène du personnel', 'hygiene', 'pdf'),
-    ('Lavage des mains A3 x5.pdf', 'lavage-mains', 'Hygiène · Lavage des mains', 'hygiene', 'pdf'),
-    ('manutention manuelle A3 x 3.pdf', 'manutention-manuelle', 'Manutention · Technique de levage', 'manutention', 'pdf'),
-    ('Numeros durgence A3 x3.pdf', 'numeros-urgence', 'Urgence · Consignes et contacts du site', 'secours', 'template'),
-]:
-    add(source, 'socohuile', 'socohuile-risques', name, caption, zone=zone, kind=kind,
-        **({'note': 'Gabarit personnalisable : numéros d’urgence et point de rassemblement à renseigner.'} if kind == 'template' else {}))
-
-for number, name, caption, zone in [
-    (1, 'danger-electrique', 'Danger électrique', 'electrique'),
-    (2, 'matieres-inflammables', 'Matériaux combustibles et inflammables', 'stockage'),
-    (3, 'issues-secours-degagees', 'Issues de secours · Stockage interdit', 'secours'),
-    (4, 'interdiction-fumer', 'Interdiction de fumer', 'incendie'),
-    (5, 'acces-reserve', 'Accès interdit au personnel non autorisé', 'site'),
-    (6, 'chute-objets', 'Danger · Chute d’objets', 'stockage'),
-]:
-    add(f'a4_{number:02d}.png', 'commun', 'signaletique-complementaire', name, caption, zone=zone)
-
-duplicates = {
-    'TESCA_Page_003 (1).pdf': 'TESCA_Page_003.pdf',
-    'WhatsApp Image 2026-09-17 at 10.34.40 (1).jpeg': 'WhatsApp Image 2026-09-17 at 10.33.37.jpeg'
-}
-for duplicate, original in duplicates.items():
-    assert (ROOT/'assets'/duplicate).read_bytes() == (ROOT/'assets'/original).read_bytes(), duplicate
+duplicates = {'TESCA_Page_003 (1).pdf': 'TESCA_Page_003.pdf'}
 
 # Même visuel réexporté (fichiers différents, image identique à l'œil) : non répété dans la galerie.
 equivalents = {
@@ -165,18 +164,46 @@ equivalents = {
 # Première version d'un support, remplacée par la version corrigée : non affichée.
 replaced = {'1000021905.jpg': 'ChatGPT Image 18 sept. 2026, 11_31_25.png'}
 
+# Un fichier seulement tracé (doublon, réexport, version remplacée, hors périmètre, en attente)
+# peut avoir été retiré du poste : on ne le réclame pas, on signale simplement sa disparition.
+gone = []
+for table in (duplicates, equivalents, replaced, excluded, pending):
+    for source in list(table):
+        if not (ROOT/'assets'/source).exists():
+            gone.append(source)
+            del table[source]
+
+for duplicate, original in duplicates.items():
+    assert (ROOT/'assets'/duplicate).read_bytes() == (ROOT/'assets'/original).read_bytes(), duplicate
+
 for copy, original in equivalents.items():
     with Image.open(ROOT/'assets'/copy) as a, Image.open(ROOT/'assets'/original) as b:
         small = [ImageOps.exif_transpose(x).convert('L').resize((300, 212)) for x in (a, b)]
     diff = sum(abs(p - q) for p, q in zip(small[0].tobytes(), small[1].tobytes())) / (300 * 212)
     assert diff < 2, f'{copy} diffère de {original} ({diff:.2f})'
 
+kept = []
 for rec in records:
     source = ROOT / 'assets' / rec['source']
+    if not source.exists():
+        # Original retiré du poste : les aperçus déjà générés font foi.
+        folder = ROOT / 'assets' / 'photos' / rec['client']
+        preview, big = folder / f'{rec["name"]}.webp', folder / f'{rec["name"]}-grand.webp'
+        assert preview.exists(), f'Original absent et aperçu introuvable : {rec["source"]} → {rec["name"]}'
+        rec['src'] = preview.relative_to(ROOT).as_posix()
+        if big.exists():
+            rec['full'] = big.relative_to(ROOT).as_posix()
+        with Image.open(big if big.exists() else preview) as im:
+            rec['width'], rec['height'] = im.size
+        document = ROOT / 'assets' / 'documents' / rec['client'] / f'{rec["name"]}.pdf'
+        if document.exists():
+            rec['document'] = document.relative_to(ROOT).as_posix()
+        kept.append(rec['source'])
+        continue
     if source.suffix.lower() == '.pdf':
         with fitz.open(source) as doc:
-            assert len(doc) == 1, f'Multipage à traiter : {source.name}'
-            page = doc[0]
+            assert rec.get('page', 0) < len(doc), f'Page absente : {source.name}'
+            page = doc[rec.get('page', 0)]
             scale = min(2800 / page.rect.width, 2800 / page.rect.height)
             pix = page.get_pixmap(matrix=fitz.Matrix(scale, scale), alpha=False)
             im = Image.frombytes('RGB', [pix.width, pix.height], pix.samples)
@@ -201,13 +228,35 @@ for rec in records:
     if pdf_name:
         target = ROOT / 'assets' / 'documents' / rec['client'] / f'{rec["name"]}.pdf'
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(ROOT / 'assets' / pdf_name, target)
+        if 'page' in rec:
+            # Recueil multipage : chaque support reçoit sa page, ré-encodée pour l'impression
+            # (170 dpi) afin que le document reste raisonnable à télécharger.
+            with fitz.open(ROOT / 'assets' / pdf_name) as src:
+                sheet_size = src[rec['page']].rect
+                shot = src[rec['page']].get_pixmap(dpi=170)
+                buffer = io.BytesIO()
+                Image.frombytes('RGB', [shot.width, shot.height], shot.samples).save(buffer, 'JPEG', quality=82)
+            with fitz.open() as one:
+                sheet = one.new_page(width=sheet_size.width, height=sheet_size.height)
+                sheet.insert_image(sheet.rect, stream=buffer.getvalue())
+                one.save(target, garbage=4, deflate=True)
+        else:
+            shutil.copy2(ROOT / 'assets' / pdf_name, target)
         rec['document'] = target.relative_to(ROOT).as_posix()
     rec['sha256'] = hashlib.sha256(source.read_bytes()).hexdigest()
 
 provided = {p.name for p in (ROOT/'assets').iterdir() if p.suffix.lower() in {'.png', '.jpg', '.jpeg', '.pdf'} and p.is_file()}
-covered = {r['source'] for r in records} | {r['pdfSource'] for r in records if 'pdfSource' in r} | set(duplicates) | set(equivalents) | set(replaced)
-assert provided == covered, f'Fichiers non classés : {provided-covered}; absents : {covered-provided}'
-catalogue = {'records': records, 'duplicates': duplicates, 'equivalents': equivalents, 'replaced': replaced, 'sourceCount': len(provided)}
+covered = ({r['source'] for r in records} | {r['pdfSource'] for r in records if 'pdfSource' in r}
+           | set(duplicates) | set(equivalents) | set(replaced) | set(excluded) | set(pending))
+assert provided <= covered, f'Fichiers non classés : {provided-covered}'
+catalogue = {'records': records, 'duplicates': duplicates, 'equivalents': equivalents, 'replaced': replaced,
+             'excluded': excluded, 'pending': pending, 'sourceCount': len(provided)}
 (ROOT/'sources'/'imported-media.json').write_text(json.dumps(catalogue, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
-print(f'{len(provided)} fichiers examinés → {len(records)} visuels, {sum("document" in r for r in records)} PDF accessibles, {len(duplicates) + len(equivalents)} doublons et {len(replaced)} version remplacée conservés mais non répétés.')
+print(f'{len(provided)} fichiers examinés → {len(records)} visuels TESCA, '
+      f'{sum("document" in r for r in records)} PDF accessibles, {len(excluded)} fichiers hors périmètre, '
+      f'{len(pending)} recueils en attente d’intégration, '
+      f'{len(duplicates) + len(equivalents)} doublons et {len(replaced)} version remplacée conservés sur disque.')
+if gone:
+    print(f'{len(gone)} fichiers seulement tracés ont disparu du poste : retirés du catalogue.')
+if kept:
+    print(f'{len(set(kept))} originaux retirés du poste : leurs aperçus déjà générés sont conservés tels quels.')

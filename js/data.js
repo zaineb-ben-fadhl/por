@@ -1,5 +1,5 @@
-/* KeySafe · contenu du portfolio. Les médias fournis utilisent src, full et document.
-   Supports fournis et médias LinkedIn conservés, sans visuels de remplacement.
+/* KeySafe · contenu du portfolio TESCA. Les médias fournis utilisent src, full et document.
+   Fichier généré : modifier scripts/register-client-media.mjs, jamais ce fichier.
    Catalogue et provenance : sources/imported-media.json. */
 
 window.KEYSAFE = {
@@ -26,20 +26,6 @@ window.KEYSAFE = {
       "accent": "#5BB8F0",
       "sector": "Industrie automobile",
       "city": "Grombalia"
-    },
-    {
-      "id": "psc",
-      "name": "PSC",
-      "accent": "#F2715A",
-      "sector": "",
-      "city": ""
-    },
-    {
-      "id": "socohuile",
-      "name": "SOCOHUILE",
-      "accent": "#E7B84C",
-      "sector": "Huiles alimentaires",
-      "city": "Sfax"
     }
   ],
   "chapters": [
@@ -49,22 +35,23 @@ window.KEYSAFE = {
       "short": "Bureaux",
       "code": "Information",
       "layout": "corridor",
+      "tagline": "Des espaces qui se lisent dès l’entrée.",
+      "benefit": "Un visiteur qui trouve son chemin tout seul, c’est une équipe qu’on n’interrompt plus : chaque porte annonce son service dès le premier regard.",
+      "lead": "Plaques de porte, directoires et tableaux d’information : une signalétique cohérente avec l’identité TESCA, pour que visiteurs et collaborateurs trouvent leur chemin sans avoir à demander.",
+      "deliverables": [
+        "Plaques de porte",
+        "Directoires des services",
+        "Tableaux d’information",
+        "Charte TESCA"
+      ],
       "title": "Identification des bureaux",
       "titleLines": [
         "Identification",
         "des bureaux"
       ],
-      "tagline": "Des espaces qui se lisent dès l’entrée.",
-      "lead": "Plaques de porte, directoires et repères d’étage : une signalétique cohérente avec l’identité de chaque site, pour que visiteurs et collaborateurs trouvent leur chemin sans avoir à demander.",
-      "deliverables": [
-        "Plaques de porte",
-        "Directoires & totems",
-        "Numérotation des espaces",
-        "Charte du site"
-      ],
       "cover": {
         "src": "assets/photos/tesca/plaques-services.webp",
-        "caption": "TESCA · Plaques des sept services",
+        "caption": "Les plaques des sept services",
         "contain": true
       }
     },
@@ -74,74 +61,93 @@ window.KEYSAFE = {
       "short": "Locaux techniques",
       "code": "Accès réglementé",
       "layout": "spec",
+      "tagline": "Identifier avant d’intervenir.",
+      "benefit": "On sait ce qu’il y a derrière la porte avant de l’ouvrir : le bon réflexe, le bon équipement, et plus aucune intervention à l’aveugle.",
+      "lead": "Atelier de retordage, laboratoires, médecine du travail, compresseurs, centrale de traitement d’air, déchets dangereux, monte-charge : chaque local technique porte un panneau illustré, lisible à distance, qui annonce ce qu’il abrite.",
+      "deliverables": [
+        "Panneaux illustrés",
+        "Désignation des locaux",
+        "Lecture à distance",
+        "Identité TESCA"
+      ],
       "title": "Identification des locaux techniques",
       "titleLines": [
         "Identification",
         "des locaux techniques"
       ],
-      "tagline": "Identifier avant d’intervenir.",
-      "lead": "Ateliers, magasins, locaux techniques et espaces de service : chaque zone porte une désignation claire, cohérente avec l’identité du site. Les équipes repèrent rapidement leur destination.",
-      "deliverables": [
-        "Plaques de porte",
-        "Désignation des locaux",
-        "Repérage des espaces",
-        "Identité du site"
-      ],
       "cover": {
         "src": "assets/photos/tesca/panneau-atelier-retordage.webp",
-        "caption": "TESCA · Panneau Atelier de retordage",
+        "caption": "Panneau de l’atelier de retordage",
         "contain": true
       }
     },
     {
-      "id": "risques",
+      "id": "sst",
       "number": "03",
-      "short": "Risques par local",
+      "short": "Affichage SST",
       "code": "Avertissement",
       "layout": "rooms",
-      "title": "Affiches de risques spécifiques par local",
-      "titleLines": [
-        "Affiches de risques",
-        "spécifiques par local"
-      ],
-      "tagline": "Le bon message, là où le risque existe.",
-      "lead": "Une affiche par local : dangers présents, équipements de protection obligatoires, interdictions et conduite à tenir en cas d’urgence. Compréhensible en quelques secondes, au seuil de la zone.",
+      "tagline": "Le bon message, là où se fait le travail.",
+      "benefit": "Le risque est rappelé là où il se prend, en français et en arabe : trois secondes de lecture qui évitent l’accident et l’arrêt de production.",
+      "lead": "Une affiche par activité : dangers présents, équipements de protection obligatoires, interdictions, conduite à tenir et bonnes pratiques. Compréhensible en quelques secondes, au poste de travail.",
       "deliverables": [
-        "Analyse par local",
+        "Analyse par activité",
         "Dangers · EPI · interdictions",
-        "Consignes d’urgence",
+        "Conduite à tenir et sensibilisation",
         "Pictogrammes ISO 7010"
       ],
+      "title": "Affichage SST lié aux activités",
+      "titleLines": [
+        "Affichage SST",
+        "lié aux activités"
+      ],
       "cover": {
-        "src": "assets/photos/psc/atelier-1-pose.webp",
-        "caption": "PSC · Affiche posée à l’atelier 1",
+        "src": "assets/photos/tesca/consignes-site-ttg.webp",
+        "caption": "Consignes générales de sécurité du site TTG",
+        "contain": true
+      }
+    },
+    {
+      "id": "urgence",
+      "number": "04",
+      "short": "Situations d’urgence",
+      "code": "Organisation des secours",
+      "layout": "plans",
+      "tagline": "Qui alerte, qui secourt, qui intervient.",
+      "benefit": "Quand quelqu’un tombe, personne ne cherche un numéro : le visage, le nom et le téléphone du secouriste de la zone sont déjà sur le mur.",
+      "lead": "Les secouristes et les agents de lutte contre l’incendie, zone par zone : photo, nom et téléphone, avec les cinq gestes qui sauvent. Une information affichée là où les équipes travaillent, et tenue à jour.",
+      "deliverables": [
+        "Une affiche par zone",
+        "Secouristes et agents incendie",
+        "Alerter · Secourir · Protéger · Intervenir · Évacuer",
+        "Support tenu à jour"
+      ],
+      "title": "Affichage relatif à la maîtrise des situations d’urgence",
+      "titleLines": [
+        "Affichage relatif à la maîtrise",
+        "des situations d’urgence"
+      ],
+      "cover": {
+        "src": "assets/photos/tesca/liste-secouristes-administration.webp",
+        "caption": "Secouristes et agents incendie de l’administration",
         "contain": true
       }
     },
     {
       "id": "plans",
-      "number": "04",
-      "short": "Circulation & évacuation",
+      "number": "05",
+      "short": "Plans",
       "code": "Évacuation",
       "layout": "plans",
-      "title": "Plans de circulation & d’évacuation",
-      "titleLines": [
-        "Plans de circulation",
-        "& d’évacuation"
-      ],
       "tagline": "Savoir où passer. Savoir où sortir.",
-      "lead": "Nous transformons le plan architecte en un document clair : flux piétons et engins, itinéraires d’évacuation par niveau, « Vous êtes ici », moyens de secours et point de rassemblement.",
+      "benefit": "Le jour où l’alarme sonne, rien ne s’improvise : chacun sait où il se trouve, par où il sort et où il doit se rassembler.",
+      "lead": "Le plan devient un document clair : circulation des piétons, voitures, motos, chariots et camions sur tout le site TTG ; et, pour l’évacuation, « Vous êtes ici », cheminements balisés, issues, moyens de secours et point de rassemblement.",
       "deliverables": [
-        "Plans de circulation",
-        "Plans d’évacuation par niveau",
-        "Points de rassemblement",
-        "Consignes de sécurité"
+        "Plan de circulation du site",
+        "Plan d’évacuation par niveau",
+        "« Vous êtes ici » et moyens de secours",
+        "Points de rassemblement"
       ],
-      "cover": {
-        "src": "assets/photos/tesca/evacuation-entrepot.webp",
-        "caption": "TESCA · Plan d’évacuation de l’entrepôt",
-        "contain": true
-      },
       "subs": [
         {
           "id": "circulation",
@@ -151,26 +157,34 @@ window.KEYSAFE = {
           "id": "evacuation",
           "label": "Évacuation"
         }
-      ]
+      ],
+      "title": "Plans de circulation et d’évacuation",
+      "titleLines": [
+        "Plans de circulation",
+        "et d’évacuation"
+      ],
+      "cover": {
+        "src": "assets/photos/tesca/circulation-site-ttg.webp",
+        "caption": "Plan de circulation du site TTG",
+        "contain": true
+      }
     }
   ],
   "zones": {
-    "electrique": "Local électrique",
-    "compresseurs": "Compresseurs",
-    "chaufferie": "Chaufferie",
-    "atelier": "Ateliers",
-    "stockage": "Stockage",
-    "laboratoire": "Laboratoire",
     "site": "Entrée du site",
-    "circulation": "Circulation & engins",
-    "escaliers": "Escaliers",
-    "incendie": "Incendie",
-    "secours": "Secours & urgence",
-    "bureaux": "Bureaux",
+    "atelier": "Ateliers",
+    "stockage": "Entrepôt & stockage",
+    "laboratoire": "Laboratoires",
     "manutention": "Manutention",
     "montecharge": "Monte-charge",
+    "circulation": "Circulation & engins",
+    "escaliers": "Escaliers",
+    "electrique": "Installations électriques",
+    "medical": "Médecine du travail",
+    "bureaux": "Bureaux",
     "environnement": "Environnement",
-    "hygiene": "Hygiène"
+    "incendie": "Incendie",
+    "secours": "Secours & urgence"
   },
   "shotTypes": {
     "plaque": "Plaque posée, cadrage 3/4 face à hauteur d’yeux, porte ou couloir visible autour. Lumière naturelle, pas de flash. Portrait 4:5.",
@@ -184,7 +198,6 @@ window.KEYSAFE = {
   "projects": [
     {
       "id": "tesca-services",
-      "client": "tesca",
       "chapter": "bureaux",
       "title": "Sept services, une même plaque TESCA",
       "need": "Identifier chaque service administratif avec une signalétique homogène.",
@@ -194,92 +207,92 @@ window.KEYSAFE = {
         "Gabarit commun à tous les services",
         "Identité TESCA"
       ],
+      "client": "tesca",
       "images": [
         {
           "name": "plaques-services",
           "caption": "Gamme de plaques · Sept services TESCA",
           "type": "plaque",
           "kind": "artwork",
-          "width": 1448,
-          "height": 1086,
           "src": "assets/photos/tesca/plaques-services.webp",
-          "full": "assets/photos/tesca/plaques-services-grand.webp"
+          "full": "assets/photos/tesca/plaques-services-grand.webp",
+          "width": 1448,
+          "height": 1086
         },
         {
           "name": "plaque-direction",
           "caption": "Plaque de porte · Direction",
           "type": "plaque",
           "kind": "artwork",
-          "width": 704,
-          "height": 254,
           "src": "assets/photos/tesca/plaque-direction.webp",
-          "full": "assets/photos/tesca/plaque-direction-grand.webp"
+          "full": "assets/photos/tesca/plaque-direction-grand.webp",
+          "width": 704,
+          "height": 254
         },
         {
           "name": "plaque-finance",
           "caption": "Plaque de porte · Finance",
           "type": "plaque",
           "kind": "artwork",
-          "width": 709,
-          "height": 254,
           "src": "assets/photos/tesca/plaque-finance.webp",
-          "full": "assets/photos/tesca/plaque-finance-grand.webp"
+          "full": "assets/photos/tesca/plaque-finance-grand.webp",
+          "width": 709,
+          "height": 254
         },
         {
           "name": "plaque-industrialisation",
           "caption": "Plaque de porte · Industrialisation",
           "type": "plaque",
           "kind": "artwork",
-          "width": 703,
-          "height": 253,
           "src": "assets/photos/tesca/plaque-industrialisation.webp",
-          "full": "assets/photos/tesca/plaque-industrialisation-grand.webp"
+          "full": "assets/photos/tesca/plaque-industrialisation-grand.webp",
+          "width": 703,
+          "height": 253
         },
         {
           "name": "plaque-qualite",
           "caption": "Plaque de porte · Qualité",
           "type": "plaque",
           "kind": "artwork",
-          "width": 709,
-          "height": 253,
           "src": "assets/photos/tesca/plaque-qualite.webp",
-          "full": "assets/photos/tesca/plaque-qualite-grand.webp"
+          "full": "assets/photos/tesca/plaque-qualite-grand.webp",
+          "width": 709,
+          "height": 253
         },
         {
           "name": "plaque-ressources-humaines",
           "caption": "Plaque de porte · Ressources humaines",
           "type": "plaque",
           "kind": "artwork",
-          "width": 703,
-          "height": 254,
           "src": "assets/photos/tesca/plaque-ressources-humaines.webp",
-          "full": "assets/photos/tesca/plaque-ressources-humaines-grand.webp"
+          "full": "assets/photos/tesca/plaque-ressources-humaines-grand.webp",
+          "width": 703,
+          "height": 254
         },
         {
           "name": "plaque-manufacturing",
           "caption": "Plaque de porte · Manufacturing & Supply Chain",
           "type": "plaque",
           "kind": "artwork",
-          "width": 710,
-          "height": 254,
           "src": "assets/photos/tesca/plaque-manufacturing.webp",
-          "full": "assets/photos/tesca/plaque-manufacturing-grand.webp"
+          "full": "assets/photos/tesca/plaque-manufacturing-grand.webp",
+          "width": 710,
+          "height": 254
         },
         {
           "name": "plaque-achats",
           "caption": "Plaque de porte · Achats & Supply Chain",
           "type": "plaque",
           "kind": "artwork",
-          "width": 742,
-          "height": 257,
           "src": "assets/photos/tesca/plaque-achats.webp",
-          "full": "assets/photos/tesca/plaque-achats-grand.webp"
+          "full": "assets/photos/tesca/plaque-achats-grand.webp",
+          "width": 742,
+          "height": 257
         }
       ]
     },
     {
       "id": "tesca-bureaux",
-      "client": "tesca",
       "chapter": "bureaux",
       "title": "Du bureau magasinier à la direction : des repères cohérents",
       "need": "Nommer les espaces et orienter vers les services administratifs.",
@@ -289,26 +302,27 @@ window.KEYSAFE = {
         "Directoire des services",
         "Tableau d’informations, quatre emplacements A4"
       ],
+      "client": "tesca",
       "images": [
         {
           "name": "bureau-magasinier",
           "caption": "Plaque de porte · Bureau magasinier",
           "type": "plaque",
           "kind": "artwork",
-          "width": 2977,
-          "height": 1202,
           "src": "assets/photos/tesca/bureau-magasinier.webp",
-          "full": "assets/photos/tesca/bureau-magasinier-grand.webp"
+          "full": "assets/photos/tesca/bureau-magasinier-grand.webp",
+          "width": 2800,
+          "height": 1131
         },
         {
           "name": "direction-finance-rh",
           "caption": "Directoire · Direction générale, Finance et Ressources humaines",
           "type": "directory",
           "kind": "artwork",
-          "width": 2977,
-          "height": 3686,
           "src": "assets/photos/tesca/direction-finance-rh.webp",
-          "full": "assets/photos/tesca/direction-finance-rh-grand.webp"
+          "full": "assets/photos/tesca/direction-finance-rh-grand.webp",
+          "width": 2261,
+          "height": 2800
         },
         {
           "name": "loge-gardien",
@@ -316,26 +330,26 @@ window.KEYSAFE = {
           "type": "directory",
           "kind": "template",
           "note": "Gabarit de tableau avec quatre emplacements pour documents A4.",
-          "width": 1981,
-          "height": 2800,
           "src": "assets/photos/tesca/loge-gardien.webp",
           "full": "assets/photos/tesca/loge-gardien-grand.webp",
+          "width": 1981,
+          "height": 2800,
           "document": "assets/documents/tesca/loge-gardien.pdf"
         }
       ]
     },
     {
-      "id": "tesca-panneaux-locaux",
-      "client": "tesca",
+      "id": "tesca-locaux-techniques",
       "chapter": "locaux",
-      "title": "Chaque local se reconnaît de loin",
+      "title": "Chaque local technique se reconnaît de loin",
       "need": "Identifier les ateliers, laboratoires et locaux techniques au premier regard, même avant de lire le texte.",
-      "answer": "Des panneaux TESCA grand format qui associent le nom du local à une illustration de ce qu’il abrite : retordage, laboratoires, local médical, compresseurs, traitement d’air, déchets dangereux et loge gardien.",
+      "answer": "Des panneaux TESCA grand format qui associent le nom du local à une illustration de ce qu’il abrite : retordage, laboratoire, laboratoire STEP, médecine du travail, compresseurs, traitement d’air, déchets dangereux, monte-charge et loge gardien.",
       "deliverables": [
-        "Huit panneaux d’identification illustrés",
+        "Neuf panneaux d’identification illustrés",
         "Nom du local lisible à distance",
         "Identité TESCA"
       ],
+      "client": "tesca",
       "images": [
         {
           "name": "panneau-atelier-retordage",
@@ -343,43 +357,47 @@ window.KEYSAFE = {
           "type": "door",
           "kind": "artwork",
           "spec": "Machines de retordage",
-          "width": 1536,
-          "height": 1024,
+          "width": 2800,
+          "height": 1980,
           "src": "assets/photos/tesca/panneau-atelier-retordage.webp",
-          "full": "assets/photos/tesca/panneau-atelier-retordage-grand.webp"
+          "full": "assets/photos/tesca/panneau-atelier-retordage-grand.webp",
+          "document": "assets/documents/tesca/panneau-atelier-retordage.pdf"
         },
         {
-          "name": "panneau-laboratoire-analyses",
-          "caption": "Panneau · Laboratoire (analyses)",
+          "name": "panneau-laboratoire",
+          "caption": "Panneau · Laboratoire",
           "type": "door",
           "kind": "artwork",
-          "spec": "Laboratoire d’analyses",
-          "width": 4123,
-          "height": 2945,
-          "src": "assets/photos/tesca/panneau-laboratoire-analyses.webp",
-          "full": "assets/photos/tesca/panneau-laboratoire-analyses-grand.webp"
+          "spec": "Analyses et contrôles",
+          "width": 2800,
+          "height": 1980,
+          "src": "assets/photos/tesca/panneau-laboratoire.webp",
+          "full": "assets/photos/tesca/panneau-laboratoire-grand.webp",
+          "document": "assets/documents/tesca/panneau-laboratoire.pdf"
         },
         {
-          "name": "panneau-laboratoire-essais",
-          "caption": "Panneau · Laboratoire (essais textiles)",
+          "name": "panneau-laboratoire-step",
+          "caption": "Panneau · Laboratoire STEP",
           "type": "door",
           "kind": "artwork",
-          "spec": "Essais qualité des textiles",
-          "width": 4123,
-          "height": 2945,
-          "src": "assets/photos/tesca/panneau-laboratoire-essais.webp",
-          "full": "assets/photos/tesca/panneau-laboratoire-essais-grand.webp"
+          "spec": "Contrôles de la station de traitement",
+          "width": 2800,
+          "height": 1980,
+          "src": "assets/photos/tesca/panneau-laboratoire-step.webp",
+          "full": "assets/photos/tesca/panneau-laboratoire-step-grand.webp",
+          "document": "assets/documents/tesca/panneau-laboratoire-step.pdf"
         },
         {
-          "name": "panneau-local-medical",
-          "caption": "Panneau · Local médical",
+          "name": "panneau-medecine-travail",
+          "caption": "Panneau · Local médecine du travail",
           "type": "door",
           "kind": "artwork",
-          "spec": "Premiers soins",
-          "width": 4123,
-          "height": 2945,
-          "src": "assets/photos/tesca/panneau-local-medical.webp",
-          "full": "assets/photos/tesca/panneau-local-medical-grand.webp"
+          "spec": "Suivi médical et premiers soins",
+          "width": 2800,
+          "height": 1980,
+          "src": "assets/photos/tesca/panneau-medecine-travail.webp",
+          "full": "assets/photos/tesca/panneau-medecine-travail-grand.webp",
+          "document": "assets/documents/tesca/panneau-medecine-travail.pdf"
         },
         {
           "name": "panneau-compresseurs",
@@ -387,10 +405,11 @@ window.KEYSAFE = {
           "type": "door",
           "kind": "artwork",
           "spec": "Production d’air comprimé",
-          "width": 4123,
-          "height": 2945,
+          "width": 2800,
+          "height": 1980,
           "src": "assets/photos/tesca/panneau-compresseurs.webp",
-          "full": "assets/photos/tesca/panneau-compresseurs-grand.webp"
+          "full": "assets/photos/tesca/panneau-compresseurs-grand.webp",
+          "document": "assets/documents/tesca/panneau-compresseurs.pdf"
         },
         {
           "name": "panneau-traitement-air",
@@ -398,10 +417,11 @@ window.KEYSAFE = {
           "type": "door",
           "kind": "artwork",
           "spec": "Ventilation et climatisation",
-          "width": 4123,
-          "height": 2945,
+          "width": 2800,
+          "height": 1980,
           "src": "assets/photos/tesca/panneau-traitement-air.webp",
-          "full": "assets/photos/tesca/panneau-traitement-air-grand.webp"
+          "full": "assets/photos/tesca/panneau-traitement-air-grand.webp",
+          "document": "assets/documents/tesca/panneau-traitement-air.pdf"
         },
         {
           "name": "panneau-dechets-dangereux",
@@ -409,10 +429,23 @@ window.KEYSAFE = {
           "type": "door",
           "kind": "artwork",
           "spec": "Stockage des déchets dangereux",
-          "width": 4123,
-          "height": 2945,
+          "width": 2800,
+          "height": 1980,
           "src": "assets/photos/tesca/panneau-dechets-dangereux.webp",
-          "full": "assets/photos/tesca/panneau-dechets-dangereux-grand.webp"
+          "full": "assets/photos/tesca/panneau-dechets-dangereux-grand.webp",
+          "document": "assets/documents/tesca/panneau-dechets-dangereux.pdf"
+        },
+        {
+          "name": "panneau-monte-charge",
+          "caption": "Panneau · Monte-charge",
+          "type": "door",
+          "kind": "artwork",
+          "spec": "Transport de charges entre niveaux",
+          "width": 2800,
+          "height": 1980,
+          "src": "assets/photos/tesca/panneau-monte-charge.webp",
+          "full": "assets/photos/tesca/panneau-monte-charge-grand.webp",
+          "document": "assets/documents/tesca/panneau-monte-charge.pdf"
         },
         {
           "name": "panneau-loge-gardien",
@@ -420,106 +453,26 @@ window.KEYSAFE = {
           "type": "door",
           "kind": "artwork",
           "spec": "Accueil et contrôle des accès",
-          "width": 4123,
-          "height": 2945,
+          "width": 2800,
+          "height": 1980,
           "src": "assets/photos/tesca/panneau-loge-gardien.webp",
-          "full": "assets/photos/tesca/panneau-loge-gardien-grand.webp"
+          "full": "assets/photos/tesca/panneau-loge-gardien-grand.webp",
+          "document": "assets/documents/tesca/panneau-loge-gardien.pdf"
         }
       ]
     },
     {
-      "id": "tesca-locaux",
-      "client": "tesca",
-      "chapter": "locaux",
-      "title": "Six espaces, une même identité visuelle",
-      "need": "Repérer les ateliers, les magasins et les espaces de service au premier regard.",
-      "answer": "Des plaques TESCA sobres, avec une désignation lisible : maintenance, pièces de rechange, déchets, préparation, produits chimiques et production.",
-      "deliverables": [
-        "Six plaques d’identification",
-        "Désignation propre à chaque espace",
-        "Identité TESCA"
-      ],
-      "images": [
-        {
-          "name": "atelier-maintenance",
-          "caption": "Plaque · Atelier maintenance",
-          "type": "door",
-          "kind": "artwork",
-          "spec": "Identification de l’atelier",
-          "width": 2977,
-          "height": 1202,
-          "src": "assets/photos/tesca/atelier-maintenance.webp",
-          "full": "assets/photos/tesca/atelier-maintenance-grand.webp"
-        },
-        {
-          "name": "magasin-pdr",
-          "caption": "Plaque · Magasin PDR",
-          "type": "door",
-          "kind": "artwork",
-          "spec": "Identification du magasin de pièces de rechange",
-          "width": 2977,
-          "height": 1202,
-          "src": "assets/photos/tesca/magasin-pdr.webp",
-          "full": "assets/photos/tesca/magasin-pdr-grand.webp"
-        },
-        {
-          "name": "local-dechets",
-          "caption": "Plaque · Local déchets",
-          "type": "door",
-          "kind": "artwork",
-          "spec": "Repérage de la zone de collecte",
-          "width": 2977,
-          "height": 1202,
-          "src": "assets/photos/tesca/local-dechets.webp",
-          "full": "assets/photos/tesca/local-dechets-grand.webp"
-        },
-        {
-          "name": "cuisine-preparation",
-          "caption": "Plaque · Cuisine de préparation",
-          "type": "door",
-          "kind": "artwork",
-          "spec": "Identification de l’espace de préparation",
-          "width": 2977,
-          "height": 1202,
-          "src": "assets/photos/tesca/cuisine-preparation.webp",
-          "full": "assets/photos/tesca/cuisine-preparation-grand.webp"
-        },
-        {
-          "name": "magasin-produits-chimiques",
-          "caption": "Plaque · Magasin produits chimiques",
-          "type": "door",
-          "kind": "artwork",
-          "spec": "Identification du stockage des produits chimiques",
-          "width": 2977,
-          "height": 1202,
-          "src": "assets/photos/tesca/magasin-produits-chimiques.webp",
-          "full": "assets/photos/tesca/magasin-produits-chimiques-grand.webp"
-        },
-        {
-          "name": "production",
-          "caption": "Plaque · Production",
-          "type": "door",
-          "kind": "artwork",
-          "spec": "Repérage de la zone de production",
-          "width": 2977,
-          "height": 1202,
-          "src": "assets/photos/tesca/production.webp",
-          "full": "assets/photos/tesca/production-grand.webp"
-        }
-      ]
-    },
-    {
-      "id": "tesca-risques",
-      "client": "tesca",
-      "chapter": "risques",
+      "id": "tesca-sst",
+      "chapter": "sst",
       "title": "Une prévention adaptée à chaque situation de travail",
-      "need": "Rendre les consignes accessibles dans l’entrepôt, le laboratoire, les ateliers, les bureaux et les zones de manutention.",
-      "answer": "Des supports dédiés aux risques, aux EPI et aux gestes à suivre : produits chimiques, électricité, machines en mouvement, monte-charge, secours et incendie.",
+      "need": "Rendre les consignes accessibles là où l’activité les rend nécessaires : laboratoires, monte-charge, escaliers, bureaux et locaux communs.",
+      "answer": "Treize affiches au logo KeySafe : consignes générales du site TTG, laboratoire, monte-charge, escaliers, armoire électrique, ergonomie des postes, médecine du travail, tableau des incompatibilités entre produits chimiques, mais aussi utilisation d’un extincteur, déversement de produits chimiques et procédure générale de secourisme.",
       "deliverables": [
-        "Affiches par espace et par risque",
-        "Supports illustrés et bilingues",
-        "Documents PDF consultables"
+        "Affiches par activité et par local",
+        "Supports bilingues, pictogrammes ISO 7010",
+        "PDF consultables et imprimables"
       ],
+      "client": "tesca",
       "images": [
         {
           "name": "consignes-escalier",
@@ -527,156 +480,17 @@ window.KEYSAFE = {
           "type": "poster",
           "kind": "artwork",
           "zone": "escaliers",
-          "width": 2105,
-          "height": 2977,
+          "width": 1980,
+          "height": 2800,
           "src": "assets/photos/tesca/consignes-escalier.webp",
-          "full": "assets/photos/tesca/consignes-escalier-grand.webp"
-        },
-        {
-          "name": "consignes-chariots",
-          "caption": "Chariots élévateurs · Règles de conduite",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "circulation",
-          "width": 4215,
-          "height": 5960,
-          "src": "assets/photos/tesca/consignes-chariots.webp",
-          "full": "assets/photos/tesca/consignes-chariots-grand.webp"
-        },
-        {
-          "name": "utilisation-extincteur",
-          "caption": "Incendie · Utilisation d’un extincteur",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "incendie",
-          "width": 2105,
-          "height": 2977,
-          "src": "assets/photos/tesca/utilisation-extincteur.webp",
-          "full": "assets/photos/tesca/utilisation-extincteur-grand.webp"
-        },
-        {
-          "name": "consignes-entrepot",
-          "caption": "Entrepôt · Dangers, interdictions et EPI",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "stockage",
-          "width": 5960,
-          "height": 4215,
-          "src": "assets/photos/tesca/consignes-entrepot.webp",
-          "full": "assets/photos/tesca/consignes-entrepot-grand.webp"
-        },
-        {
-          "name": "atelier-retordage-consignes",
-          "caption": "Atelier de retordage · Risques mécaniques",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "atelier",
-          "width": 1122,
-          "height": 1402,
-          "src": "assets/photos/tesca/atelier-retordage-consignes.webp",
-          "full": "assets/photos/tesca/atelier-retordage-consignes-grand.webp"
-        },
-        {
-          "name": "consignes-site-ttg",
-          "caption": "Site TTG · Consignes générales de sécurité",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "site",
-          "width": 2800,
-          "height": 1981,
-          "src": "assets/photos/tesca/consignes-site-ttg.webp",
-          "full": "assets/photos/tesca/consignes-site-ttg-grand.webp",
-          "document": "assets/documents/tesca/consignes-site-ttg.pdf"
-        },
-        {
-          "name": "laboratoire-deversement",
-          "caption": "Laboratoire · Déversement de produits chimiques",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "laboratoire",
-          "width": 1980,
-          "height": 2800,
-          "src": "assets/photos/tesca/laboratoire-deversement.webp",
-          "full": "assets/photos/tesca/laboratoire-deversement-grand.webp",
-          "document": "assets/documents/tesca/laboratoire-deversement.pdf"
-        },
-        {
-          "name": "laboratoire-securite",
-          "caption": "Laboratoire · Consignes de sécurité",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "laboratoire",
-          "width": 1980,
-          "height": 2800,
-          "src": "assets/photos/tesca/laboratoire-securite.webp",
-          "full": "assets/photos/tesca/laboratoire-securite-grand.webp",
-          "document": "assets/documents/tesca/laboratoire-securite.pdf"
-        },
-        {
-          "name": "manutention-manuelle",
-          "caption": "Manutention · Technique de levage",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "manutention",
-          "width": 1980,
-          "height": 2800,
-          "src": "assets/photos/tesca/manutention-manuelle.webp",
-          "full": "assets/photos/tesca/manutention-manuelle-grand.webp",
-          "document": "assets/documents/tesca/manutention-manuelle.pdf"
-        },
-        {
-          "name": "armoire-electrique",
-          "caption": "Armoire électrique · Danger d’électrocution",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "electrique",
-          "width": 1980,
-          "height": 2800,
-          "src": "assets/photos/tesca/armoire-electrique.webp",
-          "full": "assets/photos/tesca/armoire-electrique-grand.webp",
-          "document": "assets/documents/tesca/armoire-electrique.pdf"
-        },
-        {
-          "name": "premiers-secours",
-          "caption": "Premiers secours · Conduite à tenir",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "secours",
-          "width": 1980,
-          "height": 2800,
-          "src": "assets/photos/tesca/premiers-secours.webp",
-          "full": "assets/photos/tesca/premiers-secours-grand.webp",
-          "document": "assets/documents/tesca/premiers-secours.pdf"
-        },
-        {
-          "name": "liste-secouristes-administration",
-          "caption": "Liste des secouristes · Administration · QR code",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "secours",
-          "note": "Affiche de l’administration avec QR code. Ouvrir en grand pour le scanner.",
-          "width": 1055,
-          "height": 1491,
-          "src": "assets/photos/tesca/liste-secouristes-administration.webp",
-          "full": "assets/photos/tesca/liste-secouristes-administration-grand.webp"
-        },
-        {
-          "name": "laboratoire-epi",
-          "caption": "Laboratoire · Équipements de protection",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "laboratoire",
-          "width": 2800,
-          "height": 1980,
-          "src": "assets/photos/tesca/laboratoire-epi.webp",
-          "full": "assets/photos/tesca/laboratoire-epi-grand.webp",
-          "document": "assets/documents/tesca/laboratoire-epi.pdf"
+          "full": "assets/photos/tesca/consignes-escalier-grand.webp",
+          "document": "assets/documents/tesca/consignes-escalier.pdf"
         },
         {
           "name": "ergonomie-bureau",
           "caption": "Bureaux · Ergonomie du poste de travail",
           "type": "poster",
-          "kind": "pdf",
+          "kind": "artwork",
           "zone": "bureaux",
           "width": 1980,
           "height": 2800,
@@ -685,54 +499,163 @@ window.KEYSAFE = {
           "document": "assets/documents/tesca/ergonomie-bureau.pdf"
         },
         {
-          "name": "monte-charge-utilisation",
-          "caption": "Monte-charge · Consignes d’utilisation",
+          "name": "armoire-electrique",
+          "caption": "Armoire électrique · Danger d’électrocution",
           "type": "poster",
-          "kind": "pdf",
-          "zone": "montecharge",
+          "kind": "artwork",
+          "zone": "electrique",
           "width": 1980,
+          "height": 2800,
+          "src": "assets/photos/tesca/armoire-electrique.webp",
+          "full": "assets/photos/tesca/armoire-electrique-grand.webp",
+          "document": "assets/documents/tesca/armoire-electrique.pdf"
+        },
+        {
+          "name": "medecine-travail",
+          "caption": "Médecine du travail · Consignes du local",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "medical",
+          "width": 2800,
+          "height": 1980,
+          "src": "assets/photos/tesca/medecine-travail.webp",
+          "full": "assets/photos/tesca/medecine-travail-grand.webp",
+          "document": "assets/documents/tesca/medecine-travail.pdf"
+        },
+        {
+          "name": "laboratoire-securite",
+          "caption": "Laboratoire · Consignes de sécurité",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "laboratoire",
+          "width": 1982,
+          "height": 2800,
+          "src": "assets/photos/tesca/laboratoire-securite.webp",
+          "full": "assets/photos/tesca/laboratoire-securite-grand.webp",
+          "document": "assets/documents/tesca/laboratoire-securite.pdf"
+        },
+        {
+          "name": "monte-charge-utilisation",
+          "caption": "Monte-charge · Consignes d’exploitation",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "montecharge",
+          "width": 1982,
           "height": 2800,
           "src": "assets/photos/tesca/monte-charge-utilisation.webp",
           "full": "assets/photos/tesca/monte-charge-utilisation-grand.webp",
           "document": "assets/documents/tesca/monte-charge-utilisation.pdf"
         },
         {
-          "name": "monte-charge-securite",
-          "caption": "Monte-charge · Dangers et obligations",
+          "name": "consignes-site-ttg",
+          "caption": "Site TTG · Consignes générales de sécurité",
           "type": "poster",
-          "kind": "pdf",
+          "kind": "artwork",
+          "zone": "site",
+          "width": 2800,
+          "height": 1867,
+          "src": "assets/photos/tesca/consignes-site-ttg.webp",
+          "full": "assets/photos/tesca/consignes-site-ttg-grand.webp",
+          "document": "assets/documents/tesca/consignes-site-ttg.pdf"
+        },
+        {
+          "name": "monte-charge-securite",
+          "caption": "Monte-charge · Consignes du site TTG",
+          "type": "poster",
+          "kind": "artwork",
           "zone": "montecharge",
           "width": 2800,
-          "height": 1980,
+          "height": 1867,
           "src": "assets/photos/tesca/monte-charge-securite.webp",
           "full": "assets/photos/tesca/monte-charge-securite-grand.webp",
           "document": "assets/documents/tesca/monte-charge-securite.pdf"
+        },
+        {
+          "name": "laboratoire-epi",
+          "caption": "Laboratoire · Accès, EPI et risques",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "laboratoire",
+          "width": 2800,
+          "height": 1968,
+          "src": "assets/photos/tesca/laboratoire-epi.webp",
+          "full": "assets/photos/tesca/laboratoire-epi-grand.webp",
+          "document": "assets/documents/tesca/laboratoire-epi.pdf"
+        },
+        {
+          "name": "utilisation-extincteur",
+          "caption": "Incendie · Utilisation d’un extincteur",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "incendie",
+          "width": 1980,
+          "height": 2800,
+          "src": "assets/photos/tesca/utilisation-extincteur.webp",
+          "full": "assets/photos/tesca/utilisation-extincteur-grand.webp",
+          "document": "assets/documents/tesca/utilisation-extincteur.pdf"
+        },
+        {
+          "name": "laboratoire-deversement",
+          "caption": "Laboratoire · Déversement de produits chimiques",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "laboratoire",
+          "width": 1982,
+          "height": 2800,
+          "src": "assets/photos/tesca/laboratoire-deversement.webp",
+          "full": "assets/photos/tesca/laboratoire-deversement-grand.webp",
+          "document": "assets/documents/tesca/laboratoire-deversement.pdf"
+        },
+        {
+          "name": "premiers-secours",
+          "caption": "Premiers secours · Procédure générale de secourisme",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "secours",
+          "width": 1980,
+          "height": 2800,
+          "src": "assets/photos/tesca/premiers-secours.webp",
+          "full": "assets/photos/tesca/premiers-secours-grand.webp",
+          "document": "assets/documents/tesca/premiers-secours.pdf"
+        },
+        {
+          "name": "incompatibilites-chimiques",
+          "caption": "Produits chimiques · Tableau des incompatibilités",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "stockage",
+          "note": "Conforme au référentiel SGH/CLP.",
+          "width": 1051,
+          "height": 1496,
+          "src": "assets/photos/tesca/incompatibilites-chimiques.webp",
+          "full": "assets/photos/tesca/incompatibilites-chimiques-grand.webp"
         }
       ]
     },
     {
       "id": "tesca-sensibilisation",
-      "client": "tesca",
-      "chapter": "risques",
+      "chapter": "sst",
       "title": "Les bons réflexes s’affichent aussi au quotidien",
       "need": "Accompagner les équipes dans leurs pratiques de bureau et leurs gestes environnementaux.",
-      "answer": "Une collection de supports TESCA sur l’énergie, les impressions, les réunions et le tri des déchets, avec plusieurs déclinaisons graphiques.",
+      "answer": "Quatre supports TESCA sur l’énergie, les impressions, les réunions et le tri des déchets, dans la même charte que les consignes de sécurité.",
       "deliverables": [
         "Économies d’énergie et de papier",
         "Bonnes pratiques de réunion",
         "Tri des déchets"
       ],
+      "client": "tesca",
       "images": [
         {
-          "name": "energie-paysage",
-          "caption": "Énergie · Économiser au quotidien, format paysage",
+          "name": "energie-bureaux",
+          "caption": "Énergie · Économiser la consommation",
           "type": "poster",
           "kind": "artwork",
           "zone": "environnement",
-          "width": 1491,
-          "height": 1055,
-          "src": "assets/photos/tesca/energie-paysage.webp",
-          "full": "assets/photos/tesca/energie-paysage-grand.webp"
+          "width": 2800,
+          "height": 1980,
+          "src": "assets/photos/tesca/energie-bureaux.webp",
+          "full": "assets/photos/tesca/energie-bureaux-grand.webp",
+          "document": "assets/documents/tesca/energie-bureaux.pdf"
         },
         {
           "name": "impressions-responsables",
@@ -740,21 +663,11 @@ window.KEYSAFE = {
           "type": "poster",
           "kind": "artwork",
           "zone": "environnement",
-          "width": 1055,
-          "height": 1491,
+          "width": 1980,
+          "height": 2800,
           "src": "assets/photos/tesca/impressions-responsables.webp",
-          "full": "assets/photos/tesca/impressions-responsables-grand.webp"
-        },
-        {
-          "name": "energie-bureaux",
-          "caption": "Bureaux · Réduire la consommation d’énergie",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "environnement",
-          "width": 1055,
-          "height": 1491,
-          "src": "assets/photos/tesca/energie-bureaux.webp",
-          "full": "assets/photos/tesca/energie-bureaux-grand.webp"
+          "full": "assets/photos/tesca/impressions-responsables-grand.webp",
+          "document": "assets/documents/tesca/impressions-responsables.pdf"
         },
         {
           "name": "reunion-bonnes-pratiques",
@@ -762,10 +675,11 @@ window.KEYSAFE = {
           "type": "poster",
           "kind": "artwork",
           "zone": "bureaux",
-          "width": 1055,
-          "height": 1491,
+          "width": 1980,
+          "height": 2800,
           "src": "assets/photos/tesca/reunion-bonnes-pratiques.webp",
-          "full": "assets/photos/tesca/reunion-bonnes-pratiques-grand.webp"
+          "full": "assets/photos/tesca/reunion-bonnes-pratiques-grand.webp",
+          "document": "assets/documents/tesca/reunion-bonnes-pratiques.pdf"
         },
         {
           "name": "tri-dechets",
@@ -773,486 +687,155 @@ window.KEYSAFE = {
           "type": "poster",
           "kind": "artwork",
           "zone": "environnement",
-          "width": 1491,
-          "height": 1055,
-          "src": "assets/photos/tesca/tri-dechets.webp",
-          "full": "assets/photos/tesca/tri-dechets-grand.webp"
-        },
-        {
-          "name": "reunion-variante",
-          "caption": "Réunions · Variante du support",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "bureaux",
-          "width": 1058,
-          "height": 1487,
-          "src": "assets/photos/tesca/reunion-variante.webp",
-          "full": "assets/photos/tesca/reunion-variante-grand.webp"
-        }
-      ]
-    },
-    {
-      "id": "psc-risques",
-      "client": "psc",
-      "chapter": "risques",
-      "title": "Les consignes prennent place sur le terrain",
-      "need": "Mettre les messages de prévention au contact des équipes et de leur environnement de travail.",
-      "answer": "Les photos montrent les supports PSI posés : atelier 1, chariots élévateurs, ergonomie, escaliers, premiers secours et incendie.",
-      "deliverables": [
-        "Affiches installées",
-        "Consignes propres aux usages",
-        "Reportage photographique sur site"
-      ],
-      "images": [
-        {
-          "name": "secours-pose",
-          "caption": "Premiers secours · Affiche posée",
-          "type": "poster",
-          "kind": "photo",
-          "zone": "secours",
-          "width": 1200,
-          "height": 1600,
-          "src": "assets/photos/psc/secours-pose.webp",
-          "full": "assets/photos/psc/secours-pose-grand.webp"
-        },
-        {
-          "name": "chariots-pose",
-          "caption": "Chariots élévateurs · Affiche posée",
-          "type": "poster",
-          "kind": "photo",
-          "zone": "circulation",
-          "width": 1200,
-          "height": 1600,
-          "src": "assets/photos/psc/chariots-pose.webp",
-          "full": "assets/photos/psc/chariots-pose-grand.webp"
-        },
-        {
-          "name": "securite-incendie-pose",
-          "caption": "Consignes générales et extincteurs · Affiches posées",
-          "type": "poster",
-          "kind": "photo",
-          "zone": "incendie",
-          "width": 1600,
-          "height": 1200,
-          "src": "assets/photos/psc/securite-incendie-pose.webp",
-          "full": "assets/photos/psc/securite-incendie-pose-grand.webp"
-        },
-        {
-          "name": "atelier-1-pose",
-          "caption": "Atelier 1 · Dangers, interdictions et EPI",
-          "type": "poster",
-          "kind": "photo",
-          "zone": "atelier",
-          "width": 1600,
-          "height": 1200,
-          "src": "assets/photos/psc/atelier-1-pose.webp",
-          "full": "assets/photos/psc/atelier-1-pose-grand.webp"
-        },
-        {
-          "name": "ergonomie-pose",
-          "caption": "Bureaux · Affiche d’ergonomie posée",
-          "type": "poster",
-          "kind": "photo",
-          "zone": "bureaux",
-          "width": 1200,
-          "height": 1600,
-          "src": "assets/photos/psc/ergonomie-pose.webp",
-          "full": "assets/photos/psc/ergonomie-pose-grand.webp"
-        },
-        {
-          "name": "escalier-pose",
-          "caption": "Escaliers · Affiche posée",
-          "type": "poster",
-          "kind": "photo",
-          "zone": "escaliers",
-          "width": 1200,
-          "height": 1600,
-          "src": "assets/photos/psc/escalier-pose.webp",
-          "full": "assets/photos/psc/escalier-pose-grand.webp"
-        }
-      ]
-    },
-    {
-      "id": "socohuile-risques",
-      "client": "socohuile",
-      "chapter": "risques",
-      "title": "De l’accueil à la production, un langage de prévention commun",
-      "need": "Décliner les messages de sécurité et d’hygiène selon les usages du site SOCOHUILE.",
-      "answer": "Une série de supports au nom du client : entrée du site, chariots, ergonomie, escaliers, manutention et hygiène. Un gabarit permet de renseigner les contacts d’urgence propres au site.",
-      "deliverables": [
-        "Consignes générales et affiches par thème",
-        "Hygiène du personnel et des mains",
-        "PDF originaux et gabarit de contacts"
-      ],
-      "images": [
-        {
-          "name": "consignes-site",
-          "caption": "Entrée du site · Consignes générales de sécurité",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "site",
-          "width": 8426,
-          "height": 5958,
-          "src": "assets/photos/socohuile/consignes-site.webp",
-          "full": "assets/photos/socohuile/consignes-site-grand.webp",
-          "document": "assets/documents/socohuile/consignes-site.pdf"
-        },
-        {
-          "name": "chariots-elevateurs",
-          "caption": "Chariots élévateurs · Règles de conduite",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "circulation",
-          "width": 1980,
-          "height": 2800,
-          "src": "assets/photos/socohuile/chariots-elevateurs.webp",
-          "full": "assets/photos/socohuile/chariots-elevateurs-grand.webp",
-          "document": "assets/documents/socohuile/chariots-elevateurs.pdf"
-        },
-        {
-          "name": "ergonomie-bureaux",
-          "caption": "Bureaux · Ergonomie du poste",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "bureaux",
-          "width": 1981,
-          "height": 2800,
-          "src": "assets/photos/socohuile/ergonomie-bureaux.webp",
-          "full": "assets/photos/socohuile/ergonomie-bureaux-grand.webp",
-          "document": "assets/documents/socohuile/ergonomie-bureaux.pdf"
-        },
-        {
-          "name": "consignes-escalier",
-          "caption": "Escaliers · Tenir la rampe",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "escaliers",
-          "width": 1981,
-          "height": 2800,
-          "src": "assets/photos/socohuile/consignes-escalier.webp",
-          "full": "assets/photos/socohuile/consignes-escalier-grand.webp",
-          "document": "assets/documents/socohuile/consignes-escalier.pdf"
-        },
-        {
-          "name": "hygiene-personnel",
-          "caption": "Production · Hygiène du personnel",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "hygiene",
-          "width": 1981,
-          "height": 2800,
-          "src": "assets/photos/socohuile/hygiene-personnel.webp",
-          "full": "assets/photos/socohuile/hygiene-personnel-grand.webp",
-          "document": "assets/documents/socohuile/hygiene-personnel.pdf"
-        },
-        {
-          "name": "lavage-mains",
-          "caption": "Hygiène · Lavage des mains",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "hygiene",
           "width": 2800,
-          "height": 1981,
-          "src": "assets/photos/socohuile/lavage-mains.webp",
-          "full": "assets/photos/socohuile/lavage-mains-grand.webp",
-          "document": "assets/documents/socohuile/lavage-mains.pdf"
-        },
+          "height": 1980,
+          "src": "assets/photos/tesca/tri-dechets.webp",
+          "full": "assets/photos/tesca/tri-dechets-grand.webp",
+          "document": "assets/documents/tesca/tri-dechets.pdf"
+        }
+      ]
+    },
+    {
+      "id": "tesca-urgence",
+      "chapter": "urgence",
+      "title": "Qui porte secours, zone par zone",
+      "need": "Permettre à chacun de savoir qui alerter et qui intervient, sans avoir à chercher.",
+      "answer": "Les consignes générales — incendie, accident, évacuation —, l’organigramme de secours qui montre le poste de commandement et les équipes de terrain, les trois affiches nominatives par zone (administration, tissage, finition) et une version à QR code pour appeler directement le bon secouriste.",
+      "deliverables": [
+        "Consignes générales à renseigner",
+        "Organigramme de secours du site TTG",
+        "Une affiche nominative par zone",
+        "Accès par QR code"
+      ],
+      "client": "tesca",
+      "images": [
         {
-          "name": "manutention-manuelle",
-          "caption": "Manutention · Technique de levage",
-          "type": "poster",
-          "kind": "pdf",
-          "zone": "manutention",
-          "width": 1981,
-          "height": 2800,
-          "src": "assets/photos/socohuile/manutention-manuelle.webp",
-          "full": "assets/photos/socohuile/manutention-manuelle-grand.webp",
-          "document": "assets/documents/socohuile/manutention-manuelle.pdf"
-        },
-        {
-          "name": "numeros-urgence",
-          "caption": "Urgence · Consignes et contacts du site",
+          "name": "consignes-generales-urgence",
+          "caption": "Consignes générales · Incendie, accident, évacuation",
           "type": "poster",
           "kind": "template",
           "zone": "secours",
-          "note": "Gabarit personnalisable : numéros d’urgence et point de rassemblement à renseigner.",
-          "width": 2800,
-          "height": 1980,
-          "src": "assets/photos/socohuile/numeros-urgence.webp",
-          "full": "assets/photos/socohuile/numeros-urgence-grand.webp",
-          "document": "assets/documents/socohuile/numeros-urgence.pdf"
+          "note": "Gabarit à renseigner : numéros d’alerte et point de rassemblement.",
+          "width": 1600,
+          "height": 1131,
+          "src": "assets/photos/tesca/consignes-generales-urgence.webp",
+          "full": "assets/photos/tesca/consignes-generales-urgence-grand.webp"
+        },
+        {
+          "name": "organigramme-secours",
+          "caption": "Organigramme de secours · Chaîne de commandement",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "secours",
+          "width": 1536,
+          "height": 1024,
+          "src": "assets/photos/tesca/organigramme-secours.webp",
+          "full": "assets/photos/tesca/organigramme-secours-grand.webp"
+        },
+        {
+          "name": "liste-secouristes-administration",
+          "caption": "Secouristes & agents incendie · Administration",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "secours",
+          "width": 1980,
+          "height": 2800,
+          "src": "assets/photos/tesca/liste-secouristes-administration.webp",
+          "full": "assets/photos/tesca/liste-secouristes-administration-grand.webp",
+          "document": "assets/documents/tesca/liste-secouristes-administration.pdf"
+        },
+        {
+          "name": "liste-secouristes-tissage",
+          "caption": "Secouristes & agents incendie · Tissage",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "secours",
+          "width": 1980,
+          "height": 2800,
+          "src": "assets/photos/tesca/liste-secouristes-tissage.webp",
+          "full": "assets/photos/tesca/liste-secouristes-tissage-grand.webp",
+          "document": "assets/documents/tesca/liste-secouristes-tissage.pdf"
+        },
+        {
+          "name": "liste-secouristes-finition",
+          "caption": "Secouristes & agents incendie · Finition",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "secours",
+          "width": 1980,
+          "height": 2800,
+          "src": "assets/photos/tesca/liste-secouristes-finition.webp",
+          "full": "assets/photos/tesca/liste-secouristes-finition-grand.webp",
+          "document": "assets/documents/tesca/liste-secouristes-finition.pdf"
+        },
+        {
+          "name": "liste-secouristes-qr",
+          "caption": "Secouristes & incendie · Administration, accès par QR code",
+          "type": "poster",
+          "kind": "artwork",
+          "zone": "secours",
+          "note": "Scanner le QR code pour appeler. Ouvrir en grand pour le lire.",
+          "width": 1055,
+          "height": 1491,
+          "src": "assets/photos/tesca/liste-secouristes-qr.webp",
+          "full": "assets/photos/tesca/liste-secouristes-qr-grand.webp"
         }
       ]
     },
     {
       "id": "tesca-circulation",
-      "client": "tesca",
       "chapter": "plans",
       "sub": "circulation",
-      "title": "L’entrepôt, ses flux et ses règles en une vue",
-      "need": "Rendre les déplacements dans l’entrepôt faciles à comprendre.",
-      "answer": "Une vue en volume qui montre le sens de circulation, les passages piétons et les consignes associées.",
+      "title": "Le site TTG, flux par flux",
+      "need": "Rendre les déplacements lisibles, du portail jusqu’aux quais : qui passe où, à quelle vitesse.",
+      "answer": "Le site dans son ensemble — ateliers d’ourdissage, tissage, finissage, Carthage, administration et magasins — avec les flux piétons, voitures, motos, chariots et camions, les accès, les parkings, la loge gardien et les points de rassemblement.",
       "deliverables": [
-        "Plan de circulation de l’entrepôt",
-        "Cheminements et sens de circulation",
-        "Légende et consignes du site"
+        "Plan de circulation du site TTG",
+        "Cinq flux distingués par couleur",
+        "Accès, parkings et limite de vitesse"
       ],
+      "client": "tesca",
       "images": [
         {
-          "name": "circulation-entrepot",
-          "caption": "Plan de circulation · Entrepôt",
+          "name": "circulation-site-ttg",
+          "caption": "Plan de circulation · Site TTG",
           "type": "circulation",
           "kind": "artwork",
-          "width": 5960,
-          "height": 4210,
-          "src": "assets/photos/tesca/circulation-entrepot.webp",
-          "full": "assets/photos/tesca/circulation-entrepot-grand.webp"
-        }
-      ]
-    },
-    {
-      "id": "psc-circulation",
-      "client": "psc",
-      "chapter": "plans",
-      "sub": "circulation",
-      "title": "Le plan de circulation à l’entrée du site",
-      "need": "Présenter les déplacements et rappeler les règles du site dans un même espace d’information.",
-      "answer": "La photo montre le plan de circulation PSI affiché au-dessus des consignes générales de sécurité.",
-      "deliverables": [
-        "Plan de circulation affiché",
-        "Panneau de consignes générales",
-        "Vue de l’installation"
-      ],
-      "images": [
-        {
-          "name": "circulation-site-pose",
-          "caption": "Plan de circulation et consignes du site · Panneaux posés",
-          "type": "circulation",
-          "kind": "photo",
-          "width": 1200,
-          "height": 1600,
-          "src": "assets/photos/psc/circulation-site-pose.webp",
-          "full": "assets/photos/psc/circulation-site-pose-grand.webp"
+          "width": 2800,
+          "height": 1981,
+          "src": "assets/photos/tesca/circulation-site-ttg.webp",
+          "full": "assets/photos/tesca/circulation-site-ttg-grand.webp",
+          "document": "assets/documents/tesca/circulation-site-ttg.pdf"
         }
       ]
     },
     {
       "id": "tesca-evacuation",
+      "chapter": "plans",
+      "sub": "evacuation",
+      "title": "Le plan d’évacuation, niveau par niveau",
+      "need": "Permettre à chacun de se situer et de repérer les cheminements, les issues et les moyens de secours.",
+      "answer": "Un plan par niveau : « Vous êtes ici », cheminements balisés, issues et escaliers de secours, extincteurs, boîte à pharmacie, point de rassemblement, avec les procédures d’évacuation et d’incendie en français et en arabe. Le plan présenté ici a été réalisé pour le site PSC : celui de TESCA suit la même trame.",
+      "deliverables": [
+        "Un plan par niveau",
+        "Cheminements, issues et escaliers de secours",
+        "Procédures bilingues et point de rassemblement"
+      ],
       "client": "tesca",
-      "chapter": "plans",
-      "sub": "evacuation",
-      "title": "De l’entrepôt à l’administration, visualiser les sorties",
-      "need": "Permettre de se situer et de repérer les cheminements et les moyens de secours.",
-      "answer": "Deux plans distincts : l’entrepôt et l’administration, chacun avec ses repères « Vous êtes ici », sa légende et ses consignes.",
-      "deliverables": [
-        "Plan de l’entrepôt",
-        "Plan de l’administration",
-        "Sorties et moyens de secours"
-      ],
       "images": [
         {
-          "name": "evacuation-entrepot",
-          "caption": "Plan d’évacuation · Entrepôt",
+          "name": "evacuation-administration-rdc",
+          "caption": "Plan d’évacuation · Administration RDC",
           "type": "evacuation",
           "kind": "artwork",
-          "width": 5960,
-          "height": 4210,
-          "src": "assets/photos/tesca/evacuation-entrepot.webp",
-          "full": "assets/photos/tesca/evacuation-entrepot-grand.webp"
-        },
-        {
-          "name": "evacuation-administration",
-          "caption": "Plan d’évacuation · Administration",
-          "type": "evacuation",
-          "kind": "artwork",
-          "width": 8426,
-          "height": 5952,
-          "src": "assets/photos/tesca/evacuation-administration.webp",
-          "full": "assets/photos/tesca/evacuation-administration-grand.webp"
+          "note": "Modèle similaire réalisé pour le site PSC.",
+          "width": 2800,
+          "height": 1981,
+          "src": "assets/photos/tesca/evacuation-administration-rdc.webp",
+          "full": "assets/photos/tesca/evacuation-administration-rdc-grand.webp",
+          "document": "assets/documents/tesca/evacuation-administration-rdc.pdf"
         }
       ]
-    },
-    {
-      "id": "psc-evacuation",
-      "client": "psc",
-      "chapter": "plans",
-      "sub": "evacuation",
-      "title": "Un plan d’évacuation affiché dans l’atelier n° 1",
-      "need": "Donner aux équipes un repère visible pour comprendre l’évacuation de leur atelier.",
-      "answer": "Le plan PSI est présenté en situation, dans son cadre, avec les cheminements, la légende et les consignes.",
-      "deliverables": [
-        "Plan d’évacuation de l’atelier n° 1",
-        "Support encadré",
-        "Photo de l’installation"
-      ],
-      "images": [
-        {
-          "name": "evacuation-atelier-1-pose",
-          "caption": "Plan d’évacuation · Atelier n° 1",
-          "type": "evacuation",
-          "kind": "photo",
-          "width": 1600,
-          "height": 1200,
-          "src": "assets/photos/psc/evacuation-atelier-1-pose.webp",
-          "full": "assets/photos/psc/evacuation-atelier-1-pose-grand.webp"
-        }
-      ]
-    }
-  ],
-  "videos": [
-    {
-      "id": "exercice",
-      "chapter": "plans",
-      "sub": "evacuation",
-      "title": "Ce n’est pas un exercice. C’est une promesse.",
-      "context": "Exercice d’évacuation · Ciments Jbel Oust",
-      "src": "assets/video/exercice.mp4",
-      "preview": "assets/video/exercice-preview.mp4",
-      "poster": "assets/video/exercice-poster.webp",
-      "duration": "2:32",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7477275452492095488/"
-    },
-    {
-      "id": "evacuation",
-      "chapter": "plans",
-      "sub": "evacuation",
-      "title": "La préparation d’aujourd’hui est la sécurité de demain.",
-      "context": "Simulation d’évacuation · EL KHOMSA – Rose Blanche Group",
-      "src": "assets/video/evacuation.mp4",
-      "preview": "assets/video/evacuation-preview.mp4",
-      "poster": "assets/video/evacuation-poster.webp",
-      "duration": "1:41",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7484900739761213440/"
-    },
-    {
-      "id": "safety-day",
-      "title": "Une journée s’achève, son impact perdure.",
-      "context": "Safety Day · Bondin",
-      "src": "assets/video/safety-day.mp4",
-      "preview": "assets/video/safety-day-preview.mp4",
-      "poster": "assets/video/safety-day-poster.webp",
-      "duration": "3:02",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7479833958659215360/"
-    },
-    {
-      "id": "incendie",
-      "chapter": "risques",
-      "zone": "incendie",
-      "title": "Face au feu, chaque seconde compte.",
-      "context": "Formation lutte contre l’incendie",
-      "src": "assets/video/incendie.mp4",
-      "preview": "assets/video/incendie-preview.mp4",
-      "poster": "assets/video/incendie-poster.webp",
-      "duration": "0:25",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7493019414590676992/"
-    }
-  ],
-  "terrain": [
-    {
-      "src": "assets/photos/psc/secours-pose.webp",
-      "caption": "PSC · Premiers secours · Affiche posée",
-      "client": "psc",
-      "project": "psc-risques",
-      "name": "secours-pose"
-    },
-    {
-      "src": "assets/photos/psc/chariots-pose.webp",
-      "caption": "PSC · Chariots élévateurs · Affiche posée",
-      "client": "psc",
-      "project": "psc-risques",
-      "name": "chariots-pose"
-    },
-    {
-      "src": "assets/photos/psc/securite-incendie-pose.webp",
-      "caption": "PSC · Consignes générales et extincteurs · Affiches posées",
-      "client": "psc",
-      "project": "psc-risques",
-      "name": "securite-incendie-pose"
-    },
-    {
-      "src": "assets/photos/psc/circulation-site-pose.webp",
-      "caption": "PSC · Plan de circulation et consignes du site · Panneaux posés",
-      "client": "psc",
-      "project": "psc-circulation",
-      "name": "circulation-site-pose"
-    },
-    {
-      "src": "assets/photos/psc/evacuation-atelier-1-pose.webp",
-      "caption": "PSC · Plan d’évacuation · Atelier n° 1",
-      "client": "psc",
-      "project": "psc-evacuation",
-      "name": "evacuation-atelier-1-pose"
-    },
-    {
-      "src": "assets/photos/psc/atelier-1-pose.webp",
-      "caption": "PSC · Atelier 1 · Dangers, interdictions et EPI",
-      "client": "psc",
-      "project": "psc-risques",
-      "name": "atelier-1-pose"
-    },
-    {
-      "src": "assets/photos/psc/ergonomie-pose.webp",
-      "caption": "PSC · Bureaux · Affiche d’ergonomie posée",
-      "client": "psc",
-      "project": "psc-risques",
-      "name": "ergonomie-pose"
-    },
-    {
-      "src": "assets/photos/psc/escalier-pose.webp",
-      "caption": "PSC · Escaliers · Affiche posée",
-      "client": "psc",
-      "project": "psc-risques",
-      "name": "escalier-pose"
-    },
-    {
-      "src": "assets/terrain/cjo-aerien.webp",
-      "caption": "Ciments Jbel Oust · exercice",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7477275452492095488/"
-    },
-    {
-      "src": "assets/terrain/cjo-signaletique-medecin.webp",
-      "caption": "Exercice · prise en charge d’un blessé",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7477275452492095488/"
-    },
-    {
-      "src": "assets/terrain/cjo-formation-1.webp",
-      "caption": "Ciments Jbel Oust · risques en cimenterie",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7487442620655370240/"
-    },
-    {
-      "src": "assets/terrain/rose-blanche-caristes-2.webp",
-      "caption": "Rose Blanche · habilitation caristes",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7489953370108215297/"
-    },
-    {
-      "src": "assets/terrain/rose-blanche-rassemblement.webp",
-      "caption": "EL KHOMSA · point de rassemblement",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7484900739761213440/"
-    },
-    {
-      "src": "assets/terrain/psi-hse-4.webp",
-      "caption": "PSI Tunisia · cycle HSE",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7482343089035202560/"
-    },
-    {
-      "src": "assets/terrain/premiers-secours-1.webp",
-      "caption": "Formation premiers secours",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7495427273383268352/"
-    },
-    {
-      "src": "assets/terrain/cjo-rassemblement.webp",
-      "caption": "Ciments Jbel Oust · rassemblement",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7477275452492095488/"
-    },
-    {
-      "src": "assets/terrain/psi-pic-1.webp",
-      "caption": "PSI Tunisia · formation PIC",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7504174011334029312/"
-    },
-    {
-      "src": "assets/terrain/rose-blanche-caristes-4.webp",
-      "caption": "Rose Blanche · conduite sécurisée",
-      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7489953370108215297/"
     }
   ],
   "audit": {
@@ -1314,89 +897,6 @@ window.KEYSAFE = {
       "text": "Cotation Conforme · Non conforme · Sans objet. Chaque écart ouvre une action, avec un pilote et une échéance."
     }
   ],
-  "library": [
-    {
-      "id": "signaletique-complementaire",
-      "client": "commun",
-      "chapter": "risques",
-      "title": "Les messages essentiels, en français et en arabe",
-      "need": "Identifier un danger, une interdiction ou un accès à préserver en quelques secondes.",
-      "answer": "Six panneaux complémentaires associant pictogrammes et messages bilingues.",
-      "deliverables": [
-        "Dangers électriques et incendie",
-        "Accès et issues de secours",
-        "Chute d’objets"
-      ],
-      "images": [
-        {
-          "name": "danger-electrique",
-          "caption": "Danger électrique",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "electrique",
-          "width": 2835,
-          "height": 1418,
-          "src": "assets/photos/commun/danger-electrique.webp",
-          "full": "assets/photos/commun/danger-electrique-grand.webp"
-        },
-        {
-          "name": "matieres-inflammables",
-          "caption": "Matériaux combustibles et inflammables",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "stockage",
-          "width": 2835,
-          "height": 1418,
-          "src": "assets/photos/commun/matieres-inflammables.webp",
-          "full": "assets/photos/commun/matieres-inflammables-grand.webp"
-        },
-        {
-          "name": "issues-secours-degagees",
-          "caption": "Issues de secours · Stockage interdit",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "secours",
-          "width": 2835,
-          "height": 1418,
-          "src": "assets/photos/commun/issues-secours-degagees.webp",
-          "full": "assets/photos/commun/issues-secours-degagees-grand.webp"
-        },
-        {
-          "name": "interdiction-fumer",
-          "caption": "Interdiction de fumer",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "incendie",
-          "width": 2835,
-          "height": 1418,
-          "src": "assets/photos/commun/interdiction-fumer.webp",
-          "full": "assets/photos/commun/interdiction-fumer-grand.webp"
-        },
-        {
-          "name": "acces-reserve",
-          "caption": "Accès interdit au personnel non autorisé",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "site",
-          "width": 2835,
-          "height": 1418,
-          "src": "assets/photos/commun/acces-reserve.webp",
-          "full": "assets/photos/commun/acces-reserve-grand.webp"
-        },
-        {
-          "name": "chute-objets",
-          "caption": "Danger · Chute d’objets",
-          "type": "poster",
-          "kind": "artwork",
-          "zone": "stockage",
-          "width": 2835,
-          "height": 1418,
-          "src": "assets/photos/commun/chute-objets.webp",
-          "full": "assets/photos/commun/chute-objets-grand.webp"
-        }
-      ]
-    }
-  ],
   "hero": [
     {
       "project": "tesca-services",
@@ -1407,44 +907,48 @@ window.KEYSAFE = {
       "image": "direction-finance-rh"
     },
     {
-      "project": "tesca-panneaux-locaux",
+      "project": "tesca-locaux-techniques",
       "image": "panneau-atelier-retordage"
     },
     {
-      "project": "tesca-panneaux-locaux",
+      "project": "tesca-locaux-techniques",
       "image": "panneau-traitement-air"
     },
     {
-      "project": "tesca-panneaux-locaux",
-      "image": "panneau-laboratoire-essais"
+      "project": "tesca-locaux-techniques",
+      "image": "panneau-monte-charge"
     },
     {
-      "project": "tesca-risques",
-      "image": "atelier-retordage-consignes"
+      "project": "tesca-sst",
+      "image": "consignes-escalier"
     },
     {
-      "project": "psc-risques",
-      "image": "atelier-1-pose"
+      "project": "tesca-sst",
+      "image": "incompatibilites-chimiques"
     },
     {
-      "project": "socohuile-risques",
-      "image": "hygiene-personnel"
+      "project": "tesca-sst",
+      "image": "armoire-electrique"
     },
     {
-      "project": "tesca-risques",
-      "image": "consignes-chariots"
+      "project": "tesca-sensibilisation",
+      "image": "tri-dechets"
     },
     {
-      "project": "tesca-evacuation",
-      "image": "evacuation-entrepot"
+      "project": "tesca-urgence",
+      "image": "organigramme-secours"
     },
     {
-      "project": "psc-evacuation",
-      "image": "evacuation-atelier-1-pose"
+      "project": "tesca-urgence",
+      "image": "liste-secouristes-administration"
     },
     {
       "project": "tesca-circulation",
-      "image": "circulation-entrepot"
+      "image": "circulation-site-ttg"
+    },
+    {
+      "project": "tesca-evacuation",
+      "image": "evacuation-administration-rdc"
     }
   ]
 };

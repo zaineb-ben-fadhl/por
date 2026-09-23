@@ -1,6 +1,7 @@
 // Generates the design mockups (SVG) shown until the real site photos are delivered.
 // Run: node scripts/generate-mockups.mjs
-// Each file is a visual stand-in: it carries a client name but is NOT a photo of a real installation.
+// Each file is a visual stand-in: it carries the TESCA name but is NOT a photo of a real installation.
+// Kept for reference: the live site only shows the supports actually delivered.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,9 +15,7 @@ const C = {
   indigo: '#312682', paper: '#FBFAF7'
 };
 const CLIENTS = {
-  tesca: { name: 'TESCA', dark: '#1F2A37', accent: '#2B7A9B' },
-  psc: { name: 'PSI', dark: '#1D3557', accent: '#E0A21B' },
-  socohuile: { name: 'SOCOHUILE', dark: '#34401C', accent: '#C29A2B' }
+  tesca: { name: 'TESCA', dark: '#1F2A37', accent: '#2B7A9B' }
 };
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -382,56 +381,33 @@ const files = {
   'tesca-bureaux-01': plaque('tesca', { level: 'NIVEAU 1 · ADMINISTRATION', title: 'DIRECTION\nGÉNÉRALE', subtitle: 'Bureau de direction', number: '101' }),
   'tesca-bureaux-02': directory('tesca', { building: 'Administration', level: 'N1', rows: [{ dir: 'up', label: 'Direction générale', detail: 'Bureaux 101 – 104' }, { dir: 'left', label: 'Ressources humaines', detail: 'Bureau 105' }, { dir: 'right', label: 'Salle de réunion', detail: 'Salle 110' }, { dir: 'right', label: 'Méthodes & qualité', detail: 'Bureaux 111 – 114' }, { dir: 'down', label: 'Accueil · Sortie', detail: 'Rez-de-chaussée' }] }),
   'tesca-bureaux-03': plaque('tesca', { level: 'NIVEAU 1 · ADMINISTRATION', title: 'RESSOURCES\nHUMAINES', subtitle: 'Recrutement & formation', number: '105' }),
-  'psc-bureaux-01': plaque('psc', { level: 'BÂTIMENT A · RDC', title: 'SALLE DE\nRÉUNION', subtitle: 'Capacité 12 personnes', number: 'A02' }),
-  'psc-bureaux-02': directory('psc', { building: 'Bâtiment A', level: 'RDC', rows: [{ dir: 'right', label: 'Accueil', detail: 'Visiteurs & livraisons' }, { dir: 'up', label: 'Direction', detail: 'Niveau 1' }, { dir: 'left', label: 'Service achats', detail: 'Bureaux A04 – A06' }, { dir: 'left', label: 'Salle de réunion', detail: 'A02' }, { dir: 'down', label: 'Sortie', detail: 'Parking visiteurs' }] }),
-  'socohuile-bureaux-01': plaque('socohuile', { level: 'BLOC ADMINISTRATIF', title: 'DIRECTION', subtitle: 'Direction générale', number: '01' }),
-  'socohuile-bureaux-02': plaque('socohuile', { level: 'BLOC ADMINISTRATIF', title: 'SERVICE\nCOMMERCIAL', subtitle: 'Ventes & export', number: '04' }),
-  'socohuile-bureaux-03': directory('socohuile', { building: 'Bloc administratif', level: 'RDC', rows: [{ dir: 'up', label: 'Direction', detail: 'Bureau 01' }, { dir: 'right', label: 'Service commercial', detail: 'Bureaux 03 – 05' }, { dir: 'left', label: 'Comptabilité', detail: 'Bureau 06' }, { dir: 'left', label: 'Laboratoire qualité', detail: 'Accès production' }, { dir: 'down', label: 'Accueil · Sortie', detail: 'Cour principale' }] }),
 
   // 02 — locaux techniques
   'tesca-locaux-01': technicalDoor('tesca', { code: 'LT-01', title: 'LOCAL\nÉLECTRIQUE', subtitle: 'TGBT · Tableau général basse tension', pictos: [['warning', 'electric'], ['prohibition', 'entry'], ['prohibition', 'water']] }),
   'tesca-locaux-02': technicalDoor('tesca', { code: 'LT-04', title: 'LOCAL\nCOMPRESSEURS', subtitle: 'Air comprimé · Zone bruyante', pictos: [['warning', 'pressure'], ['mandatory', 'ears'], ['prohibition', 'entry']] }),
-  'psc-locaux-01': technicalDoor('psc', { code: 'LT-02', title: 'CHAUFFERIE', subtitle: 'Chaudière gaz · Accès réglementé', pictos: [['warning', 'hot'], ['warning', 'flame'], ['prohibition', 'smoking']] }),
-  'psc-locaux-02': technicalDoor('psc', { code: 'LT-05', title: 'GROUPE\nÉLECTROGÈNE', subtitle: 'Secours électrique · Carburant', pictos: [['warning', 'electric'], ['mandatory', 'ears'], ['prohibition', 'smoking']] }),
-  'socohuile-locaux-01': technicalDoor('socohuile', { code: 'LT-01', title: 'LOCAL POMPES\nINCENDIE', subtitle: 'Réseau RIA · Surpresseur', pictos: [['fire', 'extinguisher'], ['warning', 'electric'], ['prohibition', 'entry']] }),
-  'socohuile-locaux-02': technicalDoor('socohuile', { code: 'LT-03', title: 'CHAUFFERIE', subtitle: 'Production de vapeur', pictos: [['warning', 'hot'], ['warning', 'pressure'], ['mandatory', 'gloves']] }),
 
   // 03 — risques spécifiques par local
   'tesca-risques-01': riskPoster('tesca', { room: 'Atelier de coupe', reference: 'RS-02 · Rév. 01', dangers: [['general', 'Lames tranchantes'], ['forklift', 'Engins'], ['flame', 'Textiles inflammables']], obligations: [['gloves', 'Gants anti-coupure'], ['boots', 'Chaussures'], ['vest', 'Gilet']], prohibitions: [['smoking', 'Fumer'], ['phone', 'Téléphone'], ['entry', 'Accès non autorisé']], emergency: ['Arrêt d’urgence machine', 'Alerter le chef d’équipe', 'Premiers secours : poste 15'] }),
   'tesca-risques-02': riskPoster('tesca', { room: 'Local compresseurs', reference: 'RS-04 · Rév. 01', dangers: [['pressure', 'Air sous pression'], ['electric', 'Électricité'], ['hot', 'Surfaces chaudes']], obligations: [['ears', 'Protection auditive'], ['glasses', 'Lunettes'], ['gloves', 'Gants']], prohibitions: [['entry', 'Accès non autorisé'], ['smoking', 'Fumer']], emergency: ['Couper l’alimentation', 'Évacuer le local', 'Prévenir la maintenance'] }),
-  'psc-risques-01': riskPoster('psc', { room: 'Local électrique', reference: 'RS-01 · Rév. 02', dangers: [['electric', 'Électrocution'], ['flame', 'Incendie'], ['general', 'Arc électrique']], obligations: [['gloves', 'Gants isolants'], ['glasses', 'Écran facial'], ['boots', 'Chaussures isolantes']], prohibitions: [['entry', 'Personnel non habilité'], ['water', 'Eau'], ['smoking', 'Fumer']], emergency: ['Ne pas toucher la victime', 'Couper le courant', 'Appeler le 190'] }),
-  'psc-risques-02': riskPoster('psc', { room: 'Atelier maintenance', reference: 'RS-03 · Rév. 01', dangers: [['general', 'Projections'], ['hot', 'Points chauds'], ['slip', 'Glissade']], obligations: [['glasses', 'Lunettes'], ['gloves', 'Gants'], ['boots', 'Chaussures']], prohibitions: [['smoking', 'Fumer'], ['phone', 'Téléphone']], emergency: ['Arrêter la machine', 'Sécuriser la zone', 'Alerter le responsable'] }),
-  'socohuile-risques-01': riskPoster('socohuile', { room: 'Stockage d’huile', reference: 'RS-01 · Rév. 01', dangers: [['slip', 'Sol glissant'], ['flame', 'Incendie'], ['forklift', 'Chariots']], obligations: [['boots', 'Chaussures antidérapantes'], ['vest', 'Gilet'], ['gloves', 'Gants']], prohibitions: [['smoking', 'Fumer'], ['flame', 'Flamme nue'], ['water', 'Eau sur feu d’huile']], emergency: ['Isoler la fuite', 'Absorber et baliser', 'Extincteur à poudre'] }),
-  'socohuile-risques-02': riskPoster('socohuile', { room: 'Laboratoire qualité', reference: 'RS-05 · Rév. 01', dangers: [['chemical', 'Produits chimiques'], ['hot', 'Plaques chauffantes'], ['general', 'Verrerie']], obligations: [['glasses', 'Lunettes'], ['gloves', 'Gants nitrile'], ['vest', 'Blouse']], prohibitions: [['smoking', 'Fumer'], ['entry', 'Accès non autorisé']], emergency: ['Rincer 15 minutes', 'Consulter la FDS', 'Appeler le 190'] }),
-  'socohuile-risques-03': riskPoster('socohuile', { room: 'Chaufferie', reference: 'RS-03 · Rév. 01', dangers: [['hot', 'Vapeur brûlante'], ['pressure', 'Pression'], ['flame', 'Combustible']], obligations: [['gloves', 'Gants thermiques'], ['ears', 'Protection auditive'], ['glasses', 'Lunettes']], prohibitions: [['entry', 'Accès non autorisé'], ['smoking', 'Fumer']], emergency: ['Arrêt chaudière', 'Fermer l’arrivée gaz', 'Évacuer et alerter'] }),
 
   // 04 — plans de circulation
   'tesca-circulation-01': circulationPlan('tesca', { site: 'Site de production', buildings: [{ x: 250, y: 330, w: 280, h: 200, label: 'Coupe' }, { x: 640, y: 330, w: 290, h: 200, label: 'Couture' }, { x: 250, y: 640, w: 230, h: 180, label: 'Stock tissus' }, { x: 700, y: 640, w: 230, h: 180, label: 'Expédition' }] }),
-  'psc-circulation-01': circulationPlan('psc', { site: 'Plateforme logistique', buildings: [{ x: 250, y: 330, w: 680, h: 190, label: 'Entrepôt principal' }, { x: 250, y: 640, w: 240, h: 180, label: 'Atelier' }, { x: 700, y: 640, w: 230, h: 180, label: 'Quai de chargement' }] }),
-  'socohuile-circulation-01': circulationPlan('socohuile', { site: 'Usine de conditionnement', buildings: [{ x: 250, y: 330, w: 250, h: 200, label: 'Réception' }, { x: 610, y: 330, w: 320, h: 200, label: 'Cuves de stockage' }, { x: 250, y: 640, w: 300, h: 180, label: 'Conditionnement' }, { x: 700, y: 640, w: 230, h: 180, label: 'Produits finis' }] }),
 
   // 04 — plans d’évacuation
   'tesca-evacuation-01': evacuationPlan('tesca', { level: 'Bâtiment administratif · Niveau 1', rooms: { top: [{ w: .22, label: 'Direction' }, { w: .2, label: 'RH' }, { w: .3, label: 'Open space' }, { w: .28, label: 'Réunion' }], bottom: [{ w: .25, label: 'Méthodes' }, { w: .25, label: 'Qualité' }, { w: .2, label: 'Archives' }, { w: .3, label: 'Sanitaires' }] } }),
-  'psc-evacuation-01': evacuationPlan('psc', { level: 'Bâtiment A · Rez-de-chaussée', rooms: { top: [{ w: .3, label: 'Accueil' }, { w: .2, label: 'Achats' }, { w: .2, label: 'Comptabilité' }, { w: .3, label: 'Direction' }], bottom: [{ w: .35, label: 'Salle de réunion' }, { w: .2, label: 'Archives' }, { w: .45, label: 'Salle de pause' }] } }),
-  'socohuile-evacuation-01': evacuationPlan('socohuile', { level: 'Bloc administratif · Rez-de-chaussée', rooms: { top: [{ w: .25, label: 'Direction' }, { w: .25, label: 'Commercial' }, { w: .2, label: 'Comptabilité' }, { w: .3, label: 'Laboratoire' }], bottom: [{ w: .3, label: 'Accueil' }, { w: .3, label: 'Réunion' }, { w: .4, label: 'Vestiaires' }] } })
 };
 
 // "before" versions for the before / after comparisons
 for (const id of Object.keys(files)) {
   const [client, kind] = id.split('-');
   if (kind === 'circulation') {
-    const spec = { tesca: 0, psc: 1, socohuile: 2 }[client];
     const args = [
       { site: 'Site de production', buildings: [{ x: 250, y: 330, w: 280, h: 200, label: 'Coupe' }, { x: 640, y: 330, w: 290, h: 200, label: 'Couture' }, { x: 250, y: 640, w: 230, h: 180, label: 'Stock tissus' }, { x: 700, y: 640, w: 230, h: 180, label: 'Expédition' }] },
-      { site: 'Plateforme logistique', buildings: [{ x: 250, y: 330, w: 680, h: 190, label: 'Entrepôt principal' }, { x: 250, y: 640, w: 240, h: 180, label: 'Atelier' }, { x: 700, y: 640, w: 230, h: 180, label: 'Quai de chargement' }] },
-      { site: 'Usine de conditionnement', buildings: [{ x: 250, y: 330, w: 250, h: 200, label: 'Réception' }, { x: 610, y: 330, w: 320, h: 200, label: 'Cuves de stockage' }, { x: 250, y: 640, w: 300, h: 180, label: 'Conditionnement' }, { x: 700, y: 640, w: 230, h: 180, label: 'Produits finis' }] }
-    ][spec];
+    ][0];
     files[`${id}-avant`] = circulationPlan(client, { ...args, before: true });
   }
 }
 files['tesca-evacuation-01-avant'] = evacuationPlan('tesca', { level: 'Niveau 1', before: true, rooms: { top: [{ w: .22, label: 'Direction' }, { w: .2, label: 'RH' }, { w: .3, label: 'Open space' }, { w: .28, label: 'Réunion' }], bottom: [{ w: .25, label: 'Méthodes' }, { w: .25, label: 'Qualité' }, { w: .2, label: 'Archives' }, { w: .3, label: 'Sanitaires' }] } });
-files['psc-evacuation-01-avant'] = evacuationPlan('psc', { level: 'Rez-de-chaussée', before: true, rooms: { top: [{ w: .3, label: 'Accueil' }, { w: .2, label: 'Achats' }, { w: .2, label: 'Comptabilité' }, { w: .3, label: 'Direction' }], bottom: [{ w: .35, label: 'Salle de réunion' }, { w: .2, label: 'Archives' }, { w: .45, label: 'Salle de pause' }] } });
-files['socohuile-evacuation-01-avant'] = evacuationPlan('socohuile', { level: 'Rez-de-chaussée', before: true, rooms: { top: [{ w: .25, label: 'Direction' }, { w: .25, label: 'Commercial' }, { w: .2, label: 'Comptabilité' }, { w: .3, label: 'Laboratoire' }], bottom: [{ w: .3, label: 'Accueil' }, { w: .3, label: 'Réunion' }, { w: .4, label: 'Vestiaires' }] } });
 
 for (const [name, content] of Object.entries(files)) writeFileSync(join(OUT, `${name}.svg`), content);
 console.log(`${Object.keys(files).length} mockups → assets/mockups/`);

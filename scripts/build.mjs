@@ -17,6 +17,10 @@ const skip = [/^js[\\/]brief\.js$/, /^assets[\\/]photos[\\/]LISEZ-MOI\.txt$/i, /
   // optimisés dans photos/ et les PDF classés dans documents/, sans double copie.
   /^assets[\\/][^\\/]+\.(?:png|jpe?g|pdf)$/i,
   /^assets[\\/](?:mockups|ambiance)[\\/]/i,
+  // Présentation personnalisée TESCA : ni vidéos, ni photos d'autres sites, ni panneaux non attribués.
+  /^assets[\\/]video[\\/]/i,
+  /^assets[\\/]photos[\\/]commun[\\/]/i,
+  /^assets[\\/]terrain[\\/](?!audit-)/i,
   /^assets[\\/]brand[\\/]mascotte\.png$/i];
 
 const files = [];

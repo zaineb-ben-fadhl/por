@@ -13,19 +13,20 @@
   const pad = n => String(n).padStart(2, '0');
   const plural = (n, one, many) => `${n} ${n > 1 ? many : one}`;
 
-  const clients = Object.fromEntries(D.clients.map(c => [c.id, c]));
-  clients.commun = { id: 'commun', name: 'Collection signalétique' };
-  const allProjects = [...D.projects, ...(D.library || [])];
+  // Présentation personnalisée : un seul site, TESCA.
+  const SITE = D.clients[0];
+  const SITE_STYLE = `--b:${SITE.accent || 'var(--leaf-300)'}`;
+  const allProjects = D.projects;
   const chapters = Object.fromEntries(D.chapters.map(c => [c.id, c]));
   const CHAPTER_COLORS = D.chapters.map(c => `var(--c-${c.id})`);
 
   /* ------------------------------------------------------------ state */
   const params = new URLSearchParams(location.search);
   const state = {
-    client: clients[params.get('site')] ? params.get('site') : 'all',
     views: Object.fromEntries(D.chapters.map(c => [c.id, params.get('vue') === 'magazine' ? 'magazine' : 'gallery'])),
-    plansSub: 'circulation',
-    plansActive: null,
+    // sous-type affiché pour les chapitres qui en ont (type 05 : consignes, circulation, évacuation)
+    subs: Object.fromEntries(D.chapters.filter(c => c.subs).map(c => [c.id, c.subs[0].id])),
+    planActive: null,
     zone: 'all',
     preparedFor: (params.get('pour') || '').replace(/\s+/g, ' ').trim().slice(0, 60)
   };
@@ -38,18 +39,17 @@
   const mediaKind = img => ({ photo: 'Photo sur site', pdf: 'Document PDF', template: 'Gabarit personnalisable', artwork: 'Support conçu' }[img.kind] || '');
 
   function mediaButton(project, image, { index = 0, cls = '', badge = true, eager = false } = {}) {
-    const client = clients[project.client];
-    return `<button type="button" class="media ${image.src ? 'media-document' : ''} ${cls}" data-open="${project.id}" data-index="${index}" aria-label="${esc(`${image.caption}, ${client.name} : ouvrir le dossier`)}">
-      <img src="${esc(imageSrc(project.client, image.name))}" data-slot="${slot(project.client, image.name)}" alt="${esc(`${image.caption} — ${client.name}`)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async">
+    return `<button type="button" class="media ${image.src ? 'media-document' : ''} ${cls}" data-open="${project.id}" data-index="${index}" aria-label="${esc(`${image.caption} : ouvrir le dossier`)}">
+      <img src="${esc(imageSrc(project.client, image.name))}" data-slot="${slot(project.client, image.name)}" alt="${esc(`${image.caption} — ${SITE.name}`)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async">
       
       <span class="open-hint" aria-hidden="true">${icon('expand')}</span>
     </button>`;
   }
 
   /* ------------------------------------------------------------ helpers */
-  const projectsFor = (chapter, extra = {}) => U.filterProjects(D.projects, { client: state.client, chapter, ...extra });
+  const projectsFor = (chapter, extra = {}) => U.filterProjects(D.projects, { chapter, ...extra });
   const imageCount = list => list.reduce((n, p) => n + p.images.length, 0);
-  const clientLine = c => [c.name, c.sector, c.city].filter(Boolean).join(' · ');
+  const siteLine = [SITE.name, SITE.sector, SITE.city].filter(Boolean).join(' · ');
 
   function toast(message) {
     const el = $('[data-toast]');
@@ -57,17 +57,6 @@
     el.classList.add('is-visible');
     clearTimeout(toast.timer);
     toast.timer = setTimeout(() => el.classList.remove('is-visible'), 2600);
-  }
-
-  function updateUrl() {
-    const url = new URL(location.href);
-    if (state.client === 'all') url.searchParams.delete('site');
-    else url.searchParams.set('site', state.client);
-    try {
-      history.replaceState(null, '', url);
-    } catch {
-      // some browsers refuse to rewrite file:// URLs; the filter still works
-    }
   }
 
   const revealObserver = 'IntersectionObserver' in window && !reducedMotion
@@ -79,68 +68,27 @@
     $$('.reveal:not(.in)', root).forEach(el => revealObserver ? revealObserver.observe(el) : el.classList.add('in'));
   }
 
-  /* ------------------------------------------------------------ badges (site filter) */
-  function renderBadges() {
-    const all = allProjects;
-    const rows = list => D.chapters.map((c, i) => {
-      const n = imageCount(list.filter(p => p.chapter === c.id));
-      return `<span class="badge-row"><i class="${n ? '' : 'is-empty'}" style="--c:${CHAPTER_COLORS[i]}"></i><span>${c.number} · ${esc(c.short)}</span><b>${n || '—'}</b></span>`;
+  /* ------------------------------------------------------------ sommaire des cinq types */
+  function renderTypes() {
+    const host = $('[data-types]');
+    host.innerHTML = D.chapters.map(c => {
+      const list = projectsFor(c.id);
+      const shots = flatten(list);
+      const picks = [0, Math.floor(shots.length / 2), shots.length - 1].filter((v, i, a) => a.indexOf(v) === i);
+      return `<li><a class="type-card reveal" href="#${c.id}" style="--c:var(--c-${c.id})">
+        <span class="type-card-head"><b>${c.number}</b><span>${esc(c.code)}</span></span>
+        <span class="type-card-thumbs">${picks.map(i => `<img src="${esc(shots[i].image.src)}" alt="" loading="lazy" decoding="async">`).join('')}</span>
+        <strong>${esc(c.title)}</strong>
+        <span class="type-card-lead">${esc(c.tagline)}</span>
+        <span class="type-card-foot">${plural(imageCount(list), 'support', 'supports')}<i>${icon('arrow')}</i></span>
+      </a></li>`;
     }).join('');
-
-    const allBadge = `<button type="button" class="badge reveal" data-set-client="all" aria-pressed="${state.client === 'all'}">
-      <span class="badge-top">Vue d’ensemble</span>
-      <span class="badge-name"><img class="badge-shield" src="assets/brand/keysafe-shield.png" alt="" width="319" height="336"></span>
-      <span class="badge-meta">Tous les sites · ${plural(D.clients.length, 'référence', 'références')}</span>
-      <span class="badge-rows">${rows(all)}</span>
-      <span class="badge-cta">${state.client === 'all' ? 'Collection affichée' : 'Tout parcourir'}${icon('arrow')}</span>
-    </button>`;
-
-    const clientBadges = D.clients.map(c => {
-      const list = all.filter(p => p.client === c.id);
-      const logo = null;
-      const active = state.client === c.id;
-      return `<button type="button" class="badge reveal" data-set-client="${c.id}" aria-pressed="${active}">
-        <span class="badge-top">Accès site</span>
-        <span class="badge-name"${c.name.length > 7 && !logo ? ' data-long' : ''}>${logo ? `<img src="${esc(logo)}" alt="${esc(c.name)}">` : esc(c.name)}</span>
-        <span class="badge-meta">${esc([c.sector, c.city].filter(Boolean).join(' · ') || 'Référence KeySafe')}</span>
-        <span class="badge-rows">${rows(list)}</span>
-        <span class="badge-cta">${active ? 'Dossier ouvert' : 'Entrer dans le dossier'}${icon('arrow')}</span>
-      </button>`;
-    }).join('');
-
-    const host = $('[data-badges]');
-    host.innerHTML = allBadge + clientBadges;
-    if (!revealObserver) $$('.reveal', host).forEach(el => el.classList.add('in'));
-    else if (host.dataset.revealed) $$('.reveal', host).forEach(el => el.classList.add('in'));
-    else observeReveals(host);
-    host.dataset.revealed = '1';
+    observeReveals(host);
   }
 
   function renderDock() {
-    $('[data-dock-sites]').innerHTML = [{ id: 'all', name: 'Tous' }, ...D.clients]
-      .map(c => `<button type="button" data-set-client="${c.id}" aria-pressed="${state.client === c.id}">${esc(c.name)}</button>`).join('');
     $('[data-dock-chapters]').innerHTML = D.chapters
       .map(c => `<li><a href="#${c.id}" data-chapter="${c.id}" style="--c:var(--c-${c.id})" aria-label="${esc(`${c.number} · ${c.title}`)}" title="${esc(c.title)}">${c.number}</a></li>`).join('');
-  }
-
-  function setClient(id, { scroll = false } = {}) {
-    if (!clients[id] && id !== 'all') return;
-    const changed = state.client !== id;
-    state.client = id;
-    state.plansActive = null;
-    state.zone = 'all';
-    updateUrl();
-    const apply = () => {
-      renderBadges();
-      $$('[data-dock-sites] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.setClient === id)));
-      D.chapters.forEach(c => renderChapterBody(c.id, { animate: false }));
-      renderReel();
-      renderHero();
-    };
-    if (changed && document.startViewTransition && !reducedMotion) document.startViewTransition(apply);
-    else apply();
-    if (changed) toast(id === 'all' ? 'Toute la collection est affichée' : `Dossier ${clients[id].name} ouvert`);
-    if (scroll) $('.chapter:not([hidden])')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
   }
 
   /* ------------------------------------------------------------ chapters */
@@ -154,6 +102,7 @@
               <h2 id="h-${c.id}">${esc(c.titleLines[0])}<br><em>${esc(c.titleLines[1])}</em></h2>
               <p class="chapter-tagline">${esc(c.tagline)}</p>
               <p class="chapter-lead">${esc(c.lead)}</p>
+              <p class="chapter-benefit">${esc(c.benefit)}</p>
               <ul class="deliverables">${c.deliverables.map(d => `<li>${esc(d)}</li>`).join('')}</ul>
             </div>
             <figure class="chapter-cover reveal" data-number="${c.number}" data-cover="${c.id}">
@@ -165,7 +114,7 @@
           <div class="toolbar">
             <p class="scope" data-scope="${c.id}" aria-live="polite"></p>
             <div class="toolbar-controls">
-              ${c.subs ? `<div class="toggle toggle-accent" role="group" aria-label="Type de plan">${c.subs.map(s => `<button type="button" data-sub="${s.id}" aria-pressed="${state.plansSub === s.id}">${esc(s.label)}</button>`).join('')}</div>` : ''}
+              ${c.subs ? `<div class="toggle toggle-accent" role="group" aria-label="Choisir un sous-type">${c.subs.map(s => `<button type="button" data-sub="${s.id}" aria-pressed="${state.subs[c.id] === s.id}">${esc(s.label)}</button>`).join('')}</div>` : ''}
               <div class="toggle" role="group" aria-label="Mode d’affichage">
                 <button type="button" data-view="gallery" data-for="${c.id}" aria-pressed="${state.views[c.id] === 'gallery'}">${icon('grid')}Galerie</button>
                 <button type="button" data-view="magazine" data-for="${c.id}" aria-pressed="${state.views[c.id] === 'magazine'}">${icon('magazine')}Magazine</button>
@@ -190,47 +139,16 @@
     const dockLink = $('[data-dock-chapters] [data-chapter="' + id + '"]');
     if (dockLink) dockLink.closest('li').hidden = !available;
     if (!available) { body.innerHTML = ''; return; }
-    const list = c.subs ? all.filter(p => p.sub === state.plansSub) : all;
+    const list = c.subs ? all.filter(p => p.sub === state.subs[id]) : all;
 
-    const cover = $(`[data-cover="${id}"]`);
-    const coverProject = list.find(p => p.images.some(img => img.src)) || list[0];
-    const coverImage = coverProject?.images.find(img => img.src) || coverProject?.images[0];
-    const customCover = state.client !== 'all' && coverImage;
-    const caption = customCover ? `${clients[coverProject.client].name} · ${coverImage.caption}${coverImage.src ? '' : ' · Maquette'}` : c.cover.caption;
-    $('img', cover).src = customCover ? imageSrc(coverProject.client, coverImage.name) : c.cover.src;
-    $('img', cover).alt = caption;
-    $('figcaption', cover).textContent = caption;
-    $('.chapter-cover-frame', cover).classList.toggle('cover-document', customCover ? Boolean(coverImage.src) : Boolean(c.cover.contain));
-
-    const who = state.client === 'all' ? 'Tous les sites' : `Dossier ${clients[state.client].name}`;
-    $(`[data-scope="${id}"]`).innerHTML = `<strong>${esc(who)}</strong><span>${plural(list.length, 'réalisation', 'réalisations')} · ${plural(imageCount(list), 'visuel', 'visuels')}</span>`;
+    $(`[data-scope="${id}"]`).innerHTML = `<strong>${esc(`Dossier ${SITE.name}`)}</strong><span>${plural(list.length, 'réalisation', 'réalisations')} · ${plural(imageCount(list), 'visuel', 'visuels')}</span>`;
 
     if (!list.length) {
-      const subLabel = c.subs ? ` (${c.subs.find(s => s.id === state.plansSub).label.toLowerCase()})` : '';
-      body.innerHTML = `<div class="empty"><h3>Ce chapitre${esc(subLabel)} arrive bientôt pour ${esc(clients[state.client]?.name || 'ce site')}.</h3>
-        <p>Découvrez les réalisations de ce type sur nos autres sites.</p>
-        <button type="button" class="btn btn-leaf" data-set-client="all"><span>Voir tous les sites</span>${icon('arrow')}</button></div>`;
+      body.innerHTML = '<div class="empty"><h3>Aucun support classé dans cette vue.</h3></div>';
     } else if (state.views[id] === 'magazine') {
       body.innerHTML = renderMagazine(list, c);
     } else {
       body.innerHTML = ({ corridor: layoutCorridor, spec: layoutSpec, rooms: layoutRooms, plans: layoutPlans })[c.layout](list, c);
-    }
-
-    if (id === 'risques' && state.client === 'all' && (state.zone === 'all' || state.views[id] === 'magazine')) {
-      body.innerHTML += (D.library || []).map(p => `<section class="supplementary" aria-labelledby="h-${p.id}">
-        <p class="kicker">Collection complémentaire · ${p.images.length} panneaux</p>
-        <h3 id="h-${p.id}">La signalétique essentielle, en deux langues.</h3>
-        <p>Dangers, interdictions et issues de secours : des messages qui se comprennent au premier regard.</p>
-        <div class="signal-grid">${p.images.map((img, index) => `<figure>${mediaButton(p, img, { index })}<figcaption>${esc(img.caption)}</figcaption></figure>`).join('')}</div>
-      </section>`).join('');
-    }
-
-    const films = D.videos.filter(v => v.chapter === id);
-    if (films.length) {
-      body.insertAdjacentHTML('beforeend', `<div class="chapter-films">
-        <p class="kicker"><span class="kicker-bar"></span>${esc(c.short)} · KeySafe en vidéo</p>
-        <div class="chapter-films-row">${films.map(v => `<button type="button" class="film" data-film="${esc(v.id)}" aria-label="Lire : ${esc(v.title)}"><img src="${esc(v.poster)}" alt="" loading="lazy"><span class="film-duration">${esc(v.duration)}</span><span class="film-play">${icon('play')}</span><span class="film-text"><small>${esc(v.context)}</small><strong>${esc(v.title)}</strong></span></button>`).join('')}</div>
-      </div>`);
     }
 
     if (animate && !reducedMotion) {
@@ -249,7 +167,7 @@
       <div class="corridor-track" data-track tabindex="0" aria-label="Galerie à faire défiler horizontalement">
         ${flatten(list).map(({ project, image, index }) => `<article class="door">
           ${mediaButton(project, image, { index })}
-          <p class="door-plate"><small>${esc(clients[project.client].name)}</small><span>${esc(image.caption)}</span>${image.src ? `<small class="media-kind">${esc(mediaKind(image))}</small>` : ''}</p>
+          <p class="door-plate"><small>${esc(SITE.name)}</small><span>${esc(image.caption)}</span>${image.src ? `<small class="media-kind">${esc(mediaKind(image))}</small>` : ''}</p>
         </article>`).join('')}
       </div>
       <div class="corridor-nav">
@@ -260,17 +178,15 @@
     </div>`;
   }
 
-  function layoutSpec(list) {
+  function layoutSpec(list, c) {
     return `<div class="spec-grid">${flatten(list).map(({ project, image, index }) => {
       const [code, ...rest] = image.caption.split(' · ');
-      const client = clients[project.client];
       return `<article class="spec reveal">
-        <header class="spec-head"><span class="spec-code">${esc(code)}</span><span class="spec-client">${esc(client.name)}</span></header>
+        <header class="spec-head"><span class="spec-code">${esc(code)}</span><span class="spec-client">${esc(c.code)}</span></header>
         ${mediaButton(project, image, { index })}
         <div class="spec-body">
           <h3>${esc(rest.join(' · ') || image.caption)}</h3>
-          ${image.src ? `<p class="media-kind">${esc(mediaKind(image))}</p>` : ''}
-          <dl><dt>Site</dt><dd>${esc(clientLine({ ...client, city: '' }))}</dd><dt>Signalé</dt><dd>${esc(image.spec || 'Désignation et accès')}</dd></dl>
+          <dl><dt>Support</dt><dd>${esc(mediaKind(image))}</dd><dt>Signalé</dt><dd>${esc(image.spec || 'Désignation et accès')}</dd></dl>
         </div>
       </article>`;
     }).join('')}</div>`;
@@ -289,23 +205,22 @@
       </div>
       <div class="poster-wall">${shown.map(({ project, image, index }, k) => `<figure class="poster" style="--r:${tilt[k % tilt.length]}deg">
           ${mediaButton(project, image, { index })}
-          <figcaption class="poster-caption"><strong>${esc(image.caption)}</strong><small>${esc(clients[project.client].name)}${image.src ? ` · ${esc(mediaKind(image))}` : ''}</small>${image.document ? `<a class="document-link" href="${esc(image.document)}" target="_blank" rel="noopener">Voir le PDF original ↗</a>` : ''}</figcaption>
+          <figcaption class="poster-caption"><strong>${esc(image.caption)}</strong><small>${esc(D.zones[image.zone] || SITE.name)}${image.src ? ` · ${esc(mediaKind(image))}` : ''}</small>${image.document ? `<a class="document-link" href="${esc(image.document)}" target="_blank" rel="noopener">Voir le PDF original ↗</a>` : ''}</figcaption>
         </figure>`).join('')}</div>
     </div>`;
   }
 
   function layoutPlans(list, c) {
     const items = flatten(list);
-    const selected = items.find(item => `${item.project.id}/${item.index}` === state.plansActive) || items[0];
+    const selected = items.find(item => `${item.project.id}/${item.index}` === state.planActive) || items[0];
     const { project: active, image, index } = selected;
-    const client = clients[active.client];
-    const sub = c.subs.find(s => s.id === active.sub);
+    const sub = c.subs?.find(s => s.id === active.sub);
     const before = image.before;
     return `<div class="plans">
       <div>
         <div class="compare" data-compare style="--pos:${before ? 50 : 100}%">
-          <img src="${esc(imageSrc(active.client, image.name))}" data-slot="${slot(active.client, image.name)}" alt="${esc(`${image.caption} — ${client.name}, version KeySafe`)}" decoding="async">
-          ${before ? `<div class="compare-before"><img src="${esc(imageSrc(active.client, before))}" data-slot="${slot(active.client, before)}" alt="${esc(`Plan d’origine — ${client.name}`)}" decoding="async"></div>
+          <img src="${esc(imageSrc(active.client, image.name))}" data-slot="${slot(active.client, image.name)}" alt="${esc(`${image.caption} — ${SITE.name}`)}" decoding="async">
+          ${before ? `<div class="compare-before"><img src="${esc(imageSrc(active.client, before))}" data-slot="${slot(active.client, before)}" alt="${esc(`Plan d’origine — ${SITE.name}`)}" decoding="async"></div>
           <div class="compare-line"></div>
           <div class="compare-knob" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 6-5 6 5 6M15 6l5 6-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <input class="compare-range" type="range" min="0" max="100" value="50" data-compare-range aria-label="Comparer le plan d’origine et le plan KeySafe">
@@ -313,23 +228,22 @@
           
         </div>
         <div class="compare-meta">
-          <div><small>${esc(client.name)} · ${esc(sub.label)}</small><h3>${esc(active.title)}</h3></div>
-          <button type="button" class="text-link" data-open="${active.id}" data-index="${index}">Voir le plan en grand${icon('expand')}</button>
+          <div><small>${esc(`${c.number} · ${sub ? sub.label : c.short}`)}</small><h3>${esc(active.title)}</h3></div>
+          <button type="button" class="text-link" data-open="${active.id}" data-index="${index}">Voir en grand${icon('expand')}</button>
         </div>
       </div>
       <div class="plan-list" role="group" aria-label="Choisir un plan">
         ${items.map(item => `<button type="button" class="plan-item" data-plan="${item.project.id}/${item.index}" aria-pressed="${item === selected}">
           <img src="${esc(imageSrc(item.project.client, item.image.name))}" data-slot="${slot(item.project.client, item.image.name)}" alt="" loading="lazy">
-          <span><small>${esc(clients[item.project.client].name)}</small><strong>${esc(item.image.caption)}</strong></span>
+          <span><small>${esc(mediaKind(item.image))}</small><strong>${esc(item.image.caption)}</strong></span>
         </button>`).join('')}
-        <p class="plan-note">${before ? 'Faites glisser le curseur pour comparer les deux versions de la maquette.' : 'Choisissez un plan, puis ouvrez-le en grand pour explorer ses détails.'}</p>
+        <p class="plan-note">${before ? 'Faites glisser le curseur pour comparer les deux versions.' : 'Choisissez un support, puis ouvrez-le en grand pour explorer ses détails.'}</p>
       </div>
     </div>`;
   }
 
   function renderMagazine(list, c) {
     return `<div class="magazine">${list.map((p, k) => {
-      const client = clients[p.client];
       const [main, ...others] = p.images;
       return `<article class="spread reveal" data-chapter="${c.id}">
         <div class="spread-media">
@@ -337,7 +251,7 @@
           ${others.length ? `<div class="spread-thumbs">${others.map((img, i) => mediaButton(p, img, { index: i + 1, badge: false })).join('')}</div>` : ''}
         </div>
         <div class="spread-text">
-          <p class="spread-kicker"><span class="spread-issue">N°${pad(k + 1)}</span>${esc([client.name, client.sector].filter(Boolean).join(' · '))}</p>
+          <p class="spread-kicker"><span class="spread-issue">N°${pad(k + 1)}</span>${esc(`${c.number} · ${c.short}`)}</p>
           <h3>${esc(p.title)}</h3>
           <div class="spread-cols"><p><strong>Le besoin</strong>${esc(p.need)}</p><p><strong>Notre réponse</strong>${esc(p.answer)}</p></div>
           <ul class="ticks">${p.deliverables.map(d => `<li>${esc(d)}</li>`).join('')}</ul>
@@ -452,15 +366,14 @@
     const { el, items } = viewer;
     viewer.index = (viewer.index + items.length) % items.length;
     const item = items[viewer.index];
-    const client = clients[item.client];
     const img = $('[data-viewer-img]', el);
     setViewerMode(false);
     img.src = item.src;
-    img.alt = `${item.caption} — ${client.name}`;
+    img.alt = `${item.caption} — ${SITE.name}`;
     $('[data-viewer-title]', el).textContent = item.caption;
     const brand = $('[data-viewer-brand]', el);
-    brand.innerHTML = `<i></i>${esc(client.name)}`;
-    brand.style.setProperty('--b', client.accent || 'var(--leaf-300)');
+    brand.innerHTML = `<i></i>${esc(SITE.name)}`;
+    brand.style.setProperty('--b', SITE.accent || 'var(--leaf-300)');
     $('[data-viewer-count]', el).textContent = items.length > 1 ? `${viewer.index + 1} / ${items.length}` : '';
     $('[data-viewer-prev]', el).hidden = items.length < 2;
     $('[data-viewer-next]', el).hidden = items.length < 2;
@@ -539,12 +452,11 @@
     const p = allProjects.find(x => x.id === id);
     if (!p) return;
     const c = chapters[p.chapter];
-    const client = clients[p.client];
     Object.assign(dossier, { project: p, index: Number(index) || 0, mode: 'after' });
     const el = dossier.el;
     const sub = c.subs?.find(s => s.id === p.sub);
-    $('[data-d-chapter]', el).innerHTML = `<i style="--c:var(--c-${c.id})"></i>${c.number} · ${esc(sub ? `Plan ${sub.label === 'Évacuation' ? 'd’évacuation' : 'de circulation'}` : c.title)}`;
-    $('[data-d-client]', el).textContent = clientLine(client);
+    $('[data-d-chapter]', el).innerHTML = `<i style="--c:var(--c-${c.id})"></i>${c.number} · ${esc(sub ? `${c.short} · ${sub.label}` : c.title)}`;
+    $('[data-d-client]', el).textContent = siteLine;
     $('[data-d-title]', el).textContent = p.title;
     $('[data-d-need]', el).textContent = p.need;
     $('[data-d-answer]', el).textContent = p.answer;
@@ -561,11 +473,10 @@
     dossier.index = (dossier.index + count) % count;
     const image = p.images[dossier.index];
     const name = image.before && dossier.mode === 'before' ? image.before : image.name;
-    const client = clients[p.client];
     const stage = $('[data-stage]', el);
     const img = $('[data-stage-img]', el);
     img.src = name === image.name && image.full ? image.full : imageSrc(p.client, name);
-    img.alt = `${image.caption} — ${client.name}${name === image.before ? ', plan d’origine' : ''}`;
+    img.alt = `${image.caption} — ${SITE.name}${name === image.before ? ', plan d’origine' : ''}`;
     const mock = !isReal(p.client, name);
     $('[data-stage-badge]', el).hidden = !(mock && D.settings.showMockupBadges);
     $('[data-d-note]', el).hidden = !mock;
@@ -620,19 +531,11 @@
   const chapterRank = id => D.chapters.findIndex(c => c.id === id);
 
   function heroItems() {
-    const featured = (D.hero || []).map(h => {
+    return (D.hero || []).map(h => {
       const project = allProjects.find(p => p.id === h.project);
       const index = project ? project.images.findIndex(img => img.name === h.image) : -1;
       return index < 0 ? null : { project, image: project.images[index], index };
     }).filter(Boolean);
-    if (state.client === 'all') return featured;
-    // Dossier d'un client : jusqu'à trois travaux par type, ses travaux mis en avant d'abord.
-    return D.chapters.flatMap(c => {
-      const own = featured.filter(x => x.project.client === state.client && x.project.chapter === c.id);
-      const others = flatten(D.projects.filter(p => p.client === state.client && p.chapter === c.id))
-        .filter(x => !own.some(o => o.project === x.project && o.index === x.index));
-      return [...own, ...others].slice(0, 3);
-    });
   }
 
   function renderHero() {
@@ -641,13 +544,12 @@
     clearTimeout(hero.timer);
     hero.items = heroItems();
     hero.index = 0;
-    const label = state.preparedFor ? `Sélection préparée pour ${state.preparedFor}`
-      : state.client !== 'all' ? `Dossier ${clients[state.client].name} · nos réalisations` : 'Nos réalisations, en direct';
+    const label = state.preparedFor ? `Sélection préparée pour ${state.preparedFor}` : `Les réalisations ${SITE.name}, en direct`;
     $('[data-hero-label]').textContent = label;
     if (!hero.items.length) { el.innerHTML = ''; return; }
     const types = D.chapters.filter(c => hero.items.some(x => x.project.chapter === c.id));
     el.innerHTML = `<div class="hero-tabs" style="--n:${types.length}" role="group" aria-label="Nos expertises">${types.map(c => `<button type="button" data-hero-type="${c.id}" style="--c:var(--c-${c.id})" aria-label="${esc(`${c.number} · ${c.title}`)}"><span><b>${c.number}</b>${esc($(`[data-nav="${c.id}"]`)?.textContent.trim() || c.short)}</span><i><span></span></i></button>`).join('')}</div>
-      <button type="button" class="hero-stage" data-hero-stage aria-label="Voir ce travail en grand">${hero.items.map((x, i) => `<img src="${esc(x.image.src)}" alt="${esc(`${x.image.caption} — ${clients[x.project.client].name}`)}" class="${x.image.kind === 'photo' ? 'is-photo' : ''}" decoding="async"${i ? ' fetchpriority="low"' : ' fetchpriority="high"'}>`).join('')}</button>
+      <button type="button" class="hero-stage" data-hero-stage aria-label="Voir ce travail en grand">${hero.items.map((x, i) => `<img src="${esc(x.image.src)}" alt="${esc(`${x.image.caption} — ${SITE.name}`)}" class="${x.image.kind === 'photo' ? 'is-photo' : ''}" decoding="async"${i ? ' fetchpriority="low"' : ' fetchpriority="high"'}>`).join('')}</button>
       <div class="hero-caption" aria-live="polite">
         <p class="hero-brand" data-hero-brand></p>
         <p class="hero-caption-text"><small data-hero-kind></small><strong data-hero-title></strong></p>
@@ -662,11 +564,10 @@
     hero.index = (index + count) % count;
     const { project, image } = hero.items[hero.index];
     const c = chapters[project.chapter];
-    const client = clients[project.client];
     $$('.hero-stage img', el).forEach((img, i) => img.classList.toggle('is-active', i === hero.index));
     const brand = $('[data-hero-brand]', el);
-    brand.innerHTML = `<i></i>${esc(client.name)}`;
-    brand.style.setProperty('--b', client.accent || 'var(--leaf-300)');
+    brand.innerHTML = `<i></i>${esc(SITE.name)}`;
+    brand.style.setProperty('--b', SITE.accent || 'var(--leaf-300)');
     $('[data-hero-kind]', el).textContent = `${c.number} · ${c.short}`;
     $('[data-hero-title]', el).textContent = image.caption;
     // barre de chaque type : travaux déjà vus, puis le travail en cours qui se remplit
@@ -722,41 +623,6 @@
     document.addEventListener('visibilitychange', () => { hero.visible = !document.hidden; scheduleHero(); });
   }
 
-  /* ------------------------------------------------------------ photos fournies sur site */
-  function renderReel() {
-    const items = D.terrain.filter(t => t.source || state.client === 'all' || t.client === state.client);
-    $('#terrain').hidden = !items.length;
-    $('[data-nav="terrain"]').hidden = !items.length;
-    $('[data-reel]').innerHTML = '<div class="terrain-gallery">' + items.map(t => {
-      if (t.source) return `<figure><a href="${esc(t.source)}" target="_blank" rel="noopener" class="media media-document"><img src="${esc(t.src)}" alt="${esc(t.caption)}" loading="lazy"></a><figcaption>${esc(t.caption)} · LinkedIn</figcaption></figure>`;
-      const p = D.projects.find(p => p.id === t.project);
-      const index = p.images.findIndex(img => img.name === t.name);
-      return '<figure>' + mediaButton(p, p.images[index], { index }) + '<figcaption>' + esc(t.caption) + '</figcaption></figure>';
-    }).join('') + '</div>';
-  }
-
-  function renderFilms() {
-    $('[data-films]').innerHTML = D.videos.map(v => `<button type="button" class="film" data-film="${esc(v.id)}" aria-label="Lire : ${esc(v.title)}"><img src="${esc(v.poster)}" alt="" loading="lazy"><span class="film-duration">${esc(v.duration)}</span><span class="film-play">${icon('play')}</span><span class="film-text"><small>${esc(v.context)}</small><strong>${esc(v.title)}</strong></span></button>`).join('');
-  }
-
-  function openPlayer(id) {
-    const film = D.videos.find(v => v.id === id);
-    if (!film) return;
-    const el = $('[data-player]');
-    $('[data-player-title]', el).textContent = film.title;
-    $('[data-player-context]', el).textContent = film.context;
-    $('[data-player-source]', el).href = film.source;
-    const video = $('[data-player-video]', el);
-    video.poster = film.poster;
-    video.src = film.src;
-    openDialog(el);
-    video.play().catch(() => {});
-  }
-  $('[data-player]').addEventListener('close', () => {
-    const video = $('[data-player-video]');
-    video.pause(); video.removeAttribute('src'); video.load();
-  });
-
   /* ------------------------------------------------------------ manifesto, method, stats */
   function wordsHtml(text, highlights) {
     let parts = [{ text, cls: '' }];
@@ -807,7 +673,8 @@
   function renderStats() {
     const visuals = allProjects.reduce((n, p) => n + p.images.length, 0);
     $('[data-stat="visuals"]').dataset.count = visuals;
-    $('[data-stat="clients"]').dataset.count = D.clients.length;
+    const identification = imageCount(projectsFor('bureaux')) + imageCount(projectsFor('locaux'));
+    $('[data-stat="identification"]').dataset.count = identification;
     const targets = $$('[data-count]');
     targets.forEach(el => { el.textContent = pad(el.dataset.count); });
     if (reducedMotion || !('IntersectionObserver' in window)) return;
@@ -826,20 +693,15 @@
     targets.forEach(el => io.observe(el));
   }
 
-  /* ------------------------------------------------------------ présentation : chaque type, ses vidéos, puis ses travaux */
-  const CLIENT_ORDER = [...D.clients.map(c => c.id), 'commun'];
-  const deck = { el: $('[data-deck]'), slides: [], index: 0, brand: 'all' };
-  const brandLabel = id => (id === 'all' ? 'Toutes les marques' : clients[id].name);
-  const brandStyle = id => `--b:${clients[id]?.accent || 'var(--leaf-300)'}`;
-  const typeVideos = chapterId => D.videos.filter(v => v.chapter === chapterId);
+  /* ------------------------------------------------------------ présentation : chaque type, puis ses travaux */
+  const deck = { el: $('[data-deck]'), slides: [], index: 0 };
 
-  // Travaux d'un type pour une marque : circulation puis évacuation, et TESCA, PSC, SOCOHUILE dans l'ordre.
-  function worksFor(chapterId, brand = deck.brand) {
+  // Travaux d'un type, dans l'ordre de ses sous-types.
+  function worksFor(chapterId) {
     const subs = (chapters[chapterId].subs || []).map(s => s.id);
-    const projects = allProjects
-      .filter(p => p.chapter === chapterId && (brand === 'all' || p.client === brand))
-      .sort((a, b) => (subs.indexOf(a.sub) - subs.indexOf(b.sub)) || (CLIENT_ORDER.indexOf(a.client) - CLIENT_ORDER.indexOf(b.client)));
-    return flatten(projects);
+    return flatten(allProjects
+      .filter(p => p.chapter === chapterId)
+      .sort((a, b) => subs.indexOf(a.sub) - subs.indexOf(b.sub)));
   }
 
   function buildDeckSlides() {
@@ -848,49 +710,28 @@
       const works = worksFor(c.id);
       if (!works.length) return;
       slides.push({ kind: 'type', chapter: c.id });
-      typeVideos(c.id).forEach(video => slides.push({ kind: 'video', chapter: c.id, video }));
       works.forEach((work, pos) => slides.push({ kind: 'work', chapter: c.id, work, pos, total: works.length }));
     });
-    const others = D.videos.filter(v => !v.chapter);
-    if (others.length) slides.push({ kind: 'terrain', videos: others });
     slides.push({ kind: 'contact' });
     return slides;
   }
 
-  function brandPills(chapterId) {
-    return [{ id: 'all' }, ...D.clients].map(b => {
-      const count = chapterId ? worksFor(chapterId, b.id).length : D.chapters.reduce((n, c) => n + worksFor(c.id, b.id).length, 0);
-      return `<button type="button" class="brand-pill" data-deck-brand="${b.id}" style="${brandStyle(b.id)}" aria-pressed="${deck.brand === b.id}"${count ? '' : ' disabled'}><i></i>${esc(brandLabel(b.id))}<span>${count}</span></button>`;
-    }).join('');
-  }
-
-  function videoFrame(v, withCaption = false) {
-    return `<figure class="s-video-frame">
-      <video data-deck-video muted loop playsinline preload="metadata" poster="${esc(v.poster)}" src="${esc(v.preview || v.src)}"></video>
-      <button type="button" class="s-video-play" data-deck-play="${esc(v.id)}"><span>${icon('play')}</span>Lire la vidéo · ${esc(v.duration)}</button>
-      ${withCaption ? `<figcaption><strong>${esc(v.title)}</strong><small>${esc(v.context)}</small></figcaption>` : ''}
-    </figure>`;
-  }
-
   function slideCover() {
     const total = D.chapters.reduce((n, c) => n + worksFor(c.id).length, 0);
-    const scope = deck.brand === 'all' ? D.clients.map(c => c.name).join(', ') : brandLabel(deck.brand);
     return `<section class="slide s-cover">
       <div class="s-cover-copy">
         <img class="s-cover-logo" src="assets/brand/keysafe-logo-white.png" alt="KeySafe Training & Consulting">
-        ${state.preparedFor ? `<p class="prepared"><span>Portfolio préparé pour</span> <strong>${esc(state.preparedFor)}</strong></p>` : ''}
-        <h2>Nos réalisations,<em>type par type.</em></h2>
-        <p class="s-lead">${plural(total, 'travail présenté', 'travaux présentés')} · ${esc(scope)}. Choisissez une marque, puis parcourez chaque type : son ouverture, ses vidéos et tous ses exemples.</p>
-        <div class="s-pills" role="group" aria-label="Choisir une marque">${brandPills(null)}</div>
+        ${state.preparedFor ? `<p class="prepared"><span>Présentation préparée pour</span> <strong>${esc(state.preparedFor)}</strong></p>` : ''}
+        <h2>${esc(SITE.name)},<em>type par type.</em></h2>
+        <p class="s-lead">${plural(total, 'support présenté', 'supports présentés')} · ${esc(siteLine)}. Cinq types : chacun s'ouvre sur sa promesse, puis déroule tous ses supports.</p>
       </div>
       <ol class="s-cover-types">${D.chapters.map(c => {
         const works = worksFor(c.id);
-        const films = typeVideos(c.id).length;
         return `<li><button type="button" class="s-type-card" data-deck-type="${c.id}" style="--c:var(--c-${c.id})"${works.length ? '' : ' disabled'}>
           <span class="s-type-card-num">${c.number}</span>
           <span class="s-type-card-thumbs">${works.slice(0, 3).map(w => `<img src="${esc(w.image.src)}" alt="" loading="lazy">`).join('')}</span>
           <strong>${esc(c.title)}</strong>
-          <small>${works.length ? plural(works.length, 'travail', 'travaux') + (films ? ` · ${plural(films, 'vidéo', 'vidéos')}` : '') : 'Aucun travail pour cette marque'}</small>
+          <small>${works.length ? plural(works.length, 'support', 'supports') : 'Aucun support'}</small>
         </button></li>`;
       }).join('')}</ol>
     </section>`;
@@ -898,7 +739,6 @@
 
   function slideType(c) {
     const works = worksFor(c.id);
-    const films = typeVideos(c.id);
     // Six exemples répartis sur tout le type, chacun visible en entier et cliquable.
     const count = Math.min(6, works.length);
     const picks = [...new Set(Array.from({ length: count }, (_, i) => Math.round(i * (works.length - 1) / Math.max(1, count - 1))))];
@@ -908,43 +748,25 @@
         <p class="s-type-sign"><b>${c.number}</b><span>${esc(c.code)}</span></p>
         <h2>${esc(c.titleLines[0])}<em>${esc(c.titleLines[1])}</em></h2>
         <p class="s-lead">${esc(c.tagline)}</p>
-        <div class="s-filter">
-          <p>Filtrer ce type par marque</p>
-          <div class="s-pills" role="group" aria-label="${esc(`Marques pour ${c.short}`)}">${brandPills(c.id)}</div>
-        </div>
-        <p class="s-next">À suivre : ${[films.length ? plural(films.length, 'vidéo', 'vidéos') : '', plural(works.length, 'travail', 'travaux')].filter(Boolean).join(', puis ')}${esc(perSub)}</p>
-        <button type="button" class="btn btn-leaf" data-deck-step="1"><span>${films.length ? 'Voir la vidéo' : 'Voir les travaux'}</span>${icon('arrow')}</button>
+        <p class="s-benefit">${esc(c.benefit)}</p>
+        <p class="s-next">À suivre : ${plural(works.length, 'support', 'supports')}${esc(perSub)}</p>
+        <button type="button" class="btn btn-leaf" data-deck-step="1"><span>Voir les supports</span>${icon('arrow')}</button>
       </div>
       <div class="s-mosaic" style="--cols:${Math.min(3, picks.length)}" role="group" aria-label="${esc(`Exemples : ${c.short}`)}">${picks.map((pos, i) => {
         const w = works[pos];
-        const name = clients[w.project.client].name;
-        return `<button type="button" data-deck-work="${pos}" data-for-chapter="${c.id}" style="--i:${i};${brandStyle(w.project.client)}" aria-label="${esc(`${w.image.caption} — ${name}`)}"><img src="${esc(w.image.src)}" alt="" loading="lazy"><span><i></i>${esc(name)}<small>${esc(w.image.caption)}</small></span></button>`;
+        return `<button type="button" data-deck-work="${pos}" data-for-chapter="${c.id}" style="--i:${i};${SITE_STYLE}" aria-label="${esc(w.image.caption)}"><img src="${esc(w.image.src)}" alt="" loading="lazy"><span><i></i>${esc(mediaKind(w.image))}<small>${esc(w.image.caption)}</small></span></button>`;
       }).join('')}</div>
-    </section>`;
-  }
-
-  function slideVideo(c, v) {
-    return `<section class="slide s-video">
-      ${videoFrame(v)}
-      <aside class="s-video-info">
-        <p class="s-kicker"><b>${c.number}</b>${esc(c.short)} · KeySafe en vidéo</p>
-        <h3>${esc(v.title)}</h3>
-        <p>${esc(v.context)}</p>
-        ${v.source ? `<a class="document-link" href="${esc(v.source)}" target="_blank" rel="noopener">Publication LinkedIn ↗</a>` : ''}
-        <button type="button" class="btn btn-outline-light" data-deck-step="1"><span>Voir les travaux</span>${icon('arrow')}</button>
-      </aside>
     </section>`;
   }
 
   function slideWork(c, { work, pos, total }) {
     const { project: p, image: img } = work;
-    const client = clients[p.client];
     const sub = c.subs?.find(s => s.id === p.sub);
-    return `<section class="slide s-work ${img.kind === 'photo' ? 's-work-photo' : 's-work-artwork'}" style="${brandStyle(p.client)}" data-project="${p.id}" data-image="${esc(img.name)}">
-      <figure class="s-work-stage" data-deck-zoom title="Voir en taille réelle"><img src="${esc(img.full || img.src)}" alt="${esc(`${img.caption} — ${client.name}`)}"></figure>
+    return `<section class="slide s-work ${img.kind === 'photo' ? 's-work-photo' : 's-work-artwork'}" style="${SITE_STYLE}" data-project="${p.id}" data-image="${esc(img.name)}">
+      <figure class="s-work-stage" data-deck-zoom title="Voir en taille réelle"><img src="${esc(img.full || img.src)}" alt="${esc(`${img.caption} — ${SITE.name}`)}"></figure>
       <aside class="s-work-info">
-        <p class="s-kicker"><b>${c.number}</b>${esc(sub ? (sub.id === 'evacuation' ? 'Plan d’évacuation' : 'Plan de circulation') : c.short)}</p>
-        <p class="s-brand"><i></i>${esc(client.name)}</p>
+        <p class="s-kicker"><b>${c.number}</b>${esc(sub ? `${c.short} · ${sub.label}` : c.short)}</p>
+        <p class="s-brand"><i></i>${esc(SITE.name)}</p>
         <h3>${esc(img.caption)}</h3>
         <p class="s-kind">${esc(mediaKind(img))}${img.note ? ` · ${esc(img.note)}` : ''}</p>
         <p class="s-project">${esc(p.title)}</p>
@@ -952,18 +774,7 @@
         <div class="s-links">${img.document ? `<a class="document-link" href="${esc(img.document)}" target="_blank" rel="noopener">PDF original ↗</a>` : ''}${img.full ? `<a class="document-link" href="${esc(img.full)}" target="_blank" rel="noopener">Image HD ↗</a>` : ''}</div>
         <p class="s-pos"><b>${pad(pos + 1)}</b> / ${pad(total)}</p>
       </aside>
-      <div class="s-strip" role="group" aria-label="${esc(`Tous les travaux : ${c.short}`)}">${worksFor(c.id).map((w, i) => `<button type="button" data-deck-work="${i}" data-for-chapter="${c.id}" style="${brandStyle(w.project.client)}" aria-current="${i === pos}" aria-label="${esc(`${w.image.caption} — ${clients[w.project.client].name}`)}"><img src="${esc(w.image.src)}" alt="" loading="lazy"></button>`).join('')}</div>
-    </section>`;
-  }
-
-  function slideTerrain(videos) {
-    return `<section class="slide s-terrain">
-      <div class="s-terrain-copy">
-        <p class="s-kicker"><b>+</b>Sur le terrain</p>
-        <h2>KeySafe,<em>avec les équipes.</em></h2>
-        <p class="s-lead">Formations, exercices et journées sécurité publiés par KeySafe sur LinkedIn.</p>
-      </div>
-      <div class="s-terrain-videos">${videos.map(v => videoFrame(v, true)).join('')}</div>
+      <div class="s-strip" role="group" aria-label="${esc(`Tous les supports : ${c.short}`)}">${worksFor(c.id).map((w, i) => `<button type="button" data-deck-work="${i}" data-for-chapter="${c.id}" style="${SITE_STYLE}" aria-current="${i === pos}" aria-label="${esc(w.image.caption)}"><img src="${esc(w.image.src)}" alt="" loading="lazy"></button>`).join('')}</div>
     </section>`;
   }
 
@@ -975,9 +786,7 @@
     const c = chapters[s.chapter];
     if (s.kind === 'cover') return slideCover();
     if (s.kind === 'type') return slideType(c);
-    if (s.kind === 'video') return slideVideo(c, s.video);
     if (s.kind === 'work') return slideWork(c, s);
-    if (s.kind === 'terrain') return slideTerrain(s.videos);
     return slideContact();
   }
 
@@ -988,8 +797,6 @@
       const progress = !own.length || deck.index < own[0] ? 0 : deck.index > own[own.length - 1] ? 1 : (deck.index - own[0] + 1) / own.length;
       return `<button type="button" data-deck-type="${c.id}" style="--c:var(--c-${c.id});--p:${progress}" aria-current="${current.chapter === c.id}"${own.length ? '' : ' disabled'}><span><b>${c.number}</b>${esc(c.short)}</span><i aria-hidden="true"></i></button>`;
     }).join('');
-    $('[data-deck-brands]', deck.el).innerHTML = [{ id: 'all', name: 'Toutes' }, ...D.clients]
-      .map(b => `<button type="button" data-deck-brand="${b.id}" style="${brandStyle(b.id)}" aria-pressed="${deck.brand === b.id}"><i></i>${esc(b.name)}</button>`).join('');
     $('[data-deck-count]', deck.el).textContent = `${deck.index + 1} / ${deck.slides.length}`;
     $('[data-deck-prev]', deck.el).disabled = deck.index === 0;
     $('[data-deck-next]', deck.el).disabled = deck.index === deck.slides.length - 1;
@@ -1001,7 +808,6 @@
     const stage = $('[data-deck-stage]', deck.el);
     const s = deck.slides[index];
     $$('.slide', stage).forEach(old => {
-      $$('video', old).forEach(v => v.pause());
       old.classList.remove('is-current');
       old.classList.add('is-leaving');
       old.style.setProperty('--dir', direction);
@@ -1027,7 +833,6 @@
       strip.scrollTop = active.offsetTop - strip.clientHeight / 2 + active.offsetHeight / 2;
       strip.scrollLeft = active.offsetLeft - strip.clientWidth / 2 + active.offsetWidth / 2;
     }
-    if (!reducedMotion) $$('video[data-deck-video]', el).forEach(v => v.play().catch(() => {}));
     [index - 1, index + 1].forEach(i => {
       const next = deck.slides[i];
       if (next?.kind === 'work') new Image().src = next.work.image.full || next.work.image.src;
@@ -1035,45 +840,11 @@
   }
 
   function openDeck() {
-    deck.brand = state.client;
     deck.slides = buildDeckSlides();
     deck.index = 0;
     $('[data-deck-stage]', deck.el).innerHTML = '';
     openDialog(deck.el);
     showSlide(0, 1);
-  }
-
-  // Changer de marque garde le type en cours : ouverture du type ou premier travail de la marque.
-  function setDeckBrand(brand) {
-    if (brand === deck.brand || (brand !== 'all' && !clients[brand])) return;
-    const current = deck.slides[deck.index];
-    deck.brand = brand;
-    deck.slides = buildDeckSlides();
-    let target = 0;
-    if (current.chapter) {
-      const order = D.chapters.findIndex(c => c.id === current.chapter);
-      const sameType = current.kind === 'work'
-        ? deck.slides.findIndex(s => s.kind === 'work' && s.chapter === current.chapter)
-        : deck.slides.findIndex(s => s.kind === 'type' && s.chapter === current.chapter);
-      const types = deck.slides.map((s, i) => (s.kind === 'type' ? i : -1)).filter(i => i >= 0);
-      const nextType = types.find(i => D.chapters.findIndex(c => c.id === deck.slides[i].chapter) >= order);
-      target = sameType >= 0 ? sameType : nextType ?? types[types.length - 1] ?? 0;
-    } else if (current.kind !== 'cover') {
-      target = Math.max(0, deck.slides.findIndex(s => s.kind === current.kind));
-    }
-    deck.index = target;
-    showSlide(target, 1);
-  }
-
-  function playDeckVideo(button) {
-    const frame = button.closest('.s-video-frame');
-    const video = $('video', frame);
-    const film = D.videos.find(v => v.id === button.dataset.deckPlay);
-    if (!film) return;
-    if (!video.src.endsWith(film.src)) video.src = film.src;
-    Object.assign(video, { loop: false, muted: false, controls: true });
-    frame.classList.add('is-playing');
-    video.play().catch(() => {});
   }
 
   function openDeckViewer() {
@@ -1096,8 +867,6 @@
     $('[data-deck-home]', el).addEventListener('click', () => showSlide(0, -1));
     el.addEventListener('click', e => {
       const t = e.target;
-      const brand = t.closest('[data-deck-brand]');
-      if (brand) { setDeckBrand(brand.dataset.deckBrand); return; }
       const type = t.closest('[data-deck-type]');
       if (type) { showSlide(typeSlide(type.dataset.deckType)); return; }
       const work = t.closest('[data-deck-work]');
@@ -1107,12 +876,10 @@
       }
       const step = t.closest('[data-deck-step]');
       if (step) { go(Number(step.dataset.deckStep)); return; }
-      if (t.closest('[data-deck-zoom]')) { openDeckViewer(); return; }
-      const play = t.closest('[data-deck-play]');
-      if (play) playDeckVideo(play);
+      if (t.closest('[data-deck-zoom]')) openDeckViewer();
     });
     el.addEventListener('keydown', e => {
-      if (e.target.closest('video') || e.altKey || e.ctrlKey || e.metaKey) return;
+      if (e.altKey || e.ctrlKey || e.metaKey) return;
       const key = e.key.toLowerCase();
       if (['arrowright', 'pagedown'].includes(key) || (key === ' ' && !e.target.closest('button, a'))) { e.preventDefault(); go(1); }
       else if (['arrowleft', 'pageup'].includes(key)) { e.preventDefault(); go(-1); }
@@ -1121,9 +888,6 @@
       else if (/^[1-9]$/.test(key) && D.chapters[Number(key) - 1]) {
         const i = typeSlide(D.chapters[Number(key) - 1].id);
         if (i >= 0) showSlide(i);
-      } else if (key === 'm') {
-        const ids = ['all', ...D.clients.map(c => c.id)];
-        setDeckBrand(ids[(ids.indexOf(deck.brand) + 1) % ids.length]);
       } else if (key === 'enter' && !e.target.closest('button, a')) openDeckViewer();
       else if (key === 'f') toggleFullscreen();
     });
@@ -1134,10 +898,9 @@
       if (x0 === null) return;
       const dx = e.clientX - x0;
       x0 = null;
-      if (Math.abs(dx) > 60 && !e.target.closest('.s-strip, video')) go(dx < 0 ? 1 : -1);
+      if (Math.abs(dx) > 60 && !e.target.closest('.s-strip')) go(dx < 0 ? 1 : -1);
     });
     el.addEventListener('close', () => {
-      $$('video', el).forEach(v => v.pause());
       $('[data-deck-stage]', el).innerHTML = '';
       if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     });
@@ -1152,7 +915,7 @@
   function bindForm() {
     const form = $('[data-form]');
     const needs = [...D.chapters.map(c => ({ value: c.title, color: `var(--c-${c.id})` })), { value: 'Audit de l’affichage de sécurité', color: 'var(--leaf)' }];
-    $('[data-needs]').innerHTML = needs.map((n, i) => `<label><input type="checkbox" name="needs" value="${esc(n.value)}"${i === 4 ? ' checked' : ''}><span style="--c:${n.color}">${esc(n.value)}</span></label>`).join('');
+    $('[data-needs]').innerHTML = needs.map((n, i) => `<label><input type="checkbox" name="needs" value="${esc(n.value)}"${i === needs.length - 1 ? ' checked' : ''}><span style="--c:${n.color}">${esc(n.value)}</span></label>`).join('');
     // form.elements.namedItem avoids the clash between form.name and the "name" input
     const field = name => form.elements.namedItem(name);
     const value = name => field(name).value.trim();
@@ -1237,7 +1000,7 @@
       $$('[data-nav]').forEach(a => a.classList.toggle('is-active', a.dataset.nav === id));
       $$('[data-dock-chapters] a').forEach(a => a.classList.toggle('is-active', a.dataset.chapter === id));
     }), { rootMargin: '-45% 0px -50% 0px' });
-    [...D.chapters.map(c => $(`#${c.id}`)), $('#terrain'), $('#methode')].forEach(s => s && spy.observe(s));
+    [...D.chapters.map(c => $(`#${c.id}`)), $('#methode')].forEach(s => s && spy.observe(s));
   }
 
   /* ------------------------------------------------------------ global clicks */
@@ -1245,8 +1008,6 @@
     const t = e.target;
     const open = t.closest('[data-open]');
     if (open) { openDossier(open.dataset.open, open.dataset.index); return; }
-    const client = t.closest('[data-set-client]');
-    if (client) { setClient(client.dataset.setClient, { scroll: Boolean(client.closest('[data-badges]')) }); return; }
     const view = t.closest('[data-view]');
     if (view) {
       state.views[view.dataset.for] = view.dataset.view;
@@ -1254,20 +1015,20 @@
       renderChapterBody(view.dataset.for);
       return;
     }
+    const chapterOf = node => node.closest('[data-chapter]')?.dataset.chapter;
     const sub = t.closest('[data-sub]');
     if (sub) {
-      state.plansSub = sub.dataset.sub;
-      state.plansActive = null;
-      $$('[data-sub]').forEach(b => b.setAttribute('aria-pressed', String(b === sub)));
-      renderChapterBody('plans');
+      const id = chapterOf(sub);
+      state.subs[id] = sub.dataset.sub;
+      state.planActive = null;
+      $$('[data-sub]', sub.closest('.toolbar')).forEach(b => b.setAttribute('aria-pressed', String(b === sub)));
+      renderChapterBody(id);
       return;
     }
     const plan = t.closest('[data-plan]');
-    if (plan) { state.plansActive = plan.dataset.plan; renderChapterBody('plans', { animate: false }); return; }
+    if (plan) { state.planActive = plan.dataset.plan; renderChapterBody(chapterOf(plan), { animate: false }); return; }
     const zone = t.closest('[data-zone]');
-    if (zone) { state.zone = zone.dataset.zone; renderChapterBody('risques', { animate: false }); return; }
-    const film = t.closest('[data-film]');
-    if (film) { openPlayer(film.dataset.film); return; }
+    if (zone) { state.zone = zone.dataset.zone; renderChapterBody(chapterOf(zone), { animate: false }); return; }
     if (t.closest('[data-action="present"]')) { openDeck(); return; }
     const close = t.closest('[data-close]');
     if (close) close.closest('dialog')?.close();
@@ -1286,13 +1047,11 @@
       document.documentElement.classList.add('no-motion');
 
     }
-    renderBadges();
+    renderTypes();
     renderDock();
     renderHero();
     bindHero();
     renderChapters();
-    renderFilms();
-      renderReel();
     renderManifesto();
     renderMethod();
     renderStats();
@@ -1302,10 +1061,6 @@
     bindForm();
     bindChrome();
     observeReveals();
-
-    if (state.client !== 'all' && location.hash === '') {
-      requestAnimationFrame(() => $('.chapter:not([hidden])')?.scrollIntoView());
-    }
   }
 
   init();
