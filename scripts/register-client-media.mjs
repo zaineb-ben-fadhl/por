@@ -34,8 +34,8 @@ const chapters = [
     titleLines: ['Identification', 'des bureaux'],
     tagline: 'Des espaces qui se lisent dès l’entrée.',
     benefit: 'Un visiteur qui trouve son chemin tout seul, c’est une équipe qu’on n’interrompt plus : chaque porte annonce son service dès le premier regard.',
-    lead: 'Plaques de porte, directoires et tableaux d’information : une signalétique cohérente avec l’identité TESCA, pour que visiteurs et collaborateurs trouvent leur chemin sans avoir à demander.',
-    deliverables: ['Plaques de porte', 'Directoires des services', 'Tableaux d’information', 'Charte TESCA'],
+    lead: 'Une gamme de plaques de porte aux couleurs TESCA, un même gabarit décliné pour chaque service : visiteurs et collaborateurs trouvent leur chemin sans avoir à demander.',
+    deliverables: ['Plaques de porte', 'Gabarit commun à tous les services', 'Sept services couverts', 'Charte TESCA'],
     cover: ['plaques-services', 'Les plaques des sept services']
   },
   {
@@ -85,13 +85,6 @@ const projects = [
     need: 'Identifier chaque service administratif avec une signalétique homogène.',
     answer: 'Une gamme de plaques de porte aux couleurs TESCA : Direction, Finance, Industrialisation, Qualité, Ressources humaines, Manufacturing & Supply Chain, Achats & Supply Chain.',
     deliverables: ['Sept plaques de porte', 'Gabarit commun à tous les services', 'Identité TESCA']
-  },
-  {
-    id: 'tesca-bureaux', chapter: 'bureaux',
-    title: 'Du bureau magasinier à la direction : des repères cohérents',
-    need: 'Nommer les espaces et orienter vers les services administratifs.',
-    answer: 'Une plaque Bureau Magasinier, un directoire Direction générale / Finance / Ressources humaines et un gabarit d’informations pour la loge gardien.',
-    deliverables: ['Plaque Bureau Magasinier', 'Directoire des services', 'Tableau d’informations, quatre emplacements A4']
   },
   {
     id: 'tesca-locaux-techniques', chapter: 'locaux',
@@ -166,7 +159,7 @@ D.settings.verifiedMediaOnly = true;
 
 // Vitrine de l'accueil : des travaux marquants, type par type.
 D.hero = [
-  ['tesca-services', 'plaques-services'], ['tesca-bureaux', 'direction-finance-rh'],
+  ['tesca-services', 'plaques-services'], ['tesca-services', 'plaque-direction'],
   ['tesca-locaux-techniques', 'panneau-atelier-retordage'], ['tesca-locaux-techniques', 'panneau-traitement-air'],
   ['tesca-locaux-techniques', 'panneau-monte-charge'],
   ['tesca-sst', 'consignes-escalier'], ['tesca-sst', 'incompatibilites-chimiques'], ['tesca-sst', 'armoire-electrique'],

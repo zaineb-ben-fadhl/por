@@ -61,20 +61,21 @@ test('la répartition des supports TESCA dans les cinq types', () => {
   const { D } = loadData();
   const ids = chapter => [...D.projects].filter(p => p.chapter === chapter).map(p => p.id);
   const project = id => D.projects.find(p => p.id === id);
-  assert.deepEqual(ids('bureaux'), ['tesca-services', 'tesca-bureaux']);
+  assert.deepEqual(ids('bureaux'), ['tesca-services']);
   assert.deepEqual(ids('locaux'), ['tesca-locaux-techniques']);
   assert.deepEqual(ids('sst'), ['tesca-sst', 'tesca-sensibilisation']);
   assert.deepEqual(ids('urgence'), ['tesca-urgence']);
   assert.deepEqual(ids('plans'), ['tesca-circulation', 'tesca-evacuation']);
 
   assert.equal(project('tesca-services').images.length, 8);
-  assert.equal(project('tesca-bureaux').images.length, 3);
+  assert.ok(!D.projects.some(p => p.images.some(i => ['bureau-magasinier', 'loge-gardien', 'direction-finance-rh'].includes(i.name))),
+    'plaque magasinier, tableau loge gardien et directoire retirés définitivement');
   assert.equal(project('tesca-locaux-techniques').images.length, 9, 'livraison du 23/09 : neuf panneaux');
   assert.equal(project('tesca-sst').images.length, 13);
   assert.equal(project('tesca-sensibilisation').images.length, 4);
   assert.equal(project('tesca-urgence').images.length, 6);
   assert.equal(project('tesca-evacuation').images.length, 1);
-  assert.equal(D.projects.reduce((n, p) => n + p.images.length, 0), 45);
+  assert.equal(D.projects.reduce((n, p) => n + p.images.length, 0), 42);
   // seuls la livraison du 23 septembre et les trois plans du site sont publiés
   const catalogue = JSON.parse(read('sources/imported-media.json'));
   // chaque recueil de la livraison alimente le type qui porte son nom
@@ -243,11 +244,11 @@ test('le portfolio se construit autour des cinq types', async () => {
     assert.equal(document.querySelector('[data-set-client]'), null, 'plus de filtre client');
     assert.equal(Number(document.querySelector('[data-stat="visuals"]').textContent),
       D.projects.reduce((n, p) => n + p.images.length, 0));
-    assert.equal(Number(document.querySelector('[data-stat="identification"]').textContent), 11 + 9);
+    assert.equal(Number(document.querySelector('[data-stat="identification"]').textContent), 8 + 9);
     assert.deepEqual([...document.querySelectorAll('[data-dock-chapters] a')].map(a => a.dataset.chapter), CHAPTERS);
 
     assert.match(document.querySelector('[data-scope="locaux"]').textContent, /Dossier TESCA/);
-    assert.equal(document.querySelectorAll('#bureaux .door').length, 11);
+    assert.equal(document.querySelectorAll('#bureaux .door').length, 8);
     assert.equal(document.querySelectorAll('#locaux .spec').length, 9);
     assert.equal(document.querySelectorAll('#urgence [data-plan]').length, 6, 'consignes, organigramme, listes et QR code');
 
@@ -359,13 +360,13 @@ test('images entières : jamais recadrées, et visibles en taille réelle', asyn
     assert.equal(mosaic.length, 6);
     mosaic[1].click();
     const current = () => document.querySelector('.slide.is-current');
-    assert.equal(current().dataset.image, 'plaque-finance');
+    assert.equal(current().dataset.image, 'plaque-direction');
     current().querySelector('.s-real').click();
     assert.ok(viewer.hasAttribute('open'));
-    assert.equal(count(), '3 / 11');
+    assert.equal(count(), '2 / 8');
     document.querySelector('[data-viewer-next]').click();
     document.querySelector('[data-viewer-close]').click();
-    assert.equal(current().dataset.image, 'plaque-industrialisation', 'la présentation suit la visionneuse');
+    assert.equal(current().dataset.image, 'plaque-finance', 'la présentation suit la visionneuse');
     assert.ok(current().querySelector(':scope > .s-strip'), 'bande des supports sous le visuel, sur une ligne');
   } finally { dom.window.close(); }
 });

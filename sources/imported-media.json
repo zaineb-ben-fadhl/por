@@ -147,47 +147,6 @@
       "height": 257
     },
     {
-      "source": "tesca_07.png",
-      "client": "tesca",
-      "project": "tesca-bureaux",
-      "name": "bureau-magasinier",
-      "caption": "Plaque de porte · Bureau magasinier",
-      "type": "plaque",
-      "kind": "artwork",
-      "src": "assets/photos/tesca/bureau-magasinier.webp",
-      "full": "assets/photos/tesca/bureau-magasinier-grand.webp",
-      "width": 2800,
-      "height": 1131
-    },
-    {
-      "source": "tesca_11.png",
-      "client": "tesca",
-      "project": "tesca-bureaux",
-      "name": "direction-finance-rh",
-      "caption": "Directoire · Direction générale, Finance et Ressources humaines",
-      "type": "directory",
-      "kind": "artwork",
-      "src": "assets/photos/tesca/direction-finance-rh.webp",
-      "full": "assets/photos/tesca/direction-finance-rh-grand.webp",
-      "width": 2261,
-      "height": 2800
-    },
-    {
-      "source": "TESCA_Page_002.pdf",
-      "client": "tesca",
-      "project": "tesca-bureaux",
-      "name": "loge-gardien",
-      "caption": "Tableau d’informations · Loge gardien",
-      "type": "directory",
-      "kind": "template",
-      "note": "Gabarit de tableau avec quatre emplacements pour documents A4.",
-      "src": "assets/photos/tesca/loge-gardien.webp",
-      "full": "assets/photos/tesca/loge-gardien-grand.webp",
-      "width": 1981,
-      "height": 2800,
-      "document": "assets/documents/tesca/loge-gardien.pdf"
-    },
-    {
       "source": "Identification des locaux techniques.pdf",
       "client": "tesca",
       "project": "tesca-locaux-techniques",

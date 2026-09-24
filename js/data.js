@@ -37,11 +37,11 @@ window.KEYSAFE = {
       "layout": "corridor",
       "tagline": "Des espaces qui se lisent dès l’entrée.",
       "benefit": "Un visiteur qui trouve son chemin tout seul, c’est une équipe qu’on n’interrompt plus : chaque porte annonce son service dès le premier regard.",
-      "lead": "Plaques de porte, directoires et tableaux d’information : une signalétique cohérente avec l’identité TESCA, pour que visiteurs et collaborateurs trouvent leur chemin sans avoir à demander.",
+      "lead": "Une gamme de plaques de porte aux couleurs TESCA, un même gabarit décliné pour chaque service : visiteurs et collaborateurs trouvent leur chemin sans avoir à demander.",
       "deliverables": [
         "Plaques de porte",
-        "Directoires des services",
-        "Tableaux d’information",
+        "Gabarit commun à tous les services",
+        "Sept services couverts",
         "Charte TESCA"
       ],
       "title": "Identification des bureaux",
@@ -288,53 +288,6 @@ window.KEYSAFE = {
           "full": "assets/photos/tesca/plaque-achats-grand.webp",
           "width": 742,
           "height": 257
-        }
-      ]
-    },
-    {
-      "id": "tesca-bureaux",
-      "chapter": "bureaux",
-      "title": "Du bureau magasinier à la direction : des repères cohérents",
-      "need": "Nommer les espaces et orienter vers les services administratifs.",
-      "answer": "Une plaque Bureau Magasinier, un directoire Direction générale / Finance / Ressources humaines et un gabarit d’informations pour la loge gardien.",
-      "deliverables": [
-        "Plaque Bureau Magasinier",
-        "Directoire des services",
-        "Tableau d’informations, quatre emplacements A4"
-      ],
-      "client": "tesca",
-      "images": [
-        {
-          "name": "bureau-magasinier",
-          "caption": "Plaque de porte · Bureau magasinier",
-          "type": "plaque",
-          "kind": "artwork",
-          "src": "assets/photos/tesca/bureau-magasinier.webp",
-          "full": "assets/photos/tesca/bureau-magasinier-grand.webp",
-          "width": 2800,
-          "height": 1131
-        },
-        {
-          "name": "direction-finance-rh",
-          "caption": "Directoire · Direction générale, Finance et Ressources humaines",
-          "type": "directory",
-          "kind": "artwork",
-          "src": "assets/photos/tesca/direction-finance-rh.webp",
-          "full": "assets/photos/tesca/direction-finance-rh-grand.webp",
-          "width": 2261,
-          "height": 2800
-        },
-        {
-          "name": "loge-gardien",
-          "caption": "Tableau d’informations · Loge gardien",
-          "type": "directory",
-          "kind": "template",
-          "note": "Gabarit de tableau avec quatre emplacements pour documents A4.",
-          "src": "assets/photos/tesca/loge-gardien.webp",
-          "full": "assets/photos/tesca/loge-gardien-grand.webp",
-          "width": 1981,
-          "height": 2800,
-          "document": "assets/documents/tesca/loge-gardien.pdf"
         }
       ]
     },
@@ -903,8 +856,8 @@ window.KEYSAFE = {
       "image": "plaques-services"
     },
     {
-      "project": "tesca-bureaux",
-      "image": "direction-finance-rh"
+      "project": "tesca-services",
+      "image": "plaque-direction"
     },
     {
       "project": "tesca-locaux-techniques",

@@ -1,6 +1,6 @@
 # Classement des médias fournis
 
-11 fichiers examinés ; 45 visuels TESCA intégrés. Les originaux restent dans assets/.
+11 fichiers examinés ; 42 visuels TESCA intégrés. Les originaux restent dans assets/.
 
 La présentation est personnalisée pour TESCA : les supports des sites PSI et SOCOHUILE et les panneaux bilingues sans logo sont écartés (voir « Fichiers hors périmètre »). Les fichiers restent sur le poste.
 
@@ -12,7 +12,7 @@ Le tableau Loge gardien est présenté comme gabarit à personnaliser.
 
 | N° | Type | Dossiers | Visuels |
 |---|---|---|---|
-| 01 | Identification des bureaux | tesca-services, tesca-bureaux | 11 |
+| 01 | Identification des bureaux | tesca-services | 8 |
 | 02 | Identification des locaux techniques | tesca-locaux-techniques | 9 |
 | 03 | Affichage SST lié aux activités | tesca-sst, tesca-sensibilisation | 17 |
 | 04 | Affichage relatif à la maîtrise des situations d’urgence | tesca-urgence | 6 |
@@ -30,9 +30,6 @@ Le tableau Loge gardien est présenté comme gabarit à personnaliser.
 | 1000021908.jpg | tesca-services | Plaque de porte · Ressources humaines |
 | 1000021908.jpg | tesca-services | Plaque de porte · Manufacturing & Supply Chain |
 | 1000021908.jpg | tesca-services | Plaque de porte · Achats & Supply Chain |
-| tesca_07.png | tesca-bureaux | Plaque de porte · Bureau magasinier |
-| tesca_11.png | tesca-bureaux | Directoire · Direction générale, Finance et Ressources humaines |
-| TESCA_Page_002.pdf | tesca-bureaux | Tableau d’informations · Loge gardien |
 | Identification des locaux techniques.pdf | tesca-locaux-techniques | Panneau · Atelier de retordage |
 | Identification des locaux techniques.pdf | tesca-locaux-techniques | Panneau · Laboratoire |
 | Identification des locaux techniques.pdf | tesca-locaux-techniques | Panneau · Laboratoire STEP |

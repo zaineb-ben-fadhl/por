@@ -55,10 +55,6 @@ for name, caption, box in [
 ]:
     add(PLATES, 'tesca', 'tesca-services', name, f'Plaque de porte · {caption}', type='plaque', crop=box)
 
-tesca(7, 'bureaux', 'bureau-magasinier', 'Plaque de porte · Bureau magasinier', type='plaque')
-tesca(11, 'bureaux', 'direction-finance-rh', 'Directoire · Direction générale, Finance et Ressources humaines', type='directory')
-add('TESCA_Page_002.pdf', 'tesca', 'tesca-bureaux', 'loge-gardien', 'Tableau d’informations · Loge gardien',
-    type='directory', kind='template', note='Gabarit de tableau avec quatre emplacements pour documents A4.')
 
 # ------------------------------------------------------- 02 · locaux techniques
 # Livraison du 23 septembre 2026 : neuf panneaux en haute définition, au logo KeySafe

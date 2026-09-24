@@ -4,7 +4,7 @@ Présentation interactive personnalisée pour **TESCA** (Grombalia, industrie au
 
 | | Type | Supports | Présentation « Galerie » |
 |---|---|---|---|
-| 01 | Identification des bureaux | 11 | **Le couloir** : défilement horizontal, porte après porte |
+| 01 | Identification des bureaux | 8 | **Le couloir** : défilement horizontal, porte après porte |
 | 02 | Identification des locaux techniques | 9 | **Fiches** : panneau illustré, local, équipement signalé |
 | 03 | Affichage SST lié aux activités | 17 | **Local par local** : mur d’affiches filtrable par activité |
 | 04 | Affichage relatif à la maîtrise des situations d’urgence | 6 | **Affiche au choix** : consignes, organigramme, secouristes |
@@ -14,9 +14,9 @@ Chaque type bascule aussi en vue **Magazine** (récit « Le besoin / Notre répo
 
 ## Ce que contient la présentation
 
-45 supports TESCA, tous vérifiés visuellement, dont 31 PDF consultables :
+42 supports TESCA, tous vérifiés visuellement, dont 30 PDF consultables :
 
-- **Bureaux** : les sept plaques de services (l’image d’ensemble puis chaque plaque), la plaque Bureau magasinier, le directoire Direction / Finance / RH et le gabarit d’informations de la loge gardien.
+- **Bureaux** : la gamme des sept plaques de services — l’image d’ensemble, puis chaque plaque isolée.
 - **Locaux techniques** : neuf panneaux illustrés (atelier de retordage, laboratoire, laboratoire STEP, médecine du travail, compresseurs, centrale de traitement d’air, déchets dangereux, monte-charge, loge gardien).
 - **Affichage SST** : treize affiches par activité (consignes générales du site TTG, laboratoire ×3, monte-charge ×2, escaliers, ergonomie, armoire électrique, médecine du travail, tableau des incompatibilités entre produits chimiques — conforme au référentiel SGH/CLP —, extincteur, procédure de secourisme) et quatre supports de sensibilisation (énergie, impressions, réunions, tri des déchets).
 - **Situations d’urgence** : les consignes générales (incendie, accident, évacuation), l’organigramme de secours du site TTG, les trois listes nominatives des secouristes et agents de lutte contre l’incendie (administration, tissage, finition) et la version à QR code.
@@ -55,6 +55,7 @@ Les supports qui ne viennent pas de ces recueils — les onze de l’identificat
 - **Type 04** : les consignes générales incendie / accident / évacuation (gabarit à renseigner), l’organigramme de secours du site TTG et l’affiche des secouristes à QR code.
 - **Type 05** : il ne garde que deux plans — la circulation du site TTG (TESCA) et le plan d’évacuation donné en modèle. Les trois plans de la première livraison ont été retirés, leurs aperçus supprimés.
 - La façade TESCA ouvre le dossier, recadrée au-dessus des personnes.
+- **Type 01** : la plaque « Bureau magasinier », le tableau d’informations « Loge gardien » et le directoire Direction / Finance / RH sont retirés définitivement ; il ne reste que la gamme des sept plaques de services.
 
 ## Ouvrir la présentation
 
